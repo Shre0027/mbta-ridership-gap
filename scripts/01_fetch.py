@@ -28,6 +28,13 @@ LAYERS = {
 FILES = {
     "fall2025_hour.csv": "6494749a29c648018820d0e49636205c",  # Fall 2025 stop-level, by hour (ODX)
 }
+# MBTA 2025 System-Wide Passenger Survey (rider census), all rows
+SURVEY = f"{SVC}/MBTA_2025_System-Wide_Passenger_Survey/FeatureServer/0"
+# Official GTFS route shapes and stops (MassDOT "MBTA Systemwide GTFS Map")
+GTFS_MAP = f"{SVC}/MBTA_Systemwide_GTFS_Map_WFL1/FeatureServer"
+GEO_LAYERS = {"rt_routes.geojson": 2, "cr_routes.geojson": 4, "rt_stops.geojson": 6}
+# MassGIS town boundaries around Boston (land shape for the map background)
+TOWNS = "https://services.arcgis.com/kbDdtKcFi2adamXa/arcgis/rest/services/Massachusetts_Town_Boundaries/FeatureServer/3"
 # Gated Station Entries - Historical (raw, unscaled fare-gate taps), zip of yearly CSVs
 GSE_HIST_ITEM = "7859894afb5641ce91a2bb03599fdf5b"
 GSE_FIRST_YEAR = 2017  # every yearly file from here to the latest is extracted
@@ -38,15 +45,15 @@ def get_json(url, params):
         return json.load(r)
 
 
-def fetch_layer(url, out):
+def fetch_layer(url, out, page=2000):
     rows, offset = [], 0
     while True:
         d = get_json(url + "/query", {"where": "1=1", "outFields": "*", "f": "json",
-                                       "resultOffset": offset, "resultRecordCount": 2000,
+                                       "resultOffset": offset, "resultRecordCount": page,
                                        "returnGeometry": "false"})
         feats = [f["attributes"] for f in d.get("features", [])]
         rows += feats
-        if len(feats) < 2000 and not d.get("exceededTransferLimit"):
+        if not feats or (len(feats) < page and not d.get("exceededTransferLimit")):
             break
         offset += len(feats)
     with open(out, "w", newline="") as fh:
@@ -65,6 +72,19 @@ def main():
     RAW.mkdir(parents=True, exist_ok=True)
     for name, url in LAYERS.items():
         fetch_layer(url, RAW / name)
+    fetch_layer(SURVEY, RAW / "survey2025.csv", page=1000)
+    (RAW / "geo").mkdir(exist_ok=True)
+    for name, layer in GEO_LAYERS.items():
+        with urllib.request.urlopen(f"{GTFS_MAP}/{layer}/query?" + urllib.parse.urlencode(
+                {"where": "1=1", "outFields": "*", "outSR": 4326, "f": "geojson", "geometryPrecision": 5}), timeout=300) as r:
+            (RAW / "geo" / name).write_bytes(r.read())
+        print(f"geo/{name}: downloaded")
+    with urllib.request.urlopen(f"{TOWNS}/query?" + urllib.parse.urlencode(
+            {"where": "1=1", "geometry": "-71.33,42.15,-70.90,42.50", "geometryType": "esriGeometryEnvelope", "inSR": 4326,
+             "spatialRel": "esriSpatialRelIntersects", "outFields": "TOWN", "outSR": 4326, "maxAllowableOffset": 0.0004,
+             "geometryPrecision": 5, "f": "geojson"}), timeout=300) as r:
+        (RAW / "geo" / "towns.geojson").write_bytes(r.read())
+    print("geo/towns.geojson: downloaded")
     for name, item in FILES.items():
         (RAW / name).write_bytes(download(item))
         print(f"{name}: downloaded")

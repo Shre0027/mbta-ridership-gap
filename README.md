@@ -1,6 +1,6 @@
-# MBTA Ridership Gap
+# Who the turnstiles miss — MBTA Ridership Gap
 
-**Two official MBTA ridership datasets disagree about how many people ride the Blue Line — by up to 23%. This project reconciles them and finds where the gap comes from.**
+**Two official MBTA ridership datasets disagree about how many people ride the Blue Line — by up to 23%. This project reconciles them with a third, independent source and an animated system map, and finds where the gap comes from: riders changing lines underground, where no fare gate sees them.**
 
 **→ Read the interactive data story: [shre0027.github.io/mbta-ridership-gap](https://shre0027.github.io/mbta-ridership-gap/)**
 
@@ -54,6 +54,12 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 
 **5. The Green Line swing comes from the monthly factor, not riders.** The stop-level model's Green Line factor (boardings ÷ taps) holds near 2.3–2.4× in 2018 and 2023–25. The monthly dataset's factor drops to mostly 1.7–2.0× from July 2023 to June 2024, then jumps to mostly 2.4–2.8× from August 2024 — so Fall 2023 lands below the model (−16%) and Fall 2024–25 above it (+15–16%). Red, Orange and Blue factors barely move. Separately, Fall 2019 stop-level data counts about half as many boardings at ungated surface stops as Fall 2018 (21k vs 44k), which is why the 2019 Green gap looks so large.
 
+**6. System-wide, the same pattern.** Across all 61 gated subway stations (Fall 2025), modeled boardings ÷ gate taps has a median of 1.2×, and 54 stations sit between 1.0× and 1.5×. The outliers are the downtown hubs where lines meet underground: Government Center 5.1×, Park Street 4.3×, Downtown Crossing 3.2×, State 2.8× — plus South Station 1.9×, where Silver Line buses connect behind the gates.
+
+**7. A third, independent source agrees.** In the MBTA's 2025 System-Wide Passenger Survey, 82% of Blue Line riders boarding at Government Center and 60% at State said they arrived on another subway line (vs 0–2% at regular Blue Line stations). At the four downtown hubs, the model counts 127,852 weekday boardings; gate taps × the normal 1.21 uplift explain 42,688 (33%); adding the survey's transfer share gives 124,580 — within 3%.
+
+**8. Why it matters.** The monthly dataset is published as the MBTA's `NTD_Reporting` service; NTD data feeds FTA formula programs (Section 5307 uses NTD service data including passenger miles). The MBTA's own Ridership Guide states that rapid-transit ridership is fare-gate data "adjusted with factors to account for behind the gate transfers, and non-interaction" — the exact factors this project reverse-engineers. (No funding impact is estimated.)
+
 **Bottom line:** on the Blue Line, the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. On the Green Line, the swing tracks shifts in the monthly dataset's own scaling. Along the way, the analysis surfaced three unflagged breaks in the public data.
 
 **Caveat:** OPMI does not publish the exact factors behind Dataset A, so the transfer-allowance part of this decomposition is inferred from the published data, not confirmed by the MBTA.
@@ -64,6 +70,8 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 pip install -r requirements.txt
 python scripts/01_fetch.py     # downloads raw data from the MBTA Open Data Portal into data/raw/
 python scripts/02_analyze.py   # writes reconciliation tables to outputs/
+python scripts/04_system.py     # system-wide station test + rider-survey check + hourly boardings
+python scripts/05_geo.py        # official GTFS shapes/stops -> projected map data
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 
@@ -80,6 +88,6 @@ Validation: with the comparison window used here, Fall 2023 results reproduce th
 - `docs/decision_log.md` — analysis decisions and why
 - `docs/data_quality_log.md` — issues found in the source data
 
-Data: MBTA Open Data Portal, published by MBTA OPMI under the MassDOT Developers License Agreement.
+Data: MBTA Open Data Portal (OPMI), MBTA 2025 System-Wide Passenger Survey, MBTA Ridership Guide, MassDOT GTFS map, MassGIS town boundaries — used under the MassDOT Developers License Agreement. Line colors from the MBTA design system. Independent analysis, not affiliated with the MBTA.
 
 *Shreyas Tayde · [shre0027.github.io](https://shre0027.github.io)*

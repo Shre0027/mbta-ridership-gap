@@ -21,6 +21,8 @@ jobs:
         run: |
           python scripts/01_fetch.py
           python scripts/02_analyze.py
+          python scripts/04_system.py
+          python scripts/05_geo.py
           python scripts/03_build_page.py
       - name: Commit if anything changed
         run: |

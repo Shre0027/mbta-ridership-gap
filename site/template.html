@@ -18,6 +18,8 @@
   --line:#e7e3da; --grid:#eeebe4; --axis:#cfcabf;
   --accent:#2b45e8; --accent-soft:#eceefe;
   --taps:#eb6834;
+  --red:#DA291C; --orange:#ED8B00; --blue:#003DA5; --green:#00843D; --silver:#7C878E; --cr:#80276C;
+  --water:#dde8ef; --land:#f6f4ef;
   --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
   --f-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -40,7 +42,7 @@ nav a{text-decoration:none;font-size:14.5px}
 .navlinks a:hover{color:var(--ink)}
 
 header{padding:84px 0 56px}
-header h1{font-size:clamp(40px,6.4vw,76px);font-weight:800;max-width:15ch}
+header h1{font-size:clamp(42px,5.4vw,70px);font-weight:800;max-width:12ch}
 header h1 em{font-style:normal;color:var(--accent)}
 .dek{font-size:clamp(19px,2vw,23px);color:var(--muted);max-width:40ch;margin-top:24px;line-height:1.45}
 .byline{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin-top:28px;letter-spacing:.03em}
@@ -115,6 +117,58 @@ th{font-family:var(--f-mono);font-size:11.5px;font-weight:500;color:var(--muted)
 .btn.primary{background:var(--ink);color:#fff}
 footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 
+/* progress bar in the four line colors */
+#prog{position:fixed;top:0;left:0;height:4px;z-index:30;width:0;background:linear-gradient(90deg,var(--red) 0 25%,var(--orange) 25% 50%,var(--blue) 50% 75%,var(--green) 75% 100%);background-size:100vw 4px}
+/* route rail: sections as stops */
+#rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:6;display:none}
+#rail ol{list-style:none;margin:0;padding:0;position:relative}
+#rail ol::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:2px}
+#rail li{position:relative;padding:7px 0 7px 24px;font-family:var(--f-mono);font-size:11px;letter-spacing:.03em;color:var(--faint);white-space:nowrap}
+#rail li::before{content:"";position:absolute;left:0;top:50%;width:15px;height:15px;margin-top:-7.5px;border-radius:50%;background:var(--paper);border:3px solid var(--line);box-sizing:border-box}
+#rail li a{text-decoration:none;opacity:0;transition:opacity .2s}
+#rail:hover li a,#rail li.on a{opacity:1}
+#rail li.done::before{border-color:var(--blue);background:var(--blue)}
+#rail li.on::before{border-color:var(--blue);background:#fff}
+#rail li.on{color:var(--ink)}
+@media (min-width:1380px){#rail{display:block}}
+
+/* hero map */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center}
+.mapcard{position:relative;background:var(--water);border-radius:22px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1000/900}
+.mapcard svg{display:block;width:100%;height:100%}
+.mapcard .land{fill:var(--land);stroke:#e4dfd4;stroke-width:.6}
+.mapcard .crl{fill:none;stroke:var(--cr);stroke-opacity:.28;stroke-width:2;stroke-dasharray:6 4}
+.mapcard .case{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round}
+.mapcard .rt{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mapcard .stn{fill:#fff;stroke:#1d1d1d;stroke-width:1.4}
+.mapcard .glow{fill-opacity:.22}
+.mapcard .train{stroke:#fff;stroke-width:1.6}
+.mapcard .mlbl{font-family:var(--f-display);font-weight:600;font-size:15px;paint-order:stroke;stroke:var(--land);stroke-width:4px;stroke-linejoin:round}
+.hud{position:absolute;left:14px;top:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;padding:10px 14px;min-width:170px}
+.hud .clock{font-family:var(--f-display);font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.hud .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.hud .cnt{font-family:var(--f-mono);font-size:13px;margin-top:6px;font-variant-numeric:tabular-nums}
+.ctrl{position:absolute;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px}
+.ctrl button{width:34px;height:34px;border-radius:50%;border:0;background:var(--ink);color:#fff;cursor:pointer;font-size:13px;flex:none}
+.ctrl button:focus-visible,.ctrl input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.ctrl input{flex:1;accent-color:var(--blue)}
+.ctrl span{font-family:var(--f-mono);font-size:11px;color:var(--muted);white-space:nowrap}
+.mapnote{font-size:13px;color:var(--muted);margin-top:10px}
+.linechips{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;padding:5px 11px 5px 6px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.chip i{width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-style:normal;font-family:var(--f-display);font-size:11px;font-weight:800}
+
+/* ratio map */
+.rmap{position:relative;background:var(--water);border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.rmap svg{display:block;width:100%;height:auto}
+.rmap .land{fill:var(--land);stroke:#e4dfd4;stroke-width:.6}
+.rmap .rt{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:.55}
+.rmap .slabel{font-family:var(--f-body);font-weight:600;fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3.5px;stroke-linejoin:round}
+.scale{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.scale .ramp{display:flex;gap:2px}
+.scale .ramp i{width:26px;height:10px;border-radius:2px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin:0 4px 0 0}
+
 #tip{position:fixed;pointer-events:none;z-index:20;background:var(--ink);color:#fff;font-size:13px;line-height:1.45;padding:9px 12px;border-radius:10px;opacity:0;transition:opacity .1s;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 #tip b{font-family:var(--f-display);font-weight:600;font-size:14px}
 #tip .r{display:flex;justify-content:space-between;gap:16px;font-variant-numeric:tabular-nums}
@@ -123,6 +177,9 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:26px}}
+@media (max-width:600px){.mapcard{aspect-ratio:1/1.05}.hud{left:8px;top:8px;padding:6px 10px;min-width:0}.hud .lbl{display:none}.hud .clock{font-size:21px}.hud .cnt{font-size:11px;margin-top:3px}
+  .ctrl{left:8px;right:8px;bottom:8px}.ctrl span{display:none}}
 @media (max-width:760px){
   .two,.recs{grid-template-columns:1fr}
   .hero-num{grid-template-columns:1fr}
@@ -134,19 +191,34 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 </head>
 <body>
 <nav><div class="wrap"><a class="logo" href="https://shre0027.github.io/">Shreyas Tayde</a>
-  <div class="navlinks"><a href="#datasets">The two datasets</a><a href="#stations">Station test</a><a href="#bridge">Bridge</a><a href="#green">Green Line</a><a href="#recs">Recommendations</a><a href="https://github.com/Shre0027/mbta-ridership-gap">Code ↗</a></div></div></nav>
+  <div class="navlinks"><a href="#datasets">The problem</a><a href="#system">System map</a><a href="#three">Three sources</a><a href="#bridge">Bridge</a><a href="#stakes">Why it matters</a><a href="#recs">Recommendations</a><a href="https://github.com/Shre0027/mbta-ridership-gap">Code ↗</a></div></div></nav>
 
-<header><div class="wrap">
-  <p class="eyebrow">Public data project · Transit · Data reconciliation</p>
-  <h1>Two official numbers. <em>One Blue Line.</em></h1>
-  <p class="dek">The MBTA publishes two ridership datasets that disagree by up to 23%. The MBTA suspected growth in East Boston. A station-by-station check points downtown, and turns up three unflagged breaks in the MBTA's own data along the way.</p>
-  <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI) · <span id="updated"></span></p>
-  <div class="hero-num">
-    <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two datasets, Fall 2023</span></div>
-    <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
-    <div><b id="h-share">~35%</b><span>of Blue Line boardings happen at just two downtown transfer stations</span></div>
+<div id="prog" aria-hidden="true"></div>
+<nav id="rail" aria-label="Sections"><ol>
+  <li><a href="#top">Start</a></li><li><a href="#datasets">The problem</a></li><li><a href="#system">System map</a></li><li><a href="#stations">Blue Line</a></li>
+  <li><a href="#three">Three sources</a></li><li><a href="#bridge">Bridge</a></li><li><a href="#why">Over time</a></li><li><a href="#green">Green Line</a></li>
+  <li><a href="#stakes">Why it matters</a></li><li><a href="#recs">Fixes</a></li></ol></nav>
+<header id="top"><div class="wrap hero">
+  <div>
+    <p class="eyebrow">Public data project · Boston transit · Data reconciliation</p>
+    <h1>Who the turnstiles <em>miss.</em></h1>
+    <p class="dek">The MBTA publishes two official ridership numbers that disagree by up to 23%. The MBTA suspected growth in East Boston. Three independent datasets point somewhere else: riders changing trains underground, where no fare gate ever sees them.</p>
+    <div class="linechips" aria-label="Lines covered"><span class="chip"><i style="background:var(--red)">R</i>Red</span><span class="chip"><i style="background:var(--orange)">O</i>Orange</span><span class="chip"><i style="background:var(--blue)">B</i>Blue</span><span class="chip"><i style="background:var(--green)">G</i>Green</span></div>
+    <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI) · <span id="updated"></span></p>
   </div>
-</div></header>
+  <div>
+    <div class="mapcard" id="heromap">
+      <div class="hud" aria-live="off"><div class="lbl">Average weekday · Fall 2025</div><div class="clock" id="clock">8:00 AM</div><div class="cnt"><b id="hcount">–</b> boardings this hour</div></div>
+      <div class="ctrl"><button type="button" id="play" aria-label="Pause">❚❚</button><input type="range" id="hour" min="0" max="23" step="0.01" value="5" aria-label="Hour of day"><span id="hlbl">3 AM → 2 AM</span></div>
+    </div>
+    <p class="mapnote">Official track geometry and line colors. Station glow = real modeled boardings in each hour (Fall 2025 weekday). Trains are illustrative, with more of them at rush hour.</p>
+  </div>
+</div>
+<div class="wrap"><div class="hero-num">
+  <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two official datasets, Fall 2023</span></div>
+  <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
+  <div><b id="h-hub">33%</b><span>of downtown-hub boardings that fare taps can see. A rider survey accounts for the rest</span></div>
+</div></div></header>
 
 <section id="datasets"><div class="wrap">
   <p class="eyebrow">01 · The problem</p>
@@ -171,13 +243,29 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <h3>The gap shows up every year, and the Blue Line is the only consistent undercount</h3>
     <p class="sub">Average weekday riders: how far the monthly dataset (A) sits from the stop-level dataset (B), by fall season</p>
     <div class="chart" id="c1"></div>
-    <p class="sowhat"><b>So what?</b>This isn't a one-season glitch. The two datasets follow different rules. On the Blue Line, those rules always undercount in the same direction, so something structural is going on. The Green Line swings both ways, and has a different cause (section 05).</p>
+    <p class="sowhat"><b>So what?</b>This isn't a one-season glitch. The two datasets follow different rules. On the Blue Line, those rules always undercount in the same direction, so something structural is going on. The Green Line swings both ways, and has a different cause (section 07).</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="t1"></div></details>
   </div>
 </div></section>
 
+<section id="system"><div class="wrap">
+  <p class="eyebrow">02 · The whole system</p>
+  <h2>Where the turnstiles can't see riders.</h2>
+  <p class="lede">Before zooming in on the Blue Line, run the same test on every subway station. Divide the boardings the trip model counts by the fare taps at that station. Most stations land near 1.2×, the normal allowance for kids, free riders and people who don't tap. A few stations are far above that.</p>
+  <div class="figure rv">
+    <div class="fig-top">
+      <div><h3>Modeled boardings ÷ gate taps, every subway station</h3><p class="sub">Average weekday, Fall 2025. Circle size = modeled boardings</p></div>
+      <div class="seg" role="group" aria-label="Map view" id="rm-view"><button type="button" aria-pressed="true" data-v="all">Whole system</button><button type="button" aria-pressed="false" data-v="down">Downtown</button></div>
+    </div>
+    <div class="scale" aria-hidden="true"><span>Model ÷ taps:</span><span class="ramp" id="rm-ramp"></span><span id="rm-ramp-l"></span><span><i class="dot" style="background:#fff;border:1.5px dashed var(--faint)"></i>no fare gates (Green Line surface and GLX stops)</span></div>
+    <div class="rmap" id="rmap" style="margin-top:12px"></div>
+    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate. 54 of the 61 gated stations sit between 1.0× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly and Wollaston (1.6×) are also above 1.5×. A count built from taps can't see those transfers.</p>
+    <details><summary>Show the table</summary><div class="tablewrap" id="trm"></div></details>
+  </div>
+</div></section>
+
 <section id="stations"><div class="wrap">
-  <p class="eyebrow">02 · The station test</p>
+  <p class="eyebrow">03 · Zoom in: the Blue Line</p>
   <h2>Where on the Blue Line does the gap come from?</h2>
   <p class="lede">Dataset A is published only as one number per line. But it is built from fare-gate taps, and the MBTA publishes those taps by station. So I compared, station by station, the raw taps that feed Dataset A with the boardings Dataset B models.</p>
   <div class="figure rv" id="fig2">
@@ -193,8 +281,23 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   </div>
 </div></section>
 
+<section id="three"><div class="wrap">
+  <p class="eyebrow">04 · A third source</p>
+  <h2>Riders say the same thing the data does.</h2>
+  <p class="lede">The taps and the model both come from the fare system. To check them independently, I used a different source: the MBTA's 2025 System-Wide Passenger Survey (145,468 responses systemwide), which asks riders how they reached each train. At Government Center, 82% of Blue Line riders said they arrived on another subway line. At State it was 60%. At Maverick, Airport and Wonderland, it was 0–2%.</p>
+  <div class="figure rv">
+    <h3>Can taps plus the survey rebuild the model's count at the four downtown hubs?</h3>
+    <p class="sub">Average weekday boardings, Fall 2025. Bars = taps × normal <span class="kval">1.21</span>× uplift, plus the transfers implied by the survey. Black tick = the trip model's count</p>
+    <div class="legend" aria-hidden="true"><span><i style="background:var(--taps)"></i>Gate taps × normal uplift</span><span><i style="background:var(--blue)"></i>+ Transfers implied by the rider survey</span><span><i style="background:var(--ink);width:3px"></i>Trip model (Dataset B)</span></div>
+    <div class="chart" id="c3s"></div>
+    <p class="sowhat"><b>So what?</b><span id="three-sowhat"></span></p>
+    <details><summary>Show the table</summary><div class="tablewrap" id="t3s"></div></details>
+  </div>
+  <p class="muted" style="font-size:15px">Method note: the survey asks how riders reached each trip leg, which isn't exactly the same as a behind-the-gate transfer. At smaller stations the estimate is noisier (±25–48%), so the test is shown where it's strongest: the four hubs where two lines meet underground.</p>
+</div></section>
+
 <section id="bridge"><div class="wrap">
-  <p class="eyebrow">03 · The bridge</p>
+  <p class="eyebrow">05 · The bridge</p>
   <h2>From one number to the other, line by line.</h2>
   <p class="lede">Divide the monthly Blue Line number by the Blue Line gate taps and you get the single factor it effectively applies to every tap: about 1.2–1.4×. With that, the gap splits exactly into two parts.</p>
   <div class="figure rv" id="fig-bridge">
@@ -211,7 +314,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 </div></section>
 
 <section id="why"><div class="wrap">
-  <p class="eyebrow">04 · Over time</p>
+  <p class="eyebrow">06 · Over time</p>
   <h2>Over time: one real shift, and one silent swap.</h2>
   <p class="lede">I ran the same test for every season from 2017 to 2025. Two things changed. Neither one is flagged in the data, and only one of them helps explain the gap.</p>
   <div class="two">
@@ -243,7 +346,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 </div></section>
 
 <section id="green"><div class="wrap">
-  <p class="eyebrow">05 · And the Green Line?</p>
+  <p class="eyebrow">07 · And the Green Line?</p>
   <h2>The Green Line swing comes from the monthly factor, not the riders.</h2>
   <p class="lede">The Green Line gap flips sign: +24% in 2019, −16% in 2023, +15% in 2024. About a fifth of Green Line boardings happen at street-level stops with no fare gates, so the monthly number leans much harder on scaling. The question is whether the scaling holds steady.</p>
   <div class="figure rv">
@@ -257,27 +360,41 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   <p class="lede" style="margin-top:22px"><b>One more break, on the other side.</b> In Fall 2019 the stop-level data counts about half as many boardings at ungated surface stops as in 2018: 21,000 vs 44,000, or 15% of Green Line boardings instead of 25%. That's why the model factor dips to 1.8× that year and the 2019 gap looks so large. The data doesn't explain the change either.</p>
 </div></section>
 
+<section id="stakes"><div class="wrap">
+  <p class="eyebrow">08 · Why it matters</p>
+  <h2>A counting rule isn't just a technicality.</h2>
+  <div class="recs">
+    <div class="rec rv"><span class="k">Federal reporting</span><h3>Dataset A is the reporting feed</h3><p>The monthly dataset is published as the MBTA's "NTD_Reporting" service. National Transit Database figures feed federal formula funding: FTA's Section 5307 urbanized-area formula uses NTD service data, including passenger miles. How riders are counted flows into what gets reported.</p></div>
+    <div class="rec rv"><span class="k">Planning</span><h3>Two numbers, two pictures of the Blue Line</h3><p>One dataset says about 50,000 Blue Line riders on a fall weekday, the other about 63,000. Service, crowding and investment decisions read very differently depending on which one a planner picks up.</p></div>
+    <div class="rec rv"><span class="k">Riders</span><h3>Who rides the line that gets undercounted</h3><p>In the 2025 rider survey, <b id="blue-li">67%</b> of Blue Line riders were classified low-income under the MBTA's Title VI definition, and <b id="blue-mi">54%</b> as minority. Accurate counts matter most where service decisions affect riders who depend on transit.</p></div>
+    <div class="rec rv"><span class="k">Trust</span><h3>Official numbers should reconcile</h3><p>When two official sources disagree with no published explanation, every downstream user, from journalists to planners, has to guess which one to trust. A published bridge removes the guesswork.</p></div>
+  </div>
+  <p class="muted" style="font-size:15px">This project doesn't estimate funding impact. NTD reporting uses its own annual procedures, and formula funding depends on many factors. The point is that the counting method matters, and should be documented.</p>
+</div></section>
+
 <section id="recs"><div class="wrap">
-  <p class="eyebrow">06 · Recommendations</p>
+  <p class="eyebrow">09 · Recommendations</p>
   <h2>What I'd bring to the data owners.</h2>
   <p class="lede">Written the way I'd hand it to a product owner: specific, cheap to act on, and tied to the evidence.</p>
   <div class="recs">
     <div class="rec rv"><span class="k">Document</span><h3>Publish the scaling factors and their history</h3><p>List the non-interaction, station-split and transfer factors used in Dataset A, with the date each one changed. Users could then reconcile the datasets themselves.</p></div>
     <div class="rec rv"><span class="k">Flag</span><h3>Mark method changes in the data</h3><p>Add a method-version field or a change note to every dataset, so breaks like the Government Center swap (March 2019), the Green Line surface count (2019) and the Green Line factor shift (August 2024) aren't mistaken for real ridership changes.</p></div>
     <div class="rec rv"><span class="k">Standardize</span><h3>One name and ID per station and line</h3><p>"State" vs "State Street," and a Green Line split into four branches in only one season. Shared IDs would make every join reliable.</p></div>
-    <div class="rec rv"><span class="k">Reconcile</span><h3>Ship an official bridge table</h3><p>Section 03 is my outside-in version. OPMI could publish the real one: for each line and season, taps plus each factor's contribution equals Dataset A, set beside Dataset B. The gap stops being a mystery and becomes a line item.</p></div>
+    <div class="rec rv"><span class="k">Reconcile</span><h3>Ship an official bridge table</h3><p>Section 05 is my outside-in version. OPMI could publish the real one: for each line and season, taps plus each factor's contribution equals Dataset A, set beside Dataset B. The gap stops being a mystery and becomes a line item.</p></div>
   </div>
 </div></section>
 
 <section id="method"><div class="wrap"><div class="narrow">
-  <p class="eyebrow">07 · Method</p>
+  <p class="eyebrow">10 · Method</p>
   <h2>How this was built</h2>
   <ul class="method">
-    <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025); Gated Station Entries (historical). All from the MBTA Open Data Portal.</li>
+    <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025, incl. by hour); Gated Station Entries (historical, 2017–2026); MBTA 2025 System-Wide Passenger Survey; MBTA Ridership Guide (OPMI); official GTFS route shapes and stops; MassGIS town boundaries. All public.</li>
     <li><b>Window:</b> weekdays, September to December. Monthly figures are day-weighted, which reproduces the forum post's Fall 2023 numbers exactly.</li>
     <li><b>Stop-level totals:</b> the sum of average weekday boardings across every stop, direction and time period.</li>
-    <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station.</li>
-    <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line. Eight issues are logged in the repo.</li>
+    <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.21×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway.</li>
+    <li><b>Survey check:</b> share of riders who arrived on another subway or light-rail line ("Access to Each MBTA Trip Leg"), weighted by modeled boardings across the lines at each station.</li>
+    <li><b>Map:</b> official GTFS route shapes (one canonical shape per service), MassGIS town boundaries for land. Trains in the hero animation are illustrative.</li>
+    <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated. Ten issues are logged in the repo.</li>
   </ul>
   <div class="links">
     <a class="btn primary" href="https://github.com/Shre0027/mbta-ridership-gap">See the code and data ↗</a>
@@ -296,9 +413,9 @@ const EMBEDDED = /*__DATA__*/null;
 const LIVE_URL = "https://raw.githubusercontent.com/Shre0027/mbta-ridership-gap/main/outputs/story_data.json";
 (function(){
   let done = false;
-  const go = d => { if (done) return; done = true; boot(d); };
+  const go = d => { if (done) return; done = true; try { boot(d); } catch (e) { console.error(e); } };
   setTimeout(() => go(EMBEDDED), 2500);
-  fetch(LIVE_URL, {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject()).then(d => go(d && d.updated >= EMBEDDED.updated ? d : EMBEDDED)).catch(() => go(EMBEDDED));
+  fetch(LIVE_URL, {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject()).then(d => go(d && d.schema === EMBEDDED.schema && d.updated >= EMBEDDED.updated ? d : EMBEDDED)).catch(() => go(EMBEDDED));
 })();
 function boot(DATA){
 document.getElementById("updated").textContent = "Data through " + DATA.latest_month + " · refreshed " + DATA.updated;
@@ -360,7 +477,7 @@ function drawC1(){
       const p = v >= 0
         ? `M${cx-bwid/2},${y1} V${yTop+r} Q${cx-bwid/2},${yTop} ${cx-bwid/2+r},${yTop} H${cx+bwid/2-r} Q${cx+bwid/2},${yTop} ${cx+bwid/2},${yTop+r} V${y1} Z`
         : `M${cx-bwid/2},${y1} V${y2-r} Q${cx-bwid/2},${y2} ${cx-bwid/2+r},${y2} H${cx+bwid/2-r} Q${cx+bwid/2},${y2} ${cx+bwid/2},${y2-r} V${y1} Z`;
-      el("path", {d:p, fill: blue ? "var(--accent)" : "var(--faint)", class:"mark"}, g);
+      el("path", {d:p, fill: {"Blue Line":"var(--blue)","Green Line":"var(--green)","Red Line":"var(--red)","Orange Line":"var(--orange)"}[ln], "fill-opacity": blue ? 1 : .55, class:"mark"}, g);
       if (blue) el("text", {x:cx, y: v<0 ? y2+13 : y2-5, "text-anchor":"middle", class:"val", style: cols === 2 ? "font-size:9.5px" : ""}, g, d.gap_pct.toFixed(0) + (cols === 2 ? "" : "%"));
       const hit = el("rect", {x:cx-bw/2, y:top, width:bw, height:ph, class:"hit"}, g);
       hit.addEventListener("mousemove", e => showTip(e, `<b>${ln} · Fall ${yr}</b>
@@ -379,8 +496,6 @@ drawC1();
   document.getElementById("h-years").textContent = blue.filter(d => d.gap_pct < 0).length + " of " + blue.length;
   const f23 = blue.find(d => d.fall === 2023);
   if (f23) document.getElementById("h-gap").textContent = Math.abs(f23.gap_pct).toFixed(1) + "%";
-  const sh = DATA.summary.map(s => s.transfer_share_of_boardings_pct);
-  document.getElementById("h-share").textContent = Math.round(Math.min(...sh)) + "–" + Math.round(Math.max(...sh)) + "%";
 })();
 
 /* ---------- Chart 2: paired horizontal bars per station, year toggle ---------- */
@@ -473,7 +588,7 @@ timeChart("c3b", "regular_station_model_per_tap", (v, axis) => axis ? v.toFixed(
 }
 drawC3();
 let rz; let lastW = innerWidth;
-addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (innerWidth === lastW) return; lastW = innerWidth; drawC1(); window.redrawC2(); drawC3(); window.redrawCB(); drawCG(); }, 150); });
+addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (innerWidth === lastW) return; lastW = innerWidth; drawC1(); window.redrawC2(); drawC3(); window.redrawCB(); drawCG(); drawThree(); }, 150); });
 table("t3", ["Fall","Blue boardings (B)","Monthly (A)","Gap","Gov Center taps to Blue","Regular model ÷ taps","Share at State + Gov Center"],
   DATA.summary.map(d => [d.fall, fmt(d.stop_level_total), fmt(d.monthly), pct(d.gap_pct), fmt(d.gov_center_taps_credited_to_blue), d.regular_station_model_per_tap.toFixed(2) + "×", d.transfer_share_of_boardings_pct.toFixed(1) + "%"]));
 
@@ -563,6 +678,180 @@ function drawCG(){
 drawCG();
 table("tg", ["Fall","Monthly (A)","Stop-level (B)","Monthly factor","Model factor","Ungated share of boardings"],
   DATA.green.map(g => [g.fall, fmt(g.monthly), fmt(g.stop_level_total), g.monthly_factor.toFixed(2) + "×", g.model_factor.toFixed(2) + "×", g.ungated_share_of_boardings_pct.toFixed(0) + "%"]));
+
+
+/* ================= MAP HELPERS ================= */
+const MAP = /*__MAP__*/null;
+const LINECOL = {Red:"#DA291C", Orange:"#ED8B00", Blue:"#003DA5", Green:"#00843D", Mattapan:"#DA291C"};
+const pathD = pts => "M" + pts.map(p => p[0] + "," + p[1]).join("L");
+function baseMap(svg, opts){
+  el("path", {d: MAP.land.map(r => pathD(r) + "Z").join(""), class:"land"}, svg);
+  if (opts.cr) MAP.cr.forEach(p => el("path", {d:pathD(p), class:"crl"}, svg));
+  MAP.lines.forEach(l => { if (opts.casing) el("path", {d:pathD(l.pts), class:"case", "stroke-width": opts.w + 4}, svg); });
+  MAP.lines.forEach(l => el("path", {d:pathD(l.pts), class:"rt", stroke:l.color, "stroke-width": opts.w}, svg));
+}
+function sampler(pts){ // cumulative-length sampler for a polyline
+  const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i-1] + Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]));
+  const L = cum[cum.length-1];
+  return {L, at(f){ const d = Math.max(0, Math.min(1, f)) * L; let i = 1; while (i < cum.length-1 && cum[i] < d) i++;
+    const t = (d - cum[i-1]) / ((cum[i] - cum[i-1]) || 1), a = pts[i-1], b = pts[i];
+    const x = a[0] + (b[0]-a[0])*t, y = a[1] + (b[1]-a[1])*t, n = Math.hypot(b[0]-a[0], b[1]-a[1]) || 1;
+    return [x, y, -(b[1]-a[1])/n, (b[0]-a[0])/n]; }};
+}
+const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12 === 0 ? 12 : h % 12) + ":00 " + (h < 12 ? "AM" : "PM"); };
+
+/* ================= HERO: animated system map ================= */
+(function(){
+  const box = document.getElementById("heromap");
+  const VB = {x:120, y:60, w:880, h:792}; // crop to the subway
+  const svg = el("svg", {viewBox:`${VB.x} ${VB.y} ${VB.w} ${VB.h}`, role:"img", "aria-label":"Animated map of the MBTA subway on an average fall weekday. Stations glow with the number of riders boarding each hour, peaking downtown at rush hour."});
+  box.insertBefore(svg, box.firstChild);
+  baseMap(svg, {cr:true, casing:true, w:5.5});
+  [["Red", 540, 830, "#DA291C"], ["Orange", 372, 520, "#ED8B00"], ["Blue", 836, 160, "#003DA5"], ["Green", 150, 470, "#00843D"]].forEach(([t, x, y, c]) => el("text", {x, y, class:"mlbl", fill:c}, svg, t + " Line"));
+  const gGlow = el("g", {}, svg), gTrain = el("g", {}, svg), gStn = el("g", {}, svg);
+  const stations = MAP.stations.filter(st => st.odx > 0);
+  const peak = Math.max(...stations.map(st => Math.max(...st.h)));
+  const glows = stations.map(st => {
+    const col = LINECOL[st.lines[0]] || "#555";
+    const c = el("circle", {cx:st.x, cy:st.y, r:0, fill: st.lines.length > 1 ? "#151515" : col, class:"glow"}, gGlow);
+    el("circle", {cx:st.x, cy:st.y, r: st.lines.length > 1 ? 3.6 : 2.6, class:"stn"}, gStn);
+    return c;
+  });
+  const sysByHour = MAP.hours.map((_, i) => stations.reduce((a, st) => a + st.h[i], 0));
+  const sysPeak = Math.max(...sysByHour);
+  const BASE = {"Red-Ashmont":7, "Red-Braintree":8, "Mattapan":2, "Orange":10, "Blue":6, "Green-B":5, "Green-C":4, "Green-D":7, "Green-E":5};
+  const lines = MAP.lines.map(l => ({...l, s: sampler(l.pts), n: BASE[l.id] || 4, dots: []}));
+  lines.forEach(l => { for (let k = 0; k < l.n * 2; k++) l.dots.push(el("circle", {r:4.2, fill:l.color, class:"train", opacity:0}, gTrain)); });
+  const clock = document.getElementById("clock"), cnt = document.getElementById("hcount"), slider = document.getElementById("hour"), btn = document.getElementById("play");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let hour = 5, playing = !reduce, last = performance.now(), phase = 0;
+  function render(){
+    const i0 = Math.floor(hour) % 24, i1 = (i0 + 1) % 24, f = hour - Math.floor(hour);
+    stations.forEach((st, k) => { const v = st.h[i0]*(1-f) + st.h[i1]*f; glows[k].setAttribute("r", (2 + 34*Math.sqrt(v/peak)).toFixed(1)); });
+    const sv = sysByHour[i0]*(1-f) + sysByHour[i1]*f, act = sv / sysPeak;
+    clock.textContent = hourLabel(hour); cnt.textContent = Math.round(sv).toLocaleString("en-US");
+    lines.forEach(l => { const n = Math.max(1, Math.round(l.n * (0.25 + 0.75*act)));
+      l.dots.forEach((d, k) => { const dir = k % 2, idx = Math.floor(k/2);
+        if (idx >= n){ d.setAttribute("opacity", 0); return; }
+        let u = ((phase * 260 / l.s.L) + idx / n) % 1; if (dir) u = 1 - u;
+        const [x, y, nx, ny] = l.s.at(u), off = dir ? -3.2 : 3.2;
+        d.setAttribute("cx", (x + nx*off).toFixed(1)); d.setAttribute("cy", (y + ny*off).toFixed(1)); d.setAttribute("opacity", 1); }); });
+    slider.value = hour;
+  }
+  function tick(t){
+    const dt = Math.min(0.05, (t - last)/1000); last = t;
+    if (playing){ hour = (hour + dt * 0.55) % 24; phase += dt * 0.08 * (0.6 + 0.4 * (sysByHour[Math.floor(hour)%24] / sysPeak)); }
+    render(); requestAnimationFrame(tick);
+  }
+  btn.addEventListener("click", () => { playing = !playing; btn.textContent = playing ? "❚❚" : "▶"; btn.setAttribute("aria-label", playing ? "Pause" : "Play"); });
+  slider.addEventListener("input", () => { hour = +slider.value; });
+  if (reduce){ btn.textContent = "▶"; btn.setAttribute("aria-label", "Play"); }
+  // pause when off-screen to save battery
+  new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting && playing){ playing = false; box.dataset.auto = 1; btn.textContent = "▶"; }
+    else if (e.isIntersecting && box.dataset.auto){ delete box.dataset.auto; playing = true; btn.textContent = "❚❚"; } })).observe(box);
+  render(); requestAnimationFrame(tick);
+})();
+
+/* ================= SYSTEM RATIO MAP ================= */
+(function(){
+  const RAMP = ["#ece9e2","#cfc9bd","#a39c8f","#6e675c","#3b362f","#151515"], CUTS = [1.15, 1.3, 1.6, 2.5, 4];
+  const colOf = r => r == null ? "#fff" : RAMP[CUTS.filter(c => r >= c).length];
+  const ramp = document.getElementById("rm-ramp"); RAMP.forEach(c => { const i = document.createElement("i"); i.style.background = c; ramp.appendChild(i); });
+  document.getElementById("rm-ramp-l").textContent = "1× → 4×+";
+  const box = document.getElementById("rmap");
+  const views = {all:{x:120, y:60, w:880, h:792}, down:{x:610, y:320, w:170, h:150}};
+  const svg = el("svg", {viewBox:"120 60 880 792", role:"img", "aria-label":"Map of every subway station sized by boardings and shaded by modeled boardings divided by gate taps. The darkest stations are Park Street, Government Center, Downtown Crossing and State."}, box);
+  baseMap(svg, {cr:false, casing:false, w:3});
+  const sts = MAP.stations.filter(s => s.odx > 0).sort((a,b) => b.odx - a.odx);
+  const maxO = sts[0].odx;
+  const gs = el("g", {}, svg), gl = el("g", {}, svg);
+  // label spec: [anchor, dx, dy] in screen px (scaled by zoom); "all" = whole-system view, "down" = downtown view
+  const LBL = {all:{"Harvard":["start",9,4], "Maverick":["start",9,4], "Airport":["start",9,4], "Back Bay":["end",-9,10], "Wollaston":["start",9,4], "Assembly":["start",9,4]},
+    down:{"Government Center":["end",-8,-8], "State":["start",8,0], "Park Street":["end",-9,4], "Downtown Crossing":["start",9,10], "South Station":["start",9,4],
+      "North Station":["end",-9,-2], "Haymarket":["start",8,-2], "Aquarium":["start",8,4], "Bowdoin":["end",-8,-3], "Charles/MGH":["end",-8,4],
+      "Copley":["end",-9,4], "Back Bay":["end",-9,6], "Chinatown":["start",8,10], "Boylston":["end",-8,0], "Arlington":["end",-8,4], "Tufts Medical Center":["start",8,6]}};
+  let scale = 1;
+  const circles = sts.map(s => {
+    const c = el("circle", {cx:s.x, cy:s.y, r: 2 + 16*Math.sqrt(s.odx/maxO), fill: colOf(s.ratio), stroke: s.ratio == null ? "var(--faint)" : "#fff", "stroke-width":1.2, "stroke-dasharray": s.ratio == null ? "2 1.5" : null, class:"mark"}, gs);
+    c.addEventListener("mousemove", e => showTip(e, `<b>${s.name}</b> <span style="opacity:.7">${s.lines.join(" · ")}</span>
+      <div class="r"><span>Modeled boardings</span><span>${fmt(s.odx)}</span></div>
+      <div class="r"><span>Gate taps</span><span>${s.taps ? fmt(s.taps) : "no gates"}</span></div>
+      <div class="r"><span>Model ÷ taps</span><span>${s.ratio ? s.ratio.toFixed(2) + "×" : "–"}</span></div>` + (s.survey != null ? `<div class="r"><span>Survey: arrived by subway</span><span>${Math.round(s.survey*100)}%</span></div>` : "")));
+    c.addEventListener("mouseleave", hideTip);
+    return [c, s];
+  });
+  const labels = [];
+  Object.entries(LBL).forEach(([v, spec]) => Object.entries(spec).forEach(([nm, [anc, dx, dy]]) => { const st = sts.find(z => z.name === nm); if (!st) return;
+    labels.push({v, st, dx, dy, t: el("text", {x:st.x, y:st.y, "text-anchor":anc, class:"slabel", style:"font-size:12px", display: v === "all" ? null : "none"}, gl, nm + (st.ratio ? " " + st.ratio.toFixed(1) + "×" : ""))}); }));
+  // downtown callout in whole-system view
+  const call = el("g", {}, gl);
+  el("line", {x1:706, y1:396, x2:800, y2:470, stroke:"var(--ink)", "stroke-width":1}, call);
+  const ct = el("text", {x:806, y:476, class:"slabel", style:"font-size:13px"}, call, "4 downtown hubs: 2.8–5.1×");
+  el("text", {x:806, y:493, class:"slabel", style:"font-size:11.5px;font-weight:400"}, call, "Switch to Downtown to see them");
+  function setView(k){
+    const v = views[k], a = svg.viewBox.baseVal, from = {x:a.x, y:a.y, w:a.width, h:a.height}, t0 = performance.now();
+    const z = 880 / v.w;
+    const step = t => { const p = Math.min(1, (t - t0)/700), e = p < .5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2)/2;
+      const x = from.x + (v.x-from.x)*e, y = from.y + (v.y-from.y)*e, w = from.w + (v.w-from.w)*e, h = from.h + (v.h-from.h)*e;
+      svg.setAttribute("viewBox", `${x} ${y} ${w} ${h}`); const zz = 880 / w;
+      const rOf = st => (2 + 16*Math.sqrt(st.odx/maxO)) / Math.pow(zz, 0.78);
+      circles.forEach(([c, st]) => { c.setAttribute("r", rOf(st).toFixed(2)); c.setAttribute("stroke-width", 1.2/zz); });
+      labels.forEach(l => { const rp = rOf(l.st) * zz; l.t.setAttribute("x", l.st.x + Math.sign(l.dx)*(rp + 5)/zz); l.t.setAttribute("y", l.st.y + l.dy/zz); l.t.style.fontSize = (12/zz) + "px"; l.t.style.strokeWidth = (3.5/zz) + "px";
+        l.t.setAttribute("display", l.v === k ? "inline" : "none"); });
+      call.setAttribute("display", k === "all" ? "inline" : "none");
+      svg.querySelectorAll(".rt").forEach(r => r.setAttribute("stroke-width", 3/Math.sqrt(zz)));
+      if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  labels.forEach(l => { l.t.setAttribute("x", l.st.x + l.dx); l.t.setAttribute("y", l.st.y + l.dy); });
+  document.querySelectorAll("#rm-view button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#rm-view button").forEach(x => x.setAttribute("aria-pressed", x === b)); setView(b.dataset.v); }));
+  table("trm", ["Station","Lines","Gate taps","Modeled boardings","Model ÷ taps","Survey: arrived by subway"],
+    sts.map(s => [s.name, s.lines.join(", "), s.taps ? fmt(s.taps) : "no gates", fmt(s.odx), s.ratio ? s.ratio.toFixed(2) + "×" : "–", s.survey != null ? Math.round(s.survey*100) + "%" : "–"]));
+})();
+
+/* ================= THREE SOURCES ================= */
+function drawThree(){
+  const box = document.getElementById("c3s"); box.innerHTML = "";
+  const rows = DATA.three, W = Math.max(300, box.clientWidth), sm = W < 600, left = sm ? 112 : 160, right = sm ? 16 : 60, rowH = 54, top = 8, H = top + rows.length*rowH + 24;
+  const max = 50000, x = v => left + v/max*(W-left-right);
+  const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"For the four downtown hubs, gate taps times the normal uplift plus survey-implied transfers come close to the trip model's boardings."}, box);
+  [0,10000,20000,30000,40000,50000].forEach(v => { el("line", {x1:x(v), x2:x(v), y1:top, y2:H-22, stroke: v ? "var(--grid)" : "var(--axis)"}, svg); el("text", {x:x(v), y:H-6, "text-anchor":"middle"}, svg, v ? (v/1000)+"k" : "0"); });
+  rows.forEach((d, i) => {
+    const y0 = top + i*rowH + 12, bh = 20;
+    el("text", {x:left-10, y:y0+bh/2+4, "text-anchor":"end", class:"lbl", style: sm ? "font-size:12px" : ""}, svg, sm && d.name === "Government Center" ? "Gov't Center" : d.name);
+    d.lines.forEach((ln, j) => el("circle", {cx:left-10-(d.lines.length-1-j)*12-4, cy:y0+bh+10, r:4.5, fill:LINECOL[ln]}, svg));
+    el("rect", {x:x(0), y:y0, width:x(d.taps_est)-x(0), height:bh, fill:"var(--taps)", class:"mark"}, svg);
+    el("rect", {x:x(d.taps_est)+2, y:y0, width:Math.max(0, x(d.taps_est + d.transfer_est)-x(d.taps_est)-2), height:bh, rx:4, fill:"var(--blue)", class:"mark"}, svg);
+    el("line", {x1:x(d.odx), x2:x(d.odx), y1:y0-6, y2:y0+bh+6, stroke:"var(--ink)", "stroke-width":3}, svg);
+    el("text", {x:x(Math.max(d.odx, d.taps_est + d.transfer_est))+8, y:y0+bh/2+4, class:"val"}, svg, sm ? "" : fmt(d.odx));
+    const hit = el("rect", {x:0, y:y0-12, width:W, height:rowH, class:"hit"}, svg);
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${d.name}</b>
+      <div class="r"><span>Gate taps</span><span>${fmt(d.taps)}</span></div>
+      <div class="r"><span><i style="background:var(--taps)"></i>Taps × ${DATA.k.toFixed(2)}</span><span>${fmt(d.taps_est)}</span></div>
+      <div class="r"><span><i style="background:var(--blue)"></i>+ Survey transfers (${Math.round(d.survey*100)}%)</span><span>${fmt(d.transfer_est)}</span></div>
+      <div class="r"><span>Trip model</span><span>${fmt(d.odx)}</span></div>`));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+  const T = rows.reduce((a, d) => ({odx:a.odx+d.odx, t:a.t+d.taps_est, x:a.x+d.transfer_est}), {odx:0, t:0, x:0});
+  document.getElementById("three-sowhat").textContent = `Across the four hubs the trip model counts ${fmt(T.odx)} weekday boardings. Fare taps with the normal uplift explain ${fmt(T.t)} of them (${Math.round(T.t/T.odx*100)}%). Add the transfers riders reported in the survey and the estimate reaches ${fmt(T.t+T.x)}, within ${Math.abs(Math.round((T.t+T.x-T.odx)/T.odx*100))}% of the model. Two independent sources agree on where the missing riders are.`;
+  document.getElementById("h-hub").textContent = Math.round(T.t/T.odx*100) + "%";
+  document.querySelectorAll(".kval").forEach(n => n.textContent = DATA.k.toFixed(2));
+  const t3 = document.getElementById("t3s"); t3.innerHTML = "";
+  table("t3s", ["Station","Gate taps","Taps × uplift","Survey: arrived by subway","+ Survey transfers","Estimate","Trip model"],
+    rows.map(d => [d.name, fmt(d.taps), fmt(d.taps_est), Math.round(d.survey*100) + "%", fmt(d.transfer_est), fmt(d.taps_est + d.transfer_est), fmt(d.odx)]));
+}
+drawThree();
+
+/* progress bar + route rail */
+(function(){
+  const prog = document.getElementById("prog"), items = [...document.querySelectorAll("#rail li")];
+  const secs = items.map(li => document.querySelector(li.querySelector("a").getAttribute("href")));
+  const on = () => { const h = document.documentElement, p = h.scrollTop / (h.scrollHeight - h.clientHeight); prog.style.width = (p*100) + "%";
+    let cur = 0; secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight*0.4) cur = i; });
+    items.forEach((li, i) => { li.classList.toggle("done", i < cur); li.classList.toggle("on", i === cur); }); };
+  addEventListener("scroll", on, {passive:true}); on();
+})();
 
 }
 /* reveal on scroll */

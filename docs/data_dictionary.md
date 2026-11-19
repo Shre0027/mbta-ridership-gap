@@ -50,3 +50,15 @@ Yearly CSVs. Grain: service date × 30-minute period × station × line.
 | `model_factor` | Dataset B boardings ÷ gate taps (Green Line) |
 | `bridge_transfer_stations` | Blue boardings at State + Government Center − their taps × `monthly_factor` |
 | `bridge_regular_stations` | Blue boardings at all other stations − their taps × `monthly_factor` (the two bridge parts sum exactly to stop_level − monthly) |
+
+## Added in v2
+
+| Source / output | Field | Meaning |
+|---|---|---|
+| 2025 System-Wide Passenger Survey | `reporting_group`, `measure`, `category`, `weighted_percent`, `n`, `margin_of_error` | Weighted share of riders by answer; `measure = "Access to Each MBTA Trip Leg"`, `category = "Subway or Light Rail"` = share who arrived on another subway/light-rail line |
+| GTFS map (MassDOT) | `shape_id`, `route_id`, `route_colo` | Official route shapes and colors; one canonical shape per service is drawn |
+| GTFS map (MassDOT) | `stop_id` (`place-…`) | Parent station ID; joins to `parent_station` (ridership) and `stop_id` (gate entries) |
+| `system_stations_2025.csv` | `taps`, `odx`, `model_per_tap`, `transfer_station`, `survey_arrived_by_subway` | Per station × line, Fall 2025 weekday |
+| `station_hourly_2025.csv` | hour columns | Modeled weekday boardings per station and hour (drives the animated map) |
+| `map.json` | `land`, `lines`, `cr`, `stations` | Projected, simplified geometry and station data for the page |
+

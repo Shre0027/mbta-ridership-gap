@@ -18,8 +18,20 @@ stations = pd.read_csv(OUT / "blue_stations_by_year.csv")
 summary = pd.read_csv(OUT / "blue_summary_by_year.csv")
 factor = pd.read_csv(OUT / "monthly_factor_by_month.csv")
 green = pd.read_csv(OUT / "green_summary_by_year.csv")
+mapdata = json.loads((OUT / "map.json").read_text())
+chk = pd.read_csv(OUT / "survey_transfer_check.csv")
+base = chk[chk["survey_arrived_by_subway"] < 0.05]
+K = float(base["odx"].sum() / base["taps"].sum())  # normal non-tap uplift at stations with almost no transfers
+HUBS = ["Downtown Crossing", "Park Street", "State", "Government Center"]
+three = []
+for st in mapdata["stations"]:
+    if st["name"] in HUBS:
+        three.append({"name": st["name"], "lines": st["lines"], "taps": st["taps"], "odx": st["odx"], "survey": st["survey"],
+                      "taps_est": round(K * st["taps"]), "transfer_est": round(K * st["taps"] / (1 - st["survey"]) - K * st["taps"])})
+three.sort(key=lambda r: -r["odx"])
 
 data = {
+    "schema": 2,
     "updated": pd.Timestamp.now(tz="America/New_York").strftime("%Y-%m-%d"),
     "latest_month": str(factor["month"].max()),
     "line": clean(line[["fall", "line", "stop_level", "monthly", "gap_pct"]].to_dict("records")),
@@ -27,9 +39,12 @@ data = {
     "summary": clean(summary.to_dict("records")),
     "factor": clean(factor.round(3).to_dict("records")),
     "green": clean(green.to_dict("records")),
+    "k": round(K, 3),
+    "three": three,
 }
 (OUT / "story_data.json").write_text(json.dumps(data, separators=(",", ":")))
 html = (ROOT / "site" / "template.html").read_text()
 html = html.replace("/*__DATA__*/null", json.dumps(data, separators=(",", ":")))
+html = html.replace("/*__MAP__*/null", json.dumps(mapdata, separators=(",", ":")))
 (ROOT / "index.html").write_text(html)
 print("index.html written")

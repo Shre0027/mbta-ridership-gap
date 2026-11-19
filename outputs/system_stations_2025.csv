@@ -1,0 +1,126 @@
+stop_id,line,taps,odx,station,transfer_station,model_per_tap,survey_arrived_by_subway,survey_n,survey_moe
+place-state,Blue Line,894.684,12106.0,State,True,13.531,0.604,1583.0,0.018
+place-gover,Blue Line,465.74,9643.0,Government Center,True,20.705,0.823,1645.0,0.014
+place-mvbcl,Blue Line,8167.415,9592.0,Maverick,False,1.174,0.022,1222.0,0.006
+place-aport,Blue Line,6493.049,7740.0,Airport,False,1.192,0.003,1048.0,0.002
+place-wondl,Blue Line,4337.183,4969.0,Wonderland,False,1.146,0.006,769.0,0.004
+place-orhte,Blue Line,3554.976,4051.0,Orient Heights,False,1.14,0.006,642.0,0.005
+place-aqucl,Blue Line,3229.305,3876.0,Aquarium,False,1.2,0.009,677.0,0.005
+place-bmmnl,Blue Line,2772.549,3198.0,Beachmont,False,1.153,,,
+place-rbmnl,Blue Line,2526.634,2927.0,Revere Beach,False,1.158,0.003,601.0,0.003
+place-bomnl,Blue Line,1758.707,2056.0,Bowdoin,False,1.169,0.015,224.0,0.013
+place-wimnl,Blue Line,1525.012,1757.0,Wood Island,False,1.152,,,
+place-sdmnl,Blue Line,601.622,780.0,Suffolk Downs,False,1.296,,,
+place-pktrm,Green Line,5327.668,17334.0,Park Street,True,3.254,0.789,3548.0,0.01
+place-gover,Green Line,4191.662,14050.0,Government Center,True,3.352,0.69,2170.0,0.016
+place-coecl,Green Line,6989.976,8376.0,Copley,False,1.198,0.282,1767.0,0.016
+place-north,Green Line,4528.224,7007.0,North Station,True,1.547,0.457,1875.0,0.017
+place-hymnl,Green Line,4695.61,6249.0,Hynes Convention Center,False,1.331,0.024,1023.0,0.007
+place-armnl,Green Line,3281.61,4714.0,Arlington,False,1.436,0.388,907.0,0.025
+place-kencl,Green Line,3479.476,4424.0,Kenmore,False,1.271,0.171,1208.0,0.016
+place-boyls,Green Line,3507.512,4315.0,Boylston,False,1.23,0.12,875.0,0.017
+place-haecl,Green Line,3166.81,3645.0,Haymarket,True,1.151,0.189,823.0,0.021
+place-prmnl,Green Line,1908.768,2248.0,Prudential,False,1.178,0.016,388.0,0.01
+place-lech,Green Line,215.664,1481.0,Lechmere,False,6.867,,,
+place-mdftf,Green Line,184.298,1326.0,Medford/Tufts,False,7.195,0.011,450.0,0.007
+place-gilmn,Green Line,249.0,1255.0,Gilman Square,False,5.04,,,
+place-symcl,Green Line,891.476,984.0,Symphony,False,1.104,0.015,316.0,0.009
+place-cool,Green Line,,957.0,Coolidge Corner,False,,0.002,343.0,0.003
+place-harvd,Green Line,,880.0,Harvard Avenue,False,,,,
+place-river,Green Line,620.707,795.0,Riverside,False,1.281,,,
+place-spmnl,Green Line,657.963,738.0,Science Park/West End,False,1.122,,,
+place-brmnl,Green Line,,646.0,Brigham Circle,False,,,,
+place-brico,Green Line,,638.0,Packard's Corner,False,,,,
+place-wascm,Green Line,,624.0,Washington Street,False,,,,
+place-nuniv,Green Line,,608.0,Northeastern University,False,,,,
+place-alsgr,Green Line,,599.0,Allston Street,False,,,,
+place-wrnst,Green Line,,591.0,Warren Street,False,,0.003,254.0,0.004
+place-grigg,Green Line,,577.0,Griggs Street,False,,,,
+place-lngmd,Green Line,,574.0,Longwood Medical Area,False,,,,
+place-balsq,Green Line,126.852,573.0,Ball Square,False,4.517,,,
+place-sthld,Green Line,,563.0,Sutherland Road,False,,,,
+place-mfa,Green Line,,520.0,Museum of Fine Arts,False,,,,
+place-bvmnl,Green Line,,511.0,Brookline Village,False,,,,
+place-chswk,Green Line,,510.0,Chiswick Road,False,,,,
+place-chill,Green Line,,498.0,Chestnut Hill Avenue,False,,,,
+place-bucen,Green Line,,493.0,Boston University Central,False,,,,
+place-rvrwy,Green Line,,487.0,Riverway,False,,,,
+place-buest,Green Line,,474.0,Boston University East,False,,,,
+place-bland,Green Line,,463.0,Blandford Street,False,,,,
+place-unsqu,Green Line,120.996,457.0,Union Square,False,3.777,,,
+place-sougr,Green Line,,450.0,South Street,False,,,,
+place-stpul,Green Line,,434.0,Saint Paul Street,False,,,,
+place-mgngl,Green Line,106.88,430.0,Magoun Square,False,4.023,,,
+place-smary,Green Line,,429.0,Saint Mary's Street,False,,,,
+place-lake,Green Line,,428.0,Boston College,False,,,,
+place-fenwy,Green Line,,419.0,Fenway,False,,,,
+place-longw,Green Line,,417.0,Longwood,False,,,,
+place-mispk,Green Line,,416.0,Mission Park,False,,,,
+place-babck,Green Line,,388.0,Babcock Street,False,,,,
+place-bcnwa,Green Line,,385.0,Washington Square,False,,,,
+place-amory,Green Line,,382.0,Amory Street,False,,,,
+place-sumav,Green Line,,348.0,Summit Avenue,False,,,,
+place-rsmnl,Green Line,,338.0,Reservoir,False,,,,
+place-tapst,Green Line,,336.0,Tappan Street,False,,,,
+place-bcnfd,Green Line,,319.0,Beaconsfield,False,,,,
+place-newto,Green Line,,317.0,Newton Centre,False,,,,
+place-chhil,Green Line,,312.0,Chestnut Hill,False,,,,
+place-brkhl,Green Line,,308.0,Brookline Hills,False,,,,
+place-fenwd,Green Line,,297.0,Fenwood Road,False,,,,
+place-engav,Green Line,,295.0,Englewood Avenue,False,,,,
+place-kntst,Green Line,,275.0,Kent Street,False,,,,
+place-newtn,Green Line,,272.0,Newton Highlands,False,,,,
+place-fbkst,Green Line,,269.0,Fairbanks Street,False,,,,
+place-denrd,Green Line,,266.0,Dean Road,False,,,,
+place-clmnl,Green Line,,265.0,Cleveland Circle,False,,,,
+place-bndhl,Green Line,,242.0,Brandon Hall,False,,,,
+place-hwsst,Green Line,,216.0,Hawes Street,False,,,,
+place-esomr,Green Line,64.428,215.0,East Somerville,False,3.337,,,
+place-eliot,Green Line,,215.0,Eliot,False,,,,
+place-bckhl,Green Line,,199.0,Back of the Hill,False,,,,
+place-hsmnl,Green Line,,178.0,Heath Street,False,,,,
+place-waban,Green Line,,178.0,Waban,False,,,,
+place-woodl,Green Line,,172.0,Woodland,False,,,,
+place-matt,Mattapan Line,3143.873,,,False,,,,
+place-dwnxg,Orange Line,6129.488,19872.0,Downtown Crossing,True,3.242,0.533,2651.0,0.014
+place-bbsta,Orange Line,12418.683,13416.0,Back Bay,False,1.08,0.031,1325.0,0.007
+place-state,Orange Line,8052.157,12650.0,State,True,1.571,0.564,1691.0,0.018
+place-north,Orange Line,8790.081,10576.0,North Station,True,1.203,0.332,1941.0,0.015
+place-forhl,Orange Line,7865.585,9486.0,Forest Hills,False,1.206,0.003,1530.0,0.002
+place-rugg,Orange Line,7513.817,9105.0,Ruggles,False,1.212,0.007,1354.0,0.003
+place-mlmnl,Orange Line,6816.78,7586.0,Malden Center,False,1.113,0.004,1371.0,0.002
+place-haecl,Orange Line,3296.068,5611.0,Haymarket,True,1.702,0.164,1073.0,0.016
+place-tumnl,Orange Line,4711.976,5540.0,Tufts Medical Center,False,1.176,0.011,874.0,0.005
+place-welln,Orange Line,4578.744,5017.0,Wellington,False,1.096,0.007,802.0,0.004
+place-chncl,Orange Line,4470.402,4985.0,Chinatown,False,1.115,0.03,773.0,0.009
+place-sull,Orange Line,4554.11,4936.0,Sullivan Square,False,1.084,0.002,1104.0,0.002
+place-astao,Orange Line,3043.329,4891.0,Assembly,False,1.607,0.004,667.0,0.003
+place-masta,Orange Line,3747.22,4786.0,Massachusetts Avenue,False,1.277,0.006,840.0,0.004
+place-jaksn,Orange Line,3446.561,4474.0,Jackson Square,False,1.298,0.002,905.0,0.002
+place-ogmnl,Orange Line,4040.207,4396.0,Oak Grove,False,1.088,0.004,666.0,0.004
+place-rcmnl,Orange Line,3636.39,4369.0,Roxbury Crossing,False,1.201,0.004,622.0,0.004
+place-ccmnl,Orange Line,3454.659,4072.0,Community College,False,1.179,0.007,772.0,0.004
+place-grnst,Orange Line,2140.354,2583.0,Green Street,False,1.207,0.007,415.0,0.006
+place-sbmnl,Orange Line,2183.451,2515.0,Stony Brook,False,1.152,0.006,398.0,0.006
+place-pktrm,Red Line,3857.966,21770.0,Park Street,True,5.643,0.74,3132.0,0.012
+place-dwnxg,Red Line,6379.671,20427.0,Downtown Crossing,True,3.202,0.491,2562.0,0.015
+place-sstat,Red Line,9381.468,17719.0,South Station,False,1.889,0.009,2529.0,0.003
+place-harsq,Red Line,11378.488,12981.0,Harvard,False,1.141,0.014,1540.0,0.004
+place-knncl,Red Line,9812.024,11276.0,Kendall/MIT,False,1.149,0.023,1027.0,0.007
+place-cntsq,Red Line,8882.585,10395.0,Central,False,1.17,0.007,1248.0,0.004
+place-chmnl,Red Line,6613.293,8423.0,Charles/MGH,False,1.274,0.018,1060.0,0.006
+place-jfk,Red Line,5696.61,8030.0,JFK/UMass,False,1.41,0.153,1221.0,0.015
+place-alfcl,Red Line,6503.085,7211.0,Alewife,False,1.109,0.01,959.0,0.005
+place-asmnl,Red Line,4651.866,6356.0,Ashmont,False,1.366,0.292,1287.0,0.018
+place-davis,Red Line,5350.268,5919.0,Davis,False,1.106,0.006,945.0,0.004
+place-portr,Red Line,4500.671,5169.0,Porter,False,1.148,0.001,826.0,0.002
+place-qnctr,Red Line,3789.427,4880.0,Quincy Center,False,1.288,0.006,985.0,0.004
+place-andrw,Red Line,3788.232,4523.0,Andrew,False,1.194,0.003,1006.0,0.003
+place-brdwy,Red Line,3932.915,4319.0,Broadway,False,1.098,0.008,1135.0,0.004
+place-nqncy,Red Line,3695.915,4010.0,North Quincy,False,1.085,0.036,643.0,0.011
+place-fldcr,Red Line,2832.573,3630.0,Fields Corner,False,1.282,0.006,760.0,0.004
+place-wlsta,Red Line,2036.0,3342.0,Wollaston,False,1.641,0.009,277.0,0.009
+place-brntn,Red Line,2597.427,3151.0,Braintree,False,1.213,0.009,560.0,0.006
+place-qamnl,Red Line,1800.768,2138.0,Quincy Adams,False,1.187,,,
+place-shmnl,Red Line,1486.244,1858.0,Savin Hill,False,1.25,,,
+place-smmnl,Red Line,1328.683,1634.0,Shawmut,False,1.23,0.012,219.0,0.011
