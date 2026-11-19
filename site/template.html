@@ -177,6 +177,9 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 .scale .ramp{display:flex;gap:2px}
 .scale .ramp i{width:26px;height:10px;border-radius:2px}
 .pick select{font-family:var(--f-body);font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);max-width:240px}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .quick{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 12px}
 .quick button{font-family:var(--f-body);font-size:13px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 11px;cursor:pointer;color:var(--ink)}
@@ -208,6 +211,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 <nav><div class="wrap"><a class="logo" href="https://shre0027.github.io/">Shreyas Tayde</a>
   <div class="navlinks"><a href="#datasets">The problem</a><a href="#system">System map</a><a href="#three">Three sources</a><a href="#bridge">Bridge</a><a href="#stakes">Why it matters</a><a href="#recs">Recommendations</a><a href="https://github.com/Shre0027/mbta-ridership-gap">Code ↗</a></div></div></nav>
 
+<a class="skip" href="#datasets">Skip to the analysis</a>
 <div id="prog" aria-hidden="true"></div>
 <nav id="rail" aria-label="Sections"><ol>
   <li><a href="#top">Start</a></li><li><a href="#datasets">The problem</a></li><li><a href="#system">System map</a></li><li><a href="#stations">Blue Line</a></li>
@@ -235,6 +239,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   <div><b id="h-hub">33%</b><span>of boardings at the four downtown hubs that fare taps account for. The rider survey accounts for most of the rest</span></div>
 </div></div></header>
 
+<main id="main">
 <section id="datasets"><div class="wrap">
   <p class="eyebrow">01 · The problem</p>
   <h2>Same line, same season, two different answers.</h2>
@@ -450,6 +455,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   </div>
 </div></div></section>
 
+</main>
 <footer><div class="wrap">Built by <a href="https://shre0027.github.io/">Shreyas Tayde</a>, analyst in Boston. Data © MBTA, used under the MassDOT Developers License Agreement. This is an independent analysis, not affiliated with the MBTA.</div></footer>
 
 <div id="tip" role="tooltip"></div>
