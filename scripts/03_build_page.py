@@ -20,12 +20,15 @@ factor = pd.read_csv(OUT / "monthly_factor_by_month.csv")
 green = pd.read_csv(OUT / "green_summary_by_year.csv")
 
 data = {
+    "updated": pd.Timestamp.now(tz="America/New_York").strftime("%Y-%m-%d"),
+    "latest_month": str(factor["month"].max()),
     "line": clean(line[["fall", "line", "stop_level", "monthly", "gap_pct"]].to_dict("records")),
     "stations": clean(stations[["fall", "station", "taps", "odx"]].round(0).to_dict("records")),
     "summary": clean(summary.to_dict("records")),
     "factor": clean(factor.round(3).to_dict("records")),
     "green": clean(green.to_dict("records")),
 }
+(OUT / "story_data.json").write_text(json.dumps(data, separators=(",", ":")))
 html = (ROOT / "site" / "template.html").read_text()
 html = html.replace("/*__DATA__*/null", json.dumps(data, separators=(",", ":")))
 (ROOT / "index.html").write_text(html)

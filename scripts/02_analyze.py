@@ -139,7 +139,8 @@ def main():
 
     # 3) Effective monthly factor by month (monthly riders / gate taps)
     mw = monthly_weekday_avg()
-    taps_m = pd.concat([load_taps_by_month(y) for y in sorted(set(FALLS) - {2017})])
+    gse_years = sorted(int(f.stem[-4:]) for f in (RAW / "gse_hist" / "GSE_by_year").glob("GSE_*.csv") if int(f.stem[-4:]) >= 2018)
+    taps_m = pd.concat([load_taps_by_month(y) for y in gse_years])
     fac = (mw[LINES] / taps_m[LINES]).dropna(how="all")
     fac.index = fac.index.astype(str)
     fac.round(3).rename_axis("month").to_csv(OUT / "monthly_factor_by_month.csv")

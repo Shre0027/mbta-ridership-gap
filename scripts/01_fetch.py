@@ -30,7 +30,7 @@ FILES = {
 }
 # Gated Station Entries - Historical (raw, unscaled fare-gate taps), zip of yearly CSVs
 GSE_HIST_ITEM = "7859894afb5641ce91a2bb03599fdf5b"
-GSE_YEARS = [2017, 2018, 2019, 2023, 2024, 2025]
+GSE_FIRST_YEAR = 2017  # every yearly file from here to the latest is extracted
 
 
 def get_json(url, params):
@@ -70,9 +70,10 @@ def main():
         print(f"{name}: downloaded")
     z = zipfile.ZipFile(io.BytesIO(download(GSE_HIST_ITEM)))
     out = RAW / "gse_hist"
-    for yr in GSE_YEARS:
-        z.extract(f"GSE_by_year/GSE_{yr}.csv", out)
-        print(f"GSE_{yr}.csv: extracted")
+    for name in sorted(z.namelist()):
+        if name.startswith("GSE_by_year/GSE_") and name.endswith(".csv") and int(name[-8:-4]) >= GSE_FIRST_YEAR:
+            z.extract(name, out)
+            print(f"{name}: extracted")
 
 
 if __name__ == "__main__":

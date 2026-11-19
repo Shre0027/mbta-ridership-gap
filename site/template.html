@@ -139,8 +139,8 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 <header><div class="wrap">
   <p class="eyebrow">Public data project · Transit · Data reconciliation</p>
   <h1>Two official numbers. <em>One Blue Line.</em></h1>
-  <p class="dek">The MBTA publishes two ridership datasets that disagree by up to 23%. The MBTA suspected growth in East Boston. A station-by-station check points downtown, and turns up a silent swap in the tap data along the way.</p>
-  <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI)</p>
+  <p class="dek">The MBTA publishes two ridership datasets that disagree by up to 23%. The MBTA suspected growth in East Boston. A station-by-station check points downtown, and turns up three unflagged breaks in the MBTA's own data along the way.</p>
+  <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI) · <span id="updated"></span></p>
   <div class="hero-num">
     <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two datasets, Fall 2023</span></div>
     <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
@@ -251,7 +251,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <p class="sub">Monthly weekday riders ÷ weekday gate taps. Dots show the stop-level model's own factor for each fall</p>
     <div class="legend" aria-hidden="true"><span><i style="background:var(--accent)"></i>Green Line, monthly dataset</span><span><i style="background:transparent;border:2px solid var(--accent);border-radius:50%"></i>Green Line, stop-level model (fall)</span><span><i style="background:var(--axis)"></i>Red, Orange, Blue, monthly dataset</span></div>
     <div class="chart" id="cg"></div>
-    <p class="sowhat"><b>So what?</b>The model's Green Line factor stays near 2.3–2.4× in 2018 and 2023–25. The monthly factor drops to mostly 1.7–2.0 from July 2023 to June 2024, then jumps to mostly 2.4–2.8 from August 2024. The single-month spikes (January 2024, December 2024, December 2025) are months when Green Line taps fell much faster than the monthly estimate. Fall 2023 lands in the low stretch (monthly below the model), and Fall 2024–25 in the high one (monthly above). Red, Orange and Blue barely move.</p>
+    <p class="sowhat"><b>So what?</b>Across 2018–2026 the monthly Green factor wanders between about 1.7× and 3.1×, while Red, Orange and Blue stay mostly at 1.25–1.5×. The model's Green Line factor stays near 2.3–2.4× in 2018 and 2023–25. The monthly factor drops to mostly 1.7–2.0 from July 2023 to June 2024, then jumps to mostly 2.4–2.8 from August 2024. The single-month spikes (January 2024, December 2024, December 2025) are months when Green Line taps fell much faster than the monthly estimate. Fall 2023 lands in the low stretch (monthly below the model), and Fall 2024–25 in the high one (monthly above). Red, Orange and Blue barely move.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="tg"></div></details>
   </div>
   <p class="lede" style="margin-top:22px"><b>One more break, on the other side.</b> In Fall 2019 the stop-level data counts about half as many boardings at ungated surface stops as in 2018: 21,000 vs 44,000, or 15% of Green Line boardings instead of 25%. That's why the model factor dips to 1.8× that year and the 2019 gap looks so large. The data doesn't explain the change either.</p>
@@ -291,7 +291,18 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 <div id="tip" role="tooltip"></div>
 
 <script>
-const DATA = /*__DATA__*/null;
+const EMBEDDED = /*__DATA__*/null;
+// Load the latest refreshed data from the project repo; fall back to the copy embedded at build time.
+const LIVE_URL = "https://raw.githubusercontent.com/Shre0027/mbta-ridership-gap/main/outputs/story_data.json";
+(function(){
+  let done = false;
+  const go = d => { if (done) return; done = true; boot(d); };
+  setTimeout(() => go(EMBEDDED), 2500);
+  fetch(LIVE_URL, {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject()).then(d => go(d && d.updated >= EMBEDDED.updated ? d : EMBEDDED)).catch(() => go(EMBEDDED));
+})();
+function boot(DATA){
+document.getElementById("updated").textContent = "Data through " + DATA.latest_month + " · refreshed " + DATA.updated;
+
 const NS = "http://www.w3.org/2000/svg";
 const fmt = n => n == null ? "–" : Math.round(n).toLocaleString("en-US");
 const pct = n => n == null ? "–" : (n > 0 ? "+" : "") + n.toFixed(1) + "%";
@@ -519,9 +530,8 @@ function drawCG(){
   const ymin = 1, ymax = 3.4, y = v => top + (1 - (v-ymin)/(ymax-ymin))*(H-top-bot);
   const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Green Line monthly factor drops to about 1.8 to 2.0 from July 2023 to July 2024, then rises to about 2.5 to 2.7, while the model's fall factor stays near 2.3 to 2.4 and other lines stay near 1.2 to 1.5."}, box);
   [1,1.5,2,2.5,3].forEach(v => { el("line", {x1:left, x2:W-right, y1:y(v), y2:y(v), stroke:"var(--grid)"}, svg); el("text", {x:left-6, y:y(v)+4, "text-anchor":"end"}, svg, v.toFixed(1) + "×"); });
-  [2018,2019,2023,2024,2025].forEach(yr => { const m = yr === 2018 ? "2018-07" : yr + "-01"; if (idx[m] != null) el("text", {x:x(m), y:H-8, "text-anchor":"start"}, svg, yr); });
-  const gx = left + (idx["2019-12"] + 3.5)/n*(W-left-right);
-  el("text", {x:gx, y:H-8, "text-anchor":"middle", style:"font-size:9.5px"}, svg, sm ? "…" : "no data");
+  [...new Set(F.map(r => r.month.slice(0,4)))].forEach(yr => { const m = F.find(r => r.month.startsWith(yr)).month;
+    if (sm && +yr % 2) return; el("text", {x:x(m), y:H-8, "text-anchor":"start"}, svg, sm ? "'" + yr.slice(2) : yr); });
   const seg = (line, color, wdt) => {
     let pts = [];
     const flush = () => { if (pts.length > 1) el("polyline", {points:pts.join(" "), fill:"none", stroke:color, "stroke-width":wdt, "stroke-linejoin":"round"}, svg); pts = []; };
@@ -536,7 +546,7 @@ function drawCG(){
   if (!sm){
     el("text", {x:x("2023-07"), y:y(1.6), class:"ann"}, svg, "Jul 2023 – Jun 2024: mostly 1.7–2.0×");
     el("text", {x:x("2024-03"), y:y(3.27), class:"ann"}, svg, "Aug 2024 on: mostly 2.4–2.8×");
-    el("text", {x:x("2018-07"), y:y(1.13), class:"ann", style:"fill:var(--muted)"}, svg, "Red, Orange, Blue: ~1.2–1.5×");
+    if (idx["2020-06"] != null) el("text", {x:x("2020-06"), y:y(1.13), class:"ann", style:"fill:var(--muted)"}, svg, "Red, Orange, Blue: mostly 1.25–1.5×");
   }
   // hover: nearest month
   const hit = el("rect", {x:left, y:top, width:W-left-right, height:H-top-bot, class:"hit"}, svg);
@@ -554,6 +564,7 @@ drawCG();
 table("tg", ["Fall","Monthly (A)","Stop-level (B)","Monthly factor","Model factor","Ungated share of boardings"],
   DATA.green.map(g => [g.fall, fmt(g.monthly), fmt(g.stop_level_total), g.monthly_factor.toFixed(2) + "×", g.model_factor.toFixed(2) + "×", g.ungated_share_of_boardings_pct.toFixed(0) + "%"]));
 
+}
 /* reveal on scroll */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
 document.querySelectorAll(".rv").forEach(n => io.observe(n));

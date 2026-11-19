@@ -67,6 +67,8 @@ python scripts/02_analyze.py   # writes reconciliation tables to outputs/
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 
+**Auto-refresh:** a GitHub Action (`.github/workflows/refresh.yml`) reruns the pipeline on the 8th of every month and commits updated outputs. The published page loads `outputs/story_data.json` live, so it picks up new monthly data without a redeploy. A new fall stop-level season is added with one line in `scripts/01_fetch.py`.
+
 Validation: with the comparison window used here, Fall 2023 results reproduce the forum post's figures exactly.
 
 ## Repo map
