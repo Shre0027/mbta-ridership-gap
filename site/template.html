@@ -226,7 +226,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 <div class="wrap"><div class="hero-num">
   <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two official datasets, Fall 2023</span></div>
   <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
-  <div><b id="h-hub">33%</b><span>of downtown-hub boardings that fare taps can see. A rider survey accounts for the rest</span></div>
+  <div><b id="h-hub">33%</b><span>of boardings at the four downtown hubs that fare taps account for. The rider survey accounts for most of the rest</span></div>
 </div></div></header>
 
 <section id="datasets"><div class="wrap">
@@ -237,7 +237,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <div class="ds rv"><span class="tag">Dataset A</span><h3>Monthly Ridership by Mode and Line</h3>
       <dl><dt>Built from</dt><dd>Fare-gate taps, multiplied by fixed scaling factors</dd>
       <dt>Detail</dt><dd>One number per line per month</dd>
-      <dt>Used for</dt><dd>Federal reporting to the National Transit Database</dd></dl></div>
+      <dt>Published as</dt><dd>The MBTA's "NTD_Reporting" feed (National Transit Database)</dd></dl></div>
     <div class="ds rv"><span class="tag">Dataset B</span><h3>Rail Ridership by Season, Route and Stop</h3>
       <dl><dt>Built from</dt><dd>The ODX trip model: taps, trip chaining and faregate passenger counters</dd>
       <dt>Detail</dt><dd>Every stop, direction and time of day, one fall season</dd>
@@ -274,7 +274,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     </div>
     <div class="scale" aria-hidden="true"><span>Model ÷ taps:</span><span class="ramp" id="rm-ramp"></span><span id="rm-ramp-l"></span><span><i class="dot" style="background:#fff;border:1.5px dashed var(--faint)"></i>no fare gates (Green Line surface and GLX stops)</span></div>
     <div class="rmap" id="rmap" style="margin-top:12px"></div>
-    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate. 54 of the 61 gated stations sit between 1.0× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly and Wollaston (1.6×) are also above 1.5×. They aren't transfer stations, and both were at 1.0–1.05× before 2020, so they look like the far end of the post-COVID rise in riders who don't tap, not missed transfers. A count built from taps can't see those transfers.</p>
+    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate, and a count built from taps can't see those transfers. 54 of the 61 gated stations sit between 1.0× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly and Wollaston (1.6×) are also above 1.5×. They aren't transfer stations, and both were at 1.0–1.05× before 2020, so they look like the far end of the post-COVID rise in riders who don't tap, not missed transfers.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="trm"></div></details>
   </div>
 </div></section>
@@ -330,7 +330,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 
 <section id="why"><div class="wrap">
   <p class="eyebrow">06 · Over time</p>
-  <h2>Over time: one real shift, and one silent swap.</h2>
+  <h2>One real shift, and one silent swap.</h2>
   <p class="lede">I ran the same test for every season from 2017 to 2025. Two things changed. Neither one is flagged in the data, and only one of them helps explain the gap.</p>
   <div class="two">
     <div class="figure rv" style="margin-top:0">
@@ -363,7 +363,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 <section id="green"><div class="wrap">
   <p class="eyebrow">07 · And the Green Line?</p>
   <h2>The Green Line swing comes from the monthly factor, not the riders.</h2>
-  <p class="lede">The Green Line gap flips sign: +24% in 2019, −16% in 2023, +15% in 2024. About a fifth of Green Line boardings happen at street-level stops with no fare gates, so the monthly number leans much harder on scaling. The question is whether the scaling holds steady.</p>
+  <p class="lede">The Green Line gap flips sign: +24% in 2019, −16% in 2023, +15% in 2024. Many Green Line riders board at street-level stops with no fare gates, so the monthly number leans much harder on scaling. The question is whether the scaling holds steady.</p>
   <div class="figure rv">
     <h3>The factor the monthly dataset applies to gate taps, by month</h3>
     <p class="sub">Monthly weekday riders ÷ weekday gate taps. Dots show the stop-level model's own factor for each fall</p>
@@ -410,7 +410,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.21×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway.</li>
     <li><b>Survey check:</b> share of riders who arrived on another subway or light-rail line ("Access to Each MBTA Trip Leg"), weighted by modeled boardings across the lines at each station.</li>
     <li><b>Map:</b> official GTFS route shapes (one canonical shape per service), MassGIS town boundaries for land. Hero trains: every scheduled subway trip on one regular Tuesday from the MBTA GTFS feed, interpolated between scheduled stop times along each trip's own shape.</li>
-    <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated. Ten issues are logged in the repo.</li>
+    <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated. Eleven issues are logged in the repo.</li>
   </ul>
   <div class="links">
     <a class="btn primary" href="https://github.com/Shre0027/mbta-ridership-gap">See the code and data ↗</a>
@@ -419,7 +419,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   </div>
 </div></div></section>
 
-<footer><div class="wrap">Built by <a href="https://shre0027.github.io/">Shreyas Tayde</a>, business analyst in Boston. Data © MBTA, used under the MassDOT Developers License Agreement. This is an independent analysis, not affiliated with the MBTA.</div></footer>
+<footer><div class="wrap">Built by <a href="https://shre0027.github.io/">Shreyas Tayde</a>, analyst in Boston. Data © MBTA, used under the MassDOT Developers License Agreement. This is an independent analysis, not affiliated with the MBTA.</div></footer>
 
 <div id="tip" role="tooltip"></div>
 
