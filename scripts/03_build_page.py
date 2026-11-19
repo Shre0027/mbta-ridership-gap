@@ -20,6 +20,8 @@ factor = pd.read_csv(OUT / "monthly_factor_by_month.csv")
 green = pd.read_csv(OUT / "green_summary_by_year.csv")
 daytype = pd.read_csv(OUT / "line_gap_by_daytype.csv")
 fix = pd.read_csv(OUT / "fix_test.csv")
+bus = pd.read_csv(OUT / "bus_baseline.csv").dropna(subset=["gap_sepdec_pct"]) if (OUT / "bus_baseline.csv").exists() else pd.DataFrame()
+win = pd.read_csv(OUT / "window_sensitivity.csv") if (OUT / "window_sensitivity.csv").exists() else pd.DataFrame()
 mapdata = json.loads((OUT / "map.json").read_text())
 chk = pd.read_csv(OUT / "survey_transfer_check.csv")
 base = chk[chk["survey_arrived_by_subway"] < 0.05]
@@ -46,6 +48,8 @@ data = {
     "fix": clean(fix.to_dict("records")),
     "daytype": clean(daytype[daytype["line"] == "Blue Line"][["fall", "day_type", "gap_pct"]].to_dict("records")),
     "three": three,
+    "bus": clean(bus[["fall", "apc_all", "monthly_all_bus", "monthly_all_bus_sepnov", "gap_sepdec_pct", "gap_sepnov_pct"]].to_dict("records")) if len(bus) else [],
+    "window": clean(win.to_dict("records")) if len(win) else [],
 }
 (OUT / "story_data.json").write_text(json.dumps(data, separators=(",", ":")))
 html = (ROOT / "site" / "template.html").read_text()

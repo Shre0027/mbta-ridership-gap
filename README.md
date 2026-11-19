@@ -77,9 +77,11 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 
 **7c. The Red Line's 2024 dip is a shutdown.** The Braintree branch closed Sep 6–29, 2024 and part of the line again in November; the monthly number fell to 124,470 (Sep) and 106,335 (Nov). October 2024, the one fall month without a major closure, was 146,264 — within 1.3% of the model's 148,203.
 
+**7d. A yardstick from the bus.** On buses both datasets come from the same Automatic Passenger Counters, so they can't test the transfer explanation, but they show how far two MBTA publications drift when the source is the same: within 3.5% every fall 2018–2025 once December is left out. The Blue Line's 16–23% gap is several times that noise. The bus also exposed a date-window trap: the stop-level season is ~15 weeks (73 weekdays in Fall 2025, roughly Sep to mid-Dec), while full monthly figures include the holiday weeks. Counting all of December lowers the monthly figure by 1–7% on buses and shifts rail gaps by about 3–4 points (Blue 2023: −23.4% with Sep–Dec, −21.2% with Sep–Nov). The headline keeps Sep–Dec to reproduce the public forum question; both windows are shown on the page.
+
 **8. Why it matters.** The monthly dataset is published as the MBTA's `NTD_Reporting` service; NTD data feeds FTA formula programs (Section 5307 uses NTD service data including passenger miles). The MBTA's own Ridership Guide states that rapid-transit ridership is fare-gate data "adjusted with factors to account for behind the gate transfers, and non-interaction" — the exact factors this project reverse-engineers. (No funding impact is estimated.)
 
-**Bottom line:** on the Blue Line, the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. On the Green Line, the swing tracks shifts in the monthly dataset's own scaling. Along the way, the analysis surfaced three unflagged breaks in the public data.
+**Bottom line:** on the Blue Line, the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. On the Green Line, the swing tracks shifts in the monthly dataset's own scaling. Along the way, the analysis surfaced unflagged breaks in the public data, logged in `docs/data_quality_log.md`.
 
 **Caveat:** OPMI does not publish the exact factors behind Dataset A, so the transfer-allowance part of this decomposition is inferred from the published data, not confirmed by the MBTA.
 
@@ -93,6 +95,7 @@ python scripts/04_system.py     # system-wide station test + rider-survey check 
 python scripts/05_geo.py        # official GTFS shapes/stops -> projected map data
 python scripts/06_trains.py     # every scheduled subway trip on one weekday -> real train positions (trains.json)
 python scripts/07_fix.py        # out-of-sample test of a proposed fix (recalibrated factor)
+python scripts/08_bus.py        # bus yardstick (same-source APC) + date-window sensitivity for every rail line
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 

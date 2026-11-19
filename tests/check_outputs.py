@@ -67,5 +67,12 @@ peak = max(sum(1 for a, b in dur if a <= x <= b) for x in range(6 * 3600, 22 * 3
 check("Train schedule: 1,000+ trips, times never go backwards", len(trips) > 1000 and mono, len(trips))
 check("Train schedule: 60-180 trains running at the busiest moment", 60 <= peak <= 180, peak)
 
+bus = pd.read_csv(OUT / "bus_baseline.csv").dropna(subset=["gap_sepnov_pct"])
+check("Bus yardstick: same-source datasets agree within 5% (Sep-Nov) every fall", len(bus) >= 6 and (bus["gap_sepnov_pct"].abs() < 5).all(),
+      bus["gap_sepnov_pct"].tolist())
+win = pd.read_csv(OUT / "window_sensitivity.csv")
+bw = win[win["line"] == "Blue Line"]
+check("Blue Line gap stays negative under both date windows", (bw["gap_sepdec_pct"] < 0).all() and (bw["gap_sepnov_pct"] < 0).all())
+
 print(f"\n{len(fails)} failed" if fails else "\nall checks passed")
 sys.exit(1 if fails else 0)

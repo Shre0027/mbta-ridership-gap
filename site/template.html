@@ -450,6 +450,16 @@ section.has-div{border-top:none}
   <p class="lede"><b>And East Boston?</b> Maverick, Airport, Wood Island, Orient Heights and the Revere stations scale steadily, at almost the same ratio as every other regular station. The data doesn't show them driving the gap.</p>
   <p class="lede"><b>And the Red Line's 2024 dip?</b> That one is a shutdown, not a counting rule. The MBTA closed the Braintree branch for 24 days in September 2024 and part of the line again in November, with shuttle buses replacing trains. The monthly number fell in those months, to 124,470 in September and 106,335 in November. In October, the one fall month without a major closure, it was 146,264, within 1.3% of the model's 148,203.</p>
   <p class="muted" style="font-size:15px">Caveat: OPMI doesn't publish the exact factors behind Dataset A, so how much of the gap each reason explains is inferred from the published data, not confirmed by the MBTA.</p>
+
+  <div class="figure rv" id="bus-fig" style="margin-top:44px">
+    <span class="eyebrow" style="color:var(--accent)">A yardstick from the bus</span>
+    <h3>How big is "big"? On buses, the two datasets agree</h3>
+    <p class="sub">Monthly dataset vs stop-level dataset, average weekday, fall. On buses both come from the same door counters, so this is a check on the publishing, not on transfers. There is no rail stop-level data for 2020–22.</p>
+    <div class="legend" id="bus-leg"></div>
+    <div class="chart" id="cbus"></div>
+    <p class="sowhat" id="bus-sowhat"></p>
+    <details><summary>Show the table, plus every rail line under both date windows</summary><div class="tablewrap" id="tbus"></div><div class="tablewrap" id="twin" style="margin-top:14px"></div></details>
+  </div>
 </div></section>
 
 <section id="green"><div class="wrap">
@@ -1187,6 +1197,39 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   document.getElementById("fx-sowhat").textContent = `Recalibrating once a year helps every line, and the Blue Line most: its average error falls from ${b1.toFixed(0)}% to ${b2.toFixed(0)}%. Red goes from ${r1.toFixed(0)}% to ${r2.toFixed(0)}% and Orange from ${o1.toFixed(0)}% to ${o2.toFixed(1)}%. Blue gains far more because its fixed factor can't track the transfers at State and Government Center. Finer station-level factors did no better than one recalibrated line factor, so the fix is recalibration, not more detail.`;
   table("tfx", ["Line","Calibrated on","Tested on","Monthly today","Recalibrated factor","Station-level factors"],
     F.map(d => [d.line, d.calibrate_on, d.test_on, pct(d.monthly_today_err_pct), pct(d.refreshed_single_err_pct), pct(d.refreshed_station_err_pct)]));
+})();
+
+
+/* ================= BUS YARDSTICK ================= */
+(function(){
+  const B = DATA.bus || [], WN = DATA.window || []; const box = document.getElementById("cbus"); if (!box) return;
+  if (!B.length){ document.getElementById("bus-fig").style.display = "none"; return; }
+  const blue = Object.fromEntries(WN.filter(d => d.line === "Blue Line").map(d => [d.fall, d]));
+  const S = [{k:"bus_sepnov", name:"Bus · Sep–Nov", fill:"#3d3b37", stroke:"#fff"}, {k:"bus_sepdec", name:"Bus · Sep–Dec", fill:"#fff", stroke:"#3d3b37"}, {k:"blue", name:"Blue Line rail · Sep–Dec", fill:"var(--blue)", stroke:"#fff"}];
+  document.getElementById("bus-leg").innerHTML = S.map(s => `<span><i style="background:${s.fill};border:2px solid ${s.stroke === "#fff" ? s.fill : s.stroke};border-radius:50%;width:11px;height:11px;display:inline-block;box-sizing:border-box;vertical-align:-1px;margin-right:6px"></i>${s.name}</span>`).join(" &nbsp; ") + ` &nbsp; <span style="color:var(--muted)">Shaded: ±3.5%</span>`;
+  function draw(){
+    box.innerHTML = ""; const W = Math.max(300, box.clientWidth), sm = W < 600, H = 290, left = 48, right = sm ? 14 : 150, top = 14, bot = 30;
+    const lo = -26, hi = 5, y = v => top + (hi - v)/(hi - lo)*(H - top - bot), yrs = B.map(d => d.fall), slot = (W - left - right)/yrs.length, xc = i => left + slot*i + slot/2;
+    const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"On buses the monthly and stop-level datasets agree within 3.5% every year when December is left out; the Blue Line rail gap is 10 to 23%."}, box);
+    el("rect", {x:left, y:y(3.5), width:W-left-right, height:y(-3.5)-y(3.5), fill:"#efece5"}, svg);
+    [-20,-10,0].forEach(v => { el("line", {x1:left, x2:W-right, y1:y(v), y2:y(v), stroke: v ? "var(--grid)" : "var(--axis)", "stroke-width": v ? 1 : 1.5}, svg); el("text", {x:left-8, y:y(v)+4, "text-anchor":"end"}, svg, (v>0?"+":"") + v + "%"); });
+    yrs.forEach((yr, i) => { const x = xc(i), d = B[i], b = blue[yr];
+      el("text", {x, y:H-8, "text-anchor":"middle"}, svg, sm ? "'" + String(yr).slice(2) : yr);
+      const pts = [["bus_sepdec", d.gap_sepdec_pct], ["bus_sepnov", d.gap_sepnov_pct], ["blue", b ? b.gap_sepdec_pct : null]];
+      pts.forEach(([k, v]) => { if (v == null) return; const s = S.find(z => z.k === k); el("circle", {cx:x, cy:y(v), r: sm ? 5 : 6.5, fill:s.fill, stroke:s.stroke, "stroke-width":2}, svg); });
+      const hit = el("rect", {x:x-slot/2, y:top, width:slot, height:H-top-bot, class:"hit"}, svg);
+      hit.addEventListener("mousemove", e => showTip(e, `<b>Fall ${yr}</b><div class="r"><span>Bus, Sep–Nov</span><span>${pct(d.gap_sepnov_pct)}</span></div><div class="r"><span>Bus, Sep–Dec</span><span>${pct(d.gap_sepdec_pct)}</span></div>` + (b ? `<div class="r"><span>Blue Line, Sep–Dec</span><span>${pct(b.gap_sepdec_pct)}</span></div><div class="r"><span>Blue Line, Sep–Nov</span><span>${pct(b.gap_sepnov_pct)}</span></div>` : `<div class="r"><span>Blue Line</span><span>no stop-level data</span></div>`)));
+      hit.addEventListener("mouseleave", hideTip); });
+    if (!sm){ const last = B.length - 1, d = B[last], b = blue[B[last].fall], x = xc(last) + 14;
+      el("text", {x, y:y(d.gap_sepnov_pct)+4, class:"lbl"}, svg, "Bus, Sep–Nov");
+      el("text", {x, y:y(d.gap_sepdec_pct)+4, class:"lbl"}, svg, "Bus, Sep–Dec");
+      if (b) el("text", {x, y:y(b.gap_sepdec_pct)+4, class:"lbl", style:"fill:var(--blue);font-weight:600"}, svg, "Blue Line rail"); }
+  }
+  draw(); addEventListener("resize", () => { clearTimeout(window.__bz); window.__bz = setTimeout(draw, 160); });
+  const sn = B.map(d => Math.abs(d.gap_sepnov_pct)), sd = B.map(d => d.gap_sepdec_pct), b23 = blue[2023], b25 = blue[2025];
+  document.getElementById("bus-sowhat").innerHTML = `<b>So what?</b>Leave out December and the bus figures agree within ${Math.max(...sn).toFixed(1)}% in every fall from ${B[0].fall} to ${B[B.length-1].fall}. So a few percent is normal noise between these two datasets, and the Blue Line's gap is several times that. The bus also exposes a trap: the stop-level season runs about 15 weeks, roughly September to mid-December, while full monthly figures include the holiday weeks. Count all of December, as the original forum question did, and the monthly figure drops ${Math.min(...sd.map(Math.abs)).toFixed(0)}–${Math.max(...sd.map(Math.abs)).toFixed(0)}% on buses, and the rail gaps shift too, typically by 3–4 points.` + (b23 && b25 ? ` For the Blue Line that means ${pct(b23.gap_sepdec_pct)} becomes ${pct(b23.gap_sepnov_pct)} in 2023, and ${pct(b25.gap_sepdec_pct)} becomes ${pct(b25.gap_sepnov_pct)} in 2025. Smaller, but still far outside the noise.` : "");
+  table("tbus", ["Fall","Bus stop-level (door counters)","Monthly, Sep–Dec","Monthly, Sep–Nov","Gap, Sep–Dec","Gap, Sep–Nov"], B.map(d => [d.fall, fmt(d.apc_all), fmt(d.monthly_all_bus), fmt(d.monthly_all_bus_sepnov), pct(d.gap_sepdec_pct), pct(d.gap_sepnov_pct)]));
+  table("twin", ["Fall","Rail line","Stop-level","Gap, Sep–Dec","Gap, Sep–Nov"], WN.map(d => [d.fall, d.line, fmt(d.stop_level), pct(d.gap_sepdec_pct), pct(d.gap_sepnov_pct)]));
 })();
 
 /* ================= THREE SOURCES ================= */

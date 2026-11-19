@@ -41,6 +41,8 @@ GTFS_FILES = ["calendar.txt", "calendar_dates.txt", "routes.txt", "trips.txt", "
 # Gated Station Entries - Historical (raw, unscaled fare-gate taps), zip of yearly CSVs
 GSE_HIST_ITEM = "7859894afb5641ce91a2bb03599fdf5b"
 GSE_FIRST_YEAR = 2017  # every yearly file from here to the latest is extracted
+# Bus ridership by trip, season, route and stop (APC door counters), Fall 2016-latest: the bus yardstick
+BUS_ITEM = "8daf4a33925a4df59183f860826d29ee"
 
 
 def get_json(url, params):
@@ -103,6 +105,12 @@ def main():
         if name.startswith("GSE_by_year/GSE_") and name.endswith(".csv") and int(name[-8:-4]) >= GSE_FIRST_YEAR:
             z.extract(name, out)
             print(f"{name}: extracted")
+    z = zipfile.ZipFile(io.BytesIO(download(BUS_ITEM)))
+    out = RAW / "bus_dl"
+    for name in sorted(z.namelist()):
+        if "Fall_20" in name and name.endswith(".csv"):
+            z.extract(name, out)
+            print(f"bus {name}: extracted")
 
 
 if __name__ == "__main__":
