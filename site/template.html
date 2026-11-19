@@ -260,7 +260,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     </div>
     <div class="scale" aria-hidden="true"><span>Model ÷ taps:</span><span class="ramp" id="rm-ramp"></span><span id="rm-ramp-l"></span><span><i class="dot" style="background:#fff;border:1.5px dashed var(--faint)"></i>no fare gates (Green Line surface and GLX stops)</span></div>
     <div class="rmap" id="rmap" style="margin-top:12px"></div>
-    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate. 54 of the 61 gated stations sit between 1.0× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly and Wollaston (1.6×) are also above 1.5×. A count built from taps can't see those transfers.</p>
+    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate. 54 of the 61 gated stations sit between 1.0× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly and Wollaston (1.6×) are also above 1.5×. They aren't transfer stations, and both were at 1.0–1.05× before 2020, so they look like the far end of the post-COVID rise in riders who don't tap, not missed transfers. A count built from taps can't see those transfers.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="trm"></div></details>
   </div>
 </div></section>
@@ -358,7 +358,8 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <p class="sowhat"><b>So what?</b>Across 2018–2026 the monthly Green factor wanders between about 1.7× and 3.1×, while Red, Orange and Blue stay mostly at 1.25–1.5×. The model's Green Line factor stays near 2.3–2.4× in 2018 and 2023–25. The monthly factor drops to mostly 1.7–2.0 from July 2023 to June 2024, then jumps to mostly 2.4–2.8 from August 2024. The single-month spikes (January 2024, December 2024, December 2025) are months when Green Line taps fell much faster than the monthly estimate. Fall 2023 lands in the low stretch (monthly below the model), and Fall 2024–25 in the high one (monthly above). Red, Orange and Blue barely move.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="tg"></div></details>
   </div>
-  <p class="lede" style="margin-top:22px"><b>One more break, on the other side.</b> In Fall 2019 the stop-level data counts about half as many boardings at ungated surface stops as in 2018: 21,000 vs 44,000, or 15% of Green Line boardings instead of 25%. That's why the model factor dips to 1.8× that year and the 2019 gap looks so large. The data doesn't explain the change either.</p>
+  <p class="lede" style="margin-top:22px"><b>What changed in August 2024?</b> On August 1, 2024 the MBTA launched its new fare system ("Tap to Ride"), with contactless readers onboard Green Line trolleys and at gated stations. That is the month the monthly Green factor jumped. A later NBC10 Boston / Boston University investigation reported that the share of Green Line riders boarding at ungated stops rose from about 42–46% before the launch to 56.5% in September 2024. More riders boarding where there are no gates means more of the monthly number has to come from outside the gate taps, so the ratio rises. The timing lines up. OPMI hasn't published a method note confirming it.</p>
+  <p class="lede"><b>One more break, on the other side.</b> In Fall 2019 the stop-level data counts about half as many boardings at ungated surface stops as in 2018: 21,000 vs 44,000, or 15% of Green Line boardings instead of 25%. That's why the model factor dips to 1.8× that year and the 2019 gap looks so large. The data doesn't explain the change either.</p>
 </div></section>
 
 <section id="stakes"><div class="wrap">
@@ -379,7 +380,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   <p class="lede">Written the way I'd hand it to a product owner: specific, cheap to act on, and tied to the evidence.</p>
   <div class="recs">
     <div class="rec rv"><span class="k">Document</span><h3>Publish the scaling factors and their history</h3><p>List the non-interaction, station-split and transfer factors used in Dataset A, with the date each one changed. Users could then reconcile the datasets themselves.</p></div>
-    <div class="rec rv"><span class="k">Flag</span><h3>Mark method changes in the data</h3><p>Add a method-version field or a change note to every dataset, so breaks like the Government Center swap (March 2019), the Green Line surface count (2019) and the Green Line factor shift (August 2024) aren't mistaken for real ridership changes.</p></div>
+    <div class="rec rv"><span class="k">Flag</span><h3>Mark method changes in the data</h3><p>Add a method-version field or a change note to every dataset, so breaks like the Government Center swap (March 2019), the Green Line surface count (2019) and the Green Line factor shift at the August 2024 fare-system launch aren't mistaken for real ridership changes.</p></div>
     <div class="rec rv"><span class="k">Standardize</span><h3>One name and ID per station and line</h3><p>"State" vs "State Street," and a Green Line split into four branches in only one season. Shared IDs would make every join reliable.</p></div>
     <div class="rec rv"><span class="k">Reconcile</span><h3>Ship an official bridge table</h3><p>Section 05 is my outside-in version. OPMI could publish the real one: for each line and season, taps plus each factor's contribution equals Dataset A, set beside Dataset B. The gap stops being a mystery and becomes a line item.</p></div>
   </div>
@@ -661,7 +662,8 @@ function drawCG(){
     el("circle", {cx:x(m), cy:y(g.model_factor), r:5, fill:"var(--card)", stroke:"var(--accent)", "stroke-width":2}, svg); });
   if (!sm){
     el("text", {x:x("2023-07"), y:y(1.6), class:"ann"}, svg, "Jul 2023 – Jun 2024: mostly 1.7–2.0×");
-    el("text", {x:x("2024-03"), y:y(3.27), class:"ann"}, svg, "Aug 2024 on: mostly 2.4–2.8×");
+    el("text", {x:x("2024-03"), y:y(3.27), class:"ann"}, svg, "Aug 2024 on (new fare system): mostly 2.4–2.8×");
+    if (idx["2024-08"] != null){ el("line", {x1:x("2024-08"), x2:x("2024-08"), y1:y(3.2), y2:y(1.05), stroke:"var(--ink)", "stroke-dasharray":"3 3", "stroke-width":1}, svg); }
     if (idx["2020-06"] != null) el("text", {x:x("2020-06"), y:y(1.13), class:"ann", style:"fill:var(--muted)"}, svg, "Red, Orange, Blue: mostly 1.25–1.5×");
   }
   // hover: nearest month
