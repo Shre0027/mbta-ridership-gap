@@ -4,11 +4,18 @@
 
 **→ Read the interactive data story: [shre0027.github.io/mbta-ridership-gap](https://shre0027.github.io/mbta-ridership-gap/)**
 
-<a href="https://shre0027.github.io/mbta-ridership-gap/"><img src="media/demo.gif" width="520" alt="Animated map of the MBTA subway during morning rush hour: every scheduled train moving along official track geometry while stations glow with hourly boardings"></a>
+<a href="https://shre0027.github.io/mbta-ridership-gap/"><img src="media/story.gif" width="640" alt="Scroll story: the morning rush on the MBTA map, a zoom into the four downtown transfer hubs, gate taps vs riders who change lines without passing a gate, the Blue Line's 14x and 21x stations, and every station shaded by model divided by taps"></a>
 
-*Morning rush on the T: every scheduled subway train (official GTFS), stations glowing with modeled boardings per hour.*
+*The scroll story at the top of the page (30-second clip, [MP4](media/story.mp4)).*
 
 The page opens with a five-step scroll story around one pinned map: the morning rush, the four downtown transfer hubs, an animation of gate taps vs the riders who change lines without passing a gate (both from real 8 AM data), the Blue Line's 14× and 21× stations, and every station shaded by model ÷ taps. It works on phones and respects reduced-motion settings.
+
+<details><summary>The rush-hour animation (every scheduled train)</summary>
+
+<img src="media/demo.gif" width="520" alt="Animated map of the MBTA subway during morning rush hour: every scheduled train moving along official track geometry while stations glow with hourly boardings">
+
+*Every scheduled subway train (official GTFS), stations glowing with modeled boardings per hour.*
+</details>
 
 ## The problem
 
