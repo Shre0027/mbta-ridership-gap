@@ -141,18 +141,19 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 .mapcard .case{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round}
 .mapcard .rt{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .mapcard .stn{fill:#fff;stroke:#1d1d1d;stroke-width:1.4}
-.mapcard .glow{fill-opacity:.22}
 .mapcard .train{stroke:#fff;stroke-width:1.6}
 .mapcard .mlbl{font-family:var(--f-display);font-weight:600;font-size:15px;paint-order:stroke;stroke:var(--land);stroke-width:4px;stroke-linejoin:round}
-.hud{position:absolute;left:14px;top:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;padding:10px 14px;min-width:170px}
+.hud{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;margin-bottom:10px;padding:0 4px}
+.hud .hstat b{font-family:var(--f-display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums;margin-right:6px}
+.hud .hstat span{font-size:13.5px;color:var(--muted)}
+.hud .lbl{margin-left:auto}
 .hud .clock{font-family:var(--f-display);font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
 .hud .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.hud .cnt{font-family:var(--f-mono);font-size:13px;margin-top:6px;font-variant-numeric:tabular-nums}
-.ctrl{position:absolute;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px}
+.ctrl{position:absolute;z-index:2;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px}
 .ctrl button{width:34px;height:34px;border-radius:50%;border:0;background:var(--ink);color:#fff;cursor:pointer;font-size:13px;flex:none}
 .ctrl button:focus-visible,.ctrl input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .ctrl input{flex:1;accent-color:var(--blue)}
-.ctrl span{font-family:var(--f-mono);font-size:11px;color:var(--muted);white-space:nowrap}
+.ctrl .spd{padding:2px;flex:none}.ctrl .spd button{width:auto;height:auto;border-radius:999px;background:transparent;color:var(--muted);font-size:12px;padding:4px 9px}.ctrl .spd button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .mapnote{font-size:13px;color:var(--muted);margin-top:10px}
 .linechips{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
 .chip{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;padding:5px 11px 5px 6px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
@@ -178,8 +179,8 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:26px}}
-@media (max-width:600px){.mapcard{aspect-ratio:1/1.05}.hud{left:8px;top:8px;padding:6px 10px;min-width:0}.hud .lbl{display:none}.hud .clock{font-size:21px}.hud .cnt{font-size:11px;margin-top:3px}
-  .ctrl{left:8px;right:8px;bottom:8px}.ctrl span{display:none}}
+@media (max-width:600px){.mapcard{aspect-ratio:1/1.05}.hud{gap:14px}.hud .lbl{display:none}.hud .clock{font-size:24px}.hud .hstat b{font-size:17px}.hud .hstat span{font-size:12px}
+  .ctrl{left:8px;right:8px;bottom:8px}.ctrl .spd button{padding:4px 6px;font-size:11px}}
 @media (max-width:760px){
   .two,.recs{grid-template-columns:1fr}
   .hero-num{grid-template-columns:1fr}
@@ -207,9 +208,9 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI) · <span id="updated"></span></p>
   </div>
   <div>
+    <div class="hud" aria-live="off"><div class="clock" id="clock">8:00 AM</div><div class="hstat"><b id="hcount">–</b><span>boardings this hour</span></div><div class="hstat" id="tcount-row" style="display:none"><b id="tcount">–</b><span>trains running</span></div></div>
     <div class="mapcard" id="heromap">
-      <div class="hud" aria-live="off"><div class="lbl">Average weekday · Fall 2025</div><div class="clock" id="clock">8:00 AM</div><div class="cnt"><b id="hcount">–</b> boardings this hour</div><div class="cnt" id="tcount-row" style="display:none"><b id="tcount">–</b> trains running</div></div>
-      <div class="ctrl"><button type="button" id="play" aria-label="Pause">❚❚</button><input type="range" id="hour" min="0" max="23" step="0.01" value="5" aria-label="Hour of day"><span id="hlbl">3 AM → 2 AM</span></div>
+      <div class="ctrl"><button type="button" id="play" aria-label="Pause">❚❚</button><input type="range" id="hour" min="0" max="23.99" step="0.01" value="5" aria-label="Hour of day"><span class="seg spd" role="group" aria-label="Speed" id="speed"><button type="button" data-s="0.04" aria-pressed="false">Slow</button><button type="button" data-s="0.12" aria-pressed="true">Normal</button><button type="button" data-s="0.4" aria-pressed="false">Fast</button></span></div>
     </div>
     <p class="mapnote">Official track geometry and line colors. Station glow = modeled boardings in each hour (Fall 2025 weekday). <span id="trainnote">Trains are illustrative.</span></p>
   </div>
@@ -701,81 +702,99 @@ function sampler(pts){ // cumulative-length sampler for a polyline
 const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12 === 0 ? 12 : h % 12) + ":00 " + (h < 12 ? "AM" : "PM"); };
 
 /* ================= HERO: animated system map ================= */
+// Static map in SVG; moving parts (station glow + trains) on a canvas layer so each frame is cheap.
 (function(){
   const box = document.getElementById("heromap");
-  const VB = {x:120, y:60, w:880, h:792}; // crop to the subway
-  const svg = el("svg", {viewBox:`${VB.x} ${VB.y} ${VB.w} ${VB.h}`, role:"img", "aria-label":"Animated map of the MBTA subway on an average fall weekday. Stations glow with the number of riders boarding each hour, peaking downtown at rush hour."});
+  const VB = {x:120, y:60, w:880, h:792};
+  const svg = el("svg", {viewBox:`${VB.x} ${VB.y} ${VB.w} ${VB.h}`, role:"img", "aria-label":"Animated map of the MBTA subway on a weekday: real scheduled trains move along each line while stations glow with the number of riders boarding each hour."});
   box.insertBefore(svg, box.firstChild);
   baseMap(svg, {cr:true, casing:true, w:5.5});
-  [["Red", 540, 830, "#DA291C"], ["Orange", 372, 520, "#ED8B00"], ["Blue", 836, 160, "#003DA5"], ["Green", 150, 470, "#00843D"]].forEach(([t, x, y, c]) => el("text", {x, y, class:"mlbl", fill:c}, svg, t + " Line"));
-  const gGlow = el("g", {}, svg), gTrain = el("g", {}, svg), gStn = el("g", {}, svg);
+  [["Red Line", 598, 655, "#DA291C"], ["Orange Line", 360, 525, "#ED8B00"], ["Blue Line", 832, 160, "#003DA5"], ["Green Line", 150, 470, "#00843D"]].forEach(([t, x, y, c]) => el("text", {x, y, class:"mlbl", fill:c}, svg, t));
   const stations = MAP.stations.filter(st => st.odx > 0);
+  const gStn = el("g", {}, svg);
+  stations.forEach(st => el("circle", {cx:st.x, cy:st.y, r: st.lines.length > 1 ? 3.2 : 2.1, class:"stn"}, gStn));
+  const cv = document.createElement("canvas"); cv.setAttribute("aria-hidden", "true");
+  cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none";
+  box.insertBefore(cv, svg.nextSibling);
+  const ctx = cv.getContext("2d");
+  let S = 1, OX = 0, OY = 0, DPR = 1;
+  function fit(){ const r = box.getBoundingClientRect(); DPR = Math.min(2, devicePixelRatio || 1);
+    cv.width = Math.round(r.width*DPR); cv.height = Math.round(r.height*DPR);
+    S = Math.min(r.width/VB.w, r.height/VB.h); OX = (r.width - VB.w*S)/2 - VB.x*S; OY = (r.height - VB.h*S)/2 - VB.y*S; }
+  new ResizeObserver(fit).observe(box); fit();
+
   const peak = Math.max(...stations.map(st => Math.max(...st.h)));
-  const glows = stations.map(st => {
-    const col = LINECOL[st.lines[0]] || "#555";
-    const c = el("circle", {cx:st.x, cy:st.y, r:0, fill: st.lines.length > 1 ? "#151515" : col, class:"glow"}, gGlow);
-    el("circle", {cx:st.x, cy:st.y, r: st.lines.length > 1 ? 3.6 : 2.6, class:"stn"}, gStn);
-    return c;
-  });
   const sysByHour = MAP.hours.map((_, i) => stations.reduce((a, st) => a + st.h[i], 0));
   const sysPeak = Math.max(...sysByHour);
-  // ---- trains: real scheduled positions from MBTA GTFS (loaded separately); illustrative fallback ----
+  const glowCol = st => st.lines.length > 1 ? "21,21,21" : ({Red:"218,41,28", Orange:"237,139,0", Blue:"0,61,165", Green:"0,132,61", Mattapan:"218,41,28"}[st.lines[0]] || "90,90,90");
+
+  // trains: real scheduled positions (MBTA GTFS), illustrative fallback until/unless the file loads
   const BASE = {"Red-Ashmont":7, "Red-Braintree":8, "Mattapan":2, "Orange":10, "Blue":6, "Green-B":5, "Green-C":4, "Green-D":7, "Green-E":5};
   const fake = MAP.lines.map(l => ({s: sampler(l.pts), n: BASE[l.id] || 4, color:l.color}));
-  const POOL = 170, pool = [];
-  for (let k = 0; k < POOL; k++) pool.push(el("circle", {r:5, fill:"#888", class:"train", opacity:0}, gTrain));
-  let TR = null; // {trips:[{sh, col, t0, t:[], d:[]}], shapes:[sampler]}
+  let TR = null;
   fetch("trains.json").then(r => r.ok ? r.json() : Promise.reject()).then(j => {
     const shapes = j.shapes.map(pts => sampler(pts));
-    const trips = j.trips.map(a => { const t = [a[2]], d = [0]; let ct = a[2], cd = 0;
+    const trips = j.trips.map(a => { const t = [], d = []; let ct = a[2], cd = 0;
       for (let i = 3; i < a.length; i += 2){ ct += a[i]; cd += a[i+1]; t.push(ct); d.push(cd); }
-      t.shift(); d.shift(); return {sh: shapes[a[0]], col: j.colors[a[1]], t, d}; }); // first pair is the first stop
-    TR = {trips, date: j.date};
+      return {sh: shapes[a[0]], col: j.colors[a[1]], t, d, k: 1}; });
+    TR = {trips};
     document.getElementById("trainnote").textContent = "Trains = every scheduled MBTA subway trip on Tuesday, " + new Date(j.date + "T12:00").toLocaleDateString("en-US", {month:"long", day:"numeric", year:"numeric"}) + " (official GTFS schedule).";
     document.getElementById("tcount-row").style.display = "";
   }).catch(() => {});
+
   const clock = document.getElementById("clock"), cnt = document.getElementById("hcount"), slider = document.getElementById("hour"), btn = document.getElementById("play"), tcount = document.getElementById("tcount");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let hour = 5, playing = !reduce, last = performance.now(), phase = 0;
-  function render(){
+  let hour = 5, playing = !reduce, last = performance.now(), phase = 0, speed = 0.12;
+  document.querySelectorAll("#speed button").forEach(b => b.addEventListener("click", () => {
+    speed = +b.dataset.s; document.querySelectorAll("#speed button").forEach(x => x.setAttribute("aria-pressed", x === b)); }));
+
+  function pill(x, y, tx, ty, col){ // oriented rounded train, in map units
+    const L = 8, W = 4.2, X = OX + x*S, Y = OY + y*S;
+    ctx.save(); ctx.translate(X, Y); ctx.rotate(Math.atan2(ty, tx));
+    const l = L*S, w = W*S; ctx.beginPath();
+    ctx.moveTo(-l + w, -w); ctx.lineTo(l - w, -w); ctx.arc(l - w, 0, w, -Math.PI/2, Math.PI/2); ctx.lineTo(-l + w, w); ctx.arc(-l + w, 0, w, Math.PI/2, -Math.PI/2);
+    ctx.lineWidth = Math.max(2.2, 3*S); ctx.strokeStyle = "rgba(20,20,20,.85)"; ctx.stroke(); ctx.fillStyle = col; ctx.fill(); ctx.lineWidth = Math.max(1, 1.2*S); ctx.strokeStyle = "#fff"; ctx.stroke(); ctx.restore();
+  }
+  function draw(){
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
     const i0 = Math.floor(hour) % 24, i1 = (i0 + 1) % 24, f = hour - Math.floor(hour);
-    stations.forEach((st, k) => { const v = st.h[i0]*(1-f) + st.h[i1]*f; glows[k].setAttribute("r", (2 + 34*Math.sqrt(v/peak)).toFixed(1)); });
-    const sv = sysByHour[i0]*(1-f) + sysByHour[i1]*f, act = sv / sysPeak;
-    clock.textContent = hourLabel(hour) .replace(":00", ":" + String(Math.floor(f*60)).padStart(2, "0"));
-    cnt.textContent = Math.round(sv).toLocaleString("en-US");
-    let used = 0;
+    // station glow (real modeled boardings in this hour)
+    for (const st of stations){ const v = st.h[i0]*(1-f) + st.h[i1]*f; if (v <= 0) continue;
+      const r = (3 + 42*Math.sqrt(v/peak)) * S, X = OX + st.x*S, Y = OY + st.y*S, c = glowCol(st);
+      const g = ctx.createRadialGradient(X, Y, 0, X, Y, r); g.addColorStop(0, `rgba(${c},.5)`); g.addColorStop(.55, `rgba(${c},.18)`); g.addColorStop(1, `rgba(${c},0)`);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(X, Y, r, 0, 6.2832); ctx.fill(); }
+    const sv = sysByHour[i0]*(1-f) + sysByHour[i1]*f;
+    let n = 0;
     if (TR){
-      const T = (3 + hour) * 3600; // service seconds (GTFS times run past 24:00)
+      const T = (3 + hour) * 3600;
       for (const tr of TR.trips){
-        if (T < tr.t[0] || T > tr.t[tr.t.length-1] || used >= POOL) continue;
-        let i = 1; while (tr.t[i] < T) i++;
-        const span = tr.t[i] - tr.t[i-1] || 1, q = (tr.d[i-1] + (tr.d[i]-tr.d[i-1]) * (T - tr.t[i-1]) / span) / 1000;
-        const [x, y, nx, ny] = tr.sh.at(q), c = pool[used++];
-        c.setAttribute("cx", (x + nx*3.2).toFixed(1)); c.setAttribute("cy", (y + ny*3.2).toFixed(1)); c.setAttribute("fill", tr.col); c.setAttribute("opacity", 1);
+        const t = tr.t; if (T < t[0] || T > t[t.length-1]) continue;
+        let i = tr.k; if (i >= t.length || t[i-1] > T) i = 1; while (t[i] < T) i++; tr.k = i;
+        const span = t[i] - t[i-1] || 1, q = (tr.d[i-1] + (tr.d[i]-tr.d[i-1]) * (T - t[i-1]) / span) / 1000;
+        const [x, y, nx, ny] = tr.sh.at(q); pill(x + nx*4.2, y + ny*4.2, ny, -nx, tr.col); n++;
       }
-      tcount.textContent = used;
     } else {
-      fake.forEach(l => { const n = Math.max(1, Math.round(l.n * (0.25 + 0.75*act)));
-        for (let k = 0; k < n*2 && used < POOL; k++){ const dir = k % 2, idx = Math.floor(k/2);
-          let u = ((phase * 260 / l.s.L) + idx / n) % 1; if (dir) u = 1 - u;
-          const [x, y, nx, ny] = l.s.at(u), off = dir ? -3.2 : 3.2, c = pool[used++];
-          c.setAttribute("cx", (x + nx*off).toFixed(1)); c.setAttribute("cy", (y + ny*off).toFixed(1)); c.setAttribute("fill", l.color); c.setAttribute("opacity", 1); } });
+      const act = sv / sysPeak;
+      fake.forEach(l => { const m = Math.max(1, Math.round(l.n * (0.25 + 0.75*act)));
+        for (let k = 0; k < m*2; k++){ const dir = k % 2, idx = Math.floor(k/2); let u = ((phase*260/l.s.L) + idx/m) % 1; if (dir) u = 1 - u;
+          const [x, y, nx, ny] = l.s.at(u), o = dir ? -3.4 : 3.4; pill(x + nx*o, y + ny*o, ny, -nx, l.color); n++; } });
     }
-    for (let k = used; k < POOL; k++) pool[k].setAttribute("opacity", 0);
+    clock.textContent = hourLabel(hour).replace(":00", ":" + String(Math.floor(f*60)).padStart(2, "0"));
+    cnt.textContent = Math.round(sv).toLocaleString("en-US"); if (tcount) tcount.textContent = n;
     slider.value = hour;
   }
+  let visible = true;
   function tick(t){
     const dt = Math.min(0.05, (t - last)/1000); last = t;
-    if (playing){ hour = (hour + dt * 0.3) % 24; phase += dt * 0.08 * (0.6 + 0.4 * (sysByHour[Math.floor(hour)%24] / sysPeak)); }
-    render(); requestAnimationFrame(tick);
+    if (playing && visible){ hour = (hour + dt*speed) % 24; phase += dt*0.05; }
+    if (visible) draw();
+    requestAnimationFrame(tick);
   }
   btn.addEventListener("click", () => { playing = !playing; btn.textContent = playing ? "❚❚" : "▶"; btn.setAttribute("aria-label", playing ? "Pause" : "Play"); });
-  slider.addEventListener("input", () => { hour = +slider.value; });
+  slider.addEventListener("input", () => { hour = +slider.value; draw(); });
   if (reduce){ btn.textContent = "▶"; btn.setAttribute("aria-label", "Play"); }
-  // pause when off-screen to save battery
-  new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting && playing){ playing = false; box.dataset.auto = 1; btn.textContent = "▶"; }
-    else if (e.isIntersecting && box.dataset.auto){ delete box.dataset.auto; playing = true; btn.textContent = "❚❚"; } })).observe(box);
-  render(); requestAnimationFrame(tick);
+  new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; })).observe(box);
+  draw(); requestAnimationFrame(tick);
 })();
 
 /* ================= SYSTEM RATIO MAP ================= */
