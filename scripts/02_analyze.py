@@ -67,9 +67,16 @@ def load_taps(year):
     g["d"] = pd.to_datetime(g["service_date"])
     hol = fall_weekdays(year)
     g = g[(g["d"].dt.month >= 9) & (g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
-    days = g["d"].nunique()
     g["station"] = g["station_name"].map(norm_station)
-    return (g.groupby(["route_or_line", "station"])["gated_entries"].sum() / days).rename("taps")
+    # Average over the days each station was open: a station-day with almost no taps (shuttle-bus
+    # diversion, closure) is dropped, so a 24-day shutdown doesn't read as 24 days of zero riders.
+    daily = g.groupby(["station", "d"])["gated_entries"].sum()
+    typical = daily.groupby("station").transform("median")
+    open_days = daily[daily >= 0.2 * typical].reset_index()[["station", "d"]]
+    g = g.merge(open_days, on=["station", "d"])
+    days = g.groupby("station")["d"].nunique()
+    tot = g.groupby(["route_or_line", "station"])["gated_entries"].sum()
+    return (tot / tot.index.get_level_values("station").map(days).values).rename("taps")
 
 
 def load_taps_by_month(year):

@@ -50,21 +50,23 @@ The Blue Line is the only line the monthly dataset undercounts every single year
 |---|---|---|---|---|
 | 2018 | 65,961 | +18,303 | −6,616 | 77,647 |
 | 2019 | 70,171 | +25,765 | −17,454 | 78,483 |
-| 2023 | 48,385 | +19,609 | −4,801 | 63,193 |
-| 2024 | 52,059 | +21,429 | −6,841 | 66,647 |
+| 2023 | 48,385 | +19,461 | −4,653 | 63,193 |
+| 2024 | 52,059 | +21,364 | −6,777 | 66,647 |
 | 2025 | 50,339 | +19,864 | −7,507 | 62,695 |
 
-The transfer stations always push the model up by 18–26k. The monthly method's blanket factor over-credits regular stations, partly offsetting it; as the model's uplift grew after COVID, that offset shrank from ~17k to ~5–8k, and the gap widened. *(This treats the monthly dataset as one factor on all taps — a model of OPMI's method, not their published breakdown.)*
+The transfer stations always push the model up by 18–26k. The monthly method's blanket factor over-credits regular stations, partly offsetting it; as the model's uplift grew after COVID, that offset shrank from ~17k to ~5–7.5k, and the gap widened. *(This treats the monthly dataset as one factor on all taps — a model of OPMI's method, not their published breakdown.)*
 
 **5. The Green Line swing comes from the monthly factor, not riders.** The stop-level model's Green Line factor (boardings ÷ taps) holds near 2.3–2.4× in 2018 and 2023–25. The monthly dataset's factor drops to mostly 1.7–2.0× from July 2023 to June 2024, then jumps to mostly 2.4–2.8× from August 2024 — so Fall 2023 lands below the model (−16%) and Fall 2024–25 above it (+15–16%). Red, Orange and Blue factors barely move. The jump coincides with the MBTA's new fare system launch on August 1, 2024 (contactless readers onboard Green Line trolleys); a NBC10/BU investigation reported the share of Green riders boarding at ungated stops rose from ~42–46% to 56.5% in September 2024. Separately, Fall 2019 stop-level data counts about half as many boardings at ungated surface stops as Fall 2018 (21k vs 44k), which is why the 2019 Green gap looks so large.
 
-**6. System-wide, the same pattern.** Across all 61 gated subway stations (Fall 2025), modeled boardings ÷ gate taps has a median of 1.2×, and 54 stations sit between 1.0× and 1.5×. The outliers are the downtown hubs where lines meet underground: Government Center 5.1×, Park Street 4.3×, Downtown Crossing 3.2×, State 2.8× — plus South Station 1.9×, where Silver Line buses connect behind the gates.
+**6. System-wide, the same pattern.** Across all 61 gated subway stations (Fall 2025), modeled boardings ÷ gate taps has a median of 1.2×, and 54 stations sit between 0.9× and 1.5×. The outliers are the downtown hubs where lines meet underground: Government Center 5.1×, Park Street 4.3×, Downtown Crossing 3.2×, State 2.8× — plus South Station 1.9×, where Silver Line buses connect behind the gates.
 
 **6b. The hub gap is a morning story.** Hour by hour (gate taps come in 30-minute periods), Government Center counts ~14 modeled boardings per tap at 8 AM and Park Street, Downtown Crossing and State ~7–9; by 5 PM all four are ~2–3×. Commuters change trains downtown on the way in without tapping; in the evening many trips start downtown. Regular stations sit near 1× all day — a commute-shaped pattern that fits transfers, not fare evasion.
 
-**7. A third, independent source agrees.** In the MBTA's 2025 System-Wide Passenger Survey, 82% of Blue Line riders boarding at Government Center and 60% at State said they arrived on another subway line (vs 0–2% at regular Blue Line stations). At the four downtown hubs, the model counts 127,852 weekday boardings; gate taps × the normal 1.21 uplift explain 42,688 (33%); adding the survey's transfer share gives 124,580 — within 3%.
+**7. A third, independent source agrees.** In the MBTA's 2025 System-Wide Passenger Survey, 82% of Blue Line riders boarding at Government Center and 60% at State said they arrived on another subway line (vs 0–2% at regular Blue Line stations). At the four downtown hubs, the model counts 127,852 weekday boardings; gate taps × the normal 1.20 uplift explain 42,487 (33%); adding the survey's transfer share gives 123,996 — within 3%.
 
-**7b. A tested fix.** Out of sample (calibrate on one fall, predict the next from gate taps alone): recalibrating the Blue Line factor once a year against the trip model cuts its mean absolute error from 18.1% to 6.3%. It makes no difference for Red (8.0% vs 8.0%) or Orange (4.2% vs 4.5%), and finer station-level factors did slightly worse — the fix is recalibration, not detail (`scripts/07_fix.py`, `outputs/fix_test.csv`).
+**7b. A tested fix.** Out of sample (calibrate on one fall, predict the next from gate taps alone): recalibrating the line factor once a year against the trip model cuts mean absolute error from 18.1% to 6.3% on the Blue Line, 8.0% to 5.1% on Red and 4.2% to 3.5% on Orange. Finer station-level factors did no better — the fix is recalibration, not detail (`scripts/07_fix.py`, `outputs/fix_test.csv`).
+
+**7c. The Red Line's 2024 dip is a shutdown.** The Braintree branch closed Sep 6–29, 2024 and part of the line again in November; the monthly number fell to 124,470 (Sep) and 106,335 (Nov). October 2024, the one fall month without a major closure, was 146,264 — within 1.3% of the model's 148,203.
 
 **8. Why it matters.** The monthly dataset is published as the MBTA's `NTD_Reporting` service; NTD data feeds FTA formula programs (Section 5307 uses NTD service data including passenger miles). The MBTA's own Ridership Guide states that rapid-transit ridership is fare-gate data "adjusted with factors to account for behind the gate transfers, and non-interaction" — the exact factors this project reverse-engineers. (No funding impact is estimated.)
 

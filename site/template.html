@@ -285,7 +285,7 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
     </div>
     <div class="scale" aria-hidden="true"><span>Model ÷ taps:</span><span class="ramp" id="rm-ramp"></span><span id="rm-ramp-l"></span><span><i class="dot" style="background:#fff;border:1.5px dashed var(--faint)"></i>no fare gates (Green Line surface and GLX stops)</span></div>
     <div class="rmap" id="rmap" style="margin-top:12px"></div>
-    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate, and a count built from taps can't see those transfers. 54 of the 61 gated stations sit between 1.0× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly and Wollaston (1.6×) are also above 1.5×. They aren't transfer stations, and both were at 1.0–1.05× before 2020, so they look like the far end of the post-COVID rise in riders who don't tap, not missed transfers.</p>
+    <p class="sowhat"><b>So what?</b>The dark circles are all in one place: the downtown stations where two lines meet underground. Park Street (4.3×), Government Center (5.1×), Downtown Crossing (3.2×) and State (2.8×) are where riders change lines without passing a fare gate, and a count built from taps can't see those transfers. 54 of the 61 gated stations sit between 0.9× and 1.5×. South Station (1.9×) is the Silver Line connection behind the gates. Only Assembly (1.6×) and Wollaston (1.5×) are also above 1.5×. They aren't transfer stations, and both were at 1.0–1.05× before 2020, so they look like the far end of the post-COVID rise in riders who don't tap, not missed transfers.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="trm"></div></details>
   </div>
   <div class="figure rv" id="fig-day">
@@ -325,7 +325,7 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
   <p class="lede">The taps and the model both come from the fare system. To check them independently, I used a different source: the MBTA's 2025 System-Wide Passenger Survey (145,468 responses systemwide), which asks riders how they reached each train. At Government Center, 82% of Blue Line riders said they arrived on another subway line. At State it was 60%. At Maverick, Airport and Wonderland, it was 0–2%.</p>
   <div class="figure rv">
     <h3>Can taps plus the survey rebuild the model's count at the four downtown hubs?</h3>
-    <p class="sub">Average weekday boardings, Fall 2025. Bars = taps × normal <span class="kval">1.21</span>× uplift, plus the transfers implied by the survey. Black tick = the trip model's count</p>
+    <p class="sub">Average weekday boardings, Fall 2025. Bars = taps × normal <span class="kval">1.20</span>× uplift, plus the transfers implied by the survey. Black tick = the trip model's count</p>
     <div class="legend" aria-hidden="true"><span><i style="background:var(--taps)"></i>Gate taps × normal uplift</span><span><i style="background:var(--blue)"></i>+ Transfers implied by the rider survey</span><span><i style="background:var(--ink);width:3px"></i>Trip model (Dataset B)</span></div>
     <div class="chart" id="c3s"></div>
     <p class="sowhat"><b>So what?</b><span id="three-sowhat"></span></p>
@@ -380,6 +380,7 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
   </div>
   <p class="lede" style="margin-top:26px"><b>And the Government Center swap?</b> It changes the tap data, not the gap: the gap actually shrank from 2018 to 2019. It matters because it's an unflagged break in a public dataset.</p>
   <p class="lede"><b>And East Boston?</b> Maverick, Airport, Wood Island, Orient Heights and the Revere stations scale steadily, at almost the same ratio as every other regular station. The data doesn't show them driving the gap.</p>
+  <p class="lede"><b>And the Red Line's 2024 dip?</b> That one is a shutdown, not a counting rule. The MBTA closed the Braintree branch for 24 days in September 2024 and part of the line again in November, with shuttle buses replacing trains. The monthly number fell in those months, to 124,470 in September and 106,335 in November. In October, the one fall month without a major closure, it was 146,264, within 1.3% of the model's 148,203.</p>
   <p class="muted" style="font-size:15px">Caveat: OPMI doesn't publish the exact factors behind Dataset A, so how much of the gap each reason explains is inferred from the published data, not confirmed by the MBTA.</p>
 </div></section>
 
@@ -443,7 +444,7 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
     <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025, incl. by hour); Gated Station Entries (historical, 2017–2026); MBTA 2025 System-Wide Passenger Survey; MBTA Ridership Guide (OPMI); official GTFS route shapes and stops; MassGIS town boundaries. All public.</li>
     <li><b>Window:</b> weekdays, September to December. Monthly figures are day-weighted, which reproduces the forum post's Fall 2023 numbers exactly.</li>
     <li><b>Stop-level totals:</b> the sum of average weekday boardings across every stop, direction and time period.</li>
-    <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.21×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway.</li>
+    <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.20×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway. Each station's taps are averaged over the days it was open, so shutdowns with shuttle buses don't count as zero-rider days.</li>
     <li><b>Survey check:</b> share of riders who arrived on another subway or light-rail line ("Access to Each MBTA Trip Leg"), weighted by modeled boardings across the lines at each station.</li>
     <li><b>Map:</b> official GTFS route shapes (one canonical shape per service), MassGIS town boundaries for land. Hero trains: every scheduled subway trip on one regular Tuesday from the MBTA GTFS feed, interpolated between scheduled stop times along each trip's own shape.</li>
     <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated. Eleven issues are logged in the repo.</li>
@@ -1000,7 +1001,7 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   draw(); window.redrawFX = draw;
   const b1 = mae("Blue Line","monthly_today_err_pct"), b2 = mae("Blue Line","refreshed_single_err_pct");
   const r1 = mae("Red Line","monthly_today_err_pct"), r2 = mae("Red Line","refreshed_single_err_pct"), o1 = mae("Orange Line","monthly_today_err_pct"), o2 = mae("Orange Line","refreshed_single_err_pct");
-  document.getElementById("fx-sowhat").textContent = `On the Blue Line, recalibrating once a year cuts the average error from ${b1.toFixed(0)}% to ${b2.toFixed(0)}%. On Red (${r1.toFixed(0)}% vs ${r2.toFixed(0)}%) and Orange (${o1.toFixed(0)}% vs ${o2.toFixed(0)}%) it makes no real difference, because their monthly numbers already land about as close as a recalibrated factor can. The problem is specific to the transfer-heavy Blue Line, which is what every other test here points to. Finer station-level factors did slightly worse, so the fix is recalibration, not more detail.`;
+  document.getElementById("fx-sowhat").textContent = `Recalibrating once a year helps every line, and the Blue Line most: its average error falls from ${b1.toFixed(0)}% to ${b2.toFixed(0)}%. Red goes from ${r1.toFixed(0)}% to ${r2.toFixed(0)}% and Orange from ${o1.toFixed(0)}% to ${o2.toFixed(1)}%. Blue gains far more because its fixed factor can't track the transfers at State and Government Center. Finer station-level factors did no better than one recalibrated line factor, so the fix is recalibration, not more detail.`;
   table("tfx", ["Line","Calibrated on","Tested on","Monthly today","Recalibrated factor","Station-level factors"],
     F.map(d => [d.line, d.calibrate_on, d.test_on, pct(d.monthly_today_err_pct), pct(d.refreshed_single_err_pct), pct(d.refreshed_station_err_pct)]));
 })();

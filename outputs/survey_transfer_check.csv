@@ -12,8 +12,8 @@ place-dwnxg,Orange Line,6129.488,19872.0,Downtown Crossing,True,3.242,0.533,2651
 place-bbsta,Orange Line,12418.683,13416.0,Back Bay,False,1.08,0.031,1325.0,0.007
 place-state,Orange Line,8052.157,12650.0,State,True,1.571,0.564,1691.0,0.018
 place-north,Orange Line,8790.081,10576.0,North Station,True,1.203,0.332,1941.0,0.015
-place-forhl,Orange Line,7865.585,9486.0,Forest Hills,False,1.206,0.003,1530.0,0.002
-place-rugg,Orange Line,7513.817,9105.0,Ruggles,False,1.212,0.007,1354.0,0.003
+place-forhl,Orange Line,7962.395,9486.0,Forest Hills,False,1.191,0.003,1530.0,0.002
+place-rugg,Orange Line,7605.938,9105.0,Ruggles,False,1.197,0.007,1354.0,0.003
 place-mlmnl,Orange Line,6816.78,7586.0,Malden Center,False,1.113,0.004,1371.0,0.002
 place-haecl,Orange Line,3296.068,5611.0,Haymarket,True,1.702,0.164,1073.0,0.016
 place-tumnl,Orange Line,4711.976,5540.0,Tufts Medical Center,False,1.176,0.011,874.0,0.005
@@ -21,13 +21,13 @@ place-welln,Orange Line,4578.744,5017.0,Wellington,False,1.096,0.007,802.0,0.004
 place-chncl,Orange Line,4470.402,4985.0,Chinatown,False,1.115,0.03,773.0,0.009
 place-sull,Orange Line,4554.11,4936.0,Sullivan Square,False,1.084,0.002,1104.0,0.002
 place-astao,Orange Line,3043.329,4891.0,Assembly,False,1.607,0.004,667.0,0.003
-place-masta,Orange Line,3747.22,4786.0,Massachusetts Avenue,False,1.277,0.006,840.0,0.004
-place-jaksn,Orange Line,3446.561,4474.0,Jackson Square,False,1.298,0.002,905.0,0.002
+place-masta,Orange Line,3793.247,4786.0,Massachusetts Avenue,False,1.262,0.006,840.0,0.004
+place-jaksn,Orange Line,3488.988,4474.0,Jackson Square,False,1.282,0.002,905.0,0.002
 place-ogmnl,Orange Line,4040.207,4396.0,Oak Grove,False,1.088,0.004,666.0,0.004
-place-rcmnl,Orange Line,3636.39,4369.0,Roxbury Crossing,False,1.201,0.004,622.0,0.004
+place-rcmnl,Orange Line,3681.247,4369.0,Roxbury Crossing,False,1.187,0.004,622.0,0.004
 place-ccmnl,Orange Line,3454.659,4072.0,Community College,False,1.179,0.007,772.0,0.004
-place-grnst,Orange Line,2140.354,2583.0,Green Street,False,1.207,0.007,415.0,0.006
-place-sbmnl,Orange Line,2183.451,2515.0,Stony Brook,False,1.152,0.006,398.0,0.006
+place-grnst,Orange Line,2166.58,2583.0,Green Street,False,1.192,0.007,415.0,0.006
+place-sbmnl,Orange Line,2209.988,2515.0,Stony Brook,False,1.138,0.006,398.0,0.006
 place-pktrm,Red Line,3857.966,21770.0,Park Street,True,5.643,0.74,3132.0,0.012
 place-dwnxg,Red Line,6379.671,20427.0,Downtown Crossing,True,3.202,0.491,2562.0,0.015
 place-sstat,Red Line,9381.468,17719.0,South Station,False,1.889,0.009,2529.0,0.003
@@ -40,11 +40,11 @@ place-alfcl,Red Line,6503.085,7211.0,Alewife,False,1.109,0.01,959.0,0.005
 place-asmnl,Red Line,4651.866,6356.0,Ashmont,False,1.366,0.292,1287.0,0.018
 place-davis,Red Line,5350.268,5919.0,Davis,False,1.106,0.006,945.0,0.004
 place-portr,Red Line,4500.671,5169.0,Porter,False,1.148,0.001,826.0,0.002
-place-qnctr,Red Line,3789.427,4880.0,Quincy Center,False,1.288,0.006,985.0,0.004
+place-qnctr,Red Line,4034.909,4880.0,Quincy Center,False,1.209,0.006,985.0,0.004
 place-andrw,Red Line,3788.232,4523.0,Andrew,False,1.194,0.003,1006.0,0.003
 place-brdwy,Red Line,3932.915,4319.0,Broadway,False,1.098,0.008,1135.0,0.004
 place-nqncy,Red Line,3695.915,4010.0,North Quincy,False,1.085,0.036,643.0,0.011
 place-fldcr,Red Line,2832.573,3630.0,Fields Corner,False,1.282,0.006,760.0,0.004
-place-wlsta,Red Line,2036.0,3342.0,Wollaston,False,1.641,0.009,277.0,0.009
-place-brntn,Red Line,2597.427,3151.0,Braintree,False,1.213,0.009,560.0,0.006
+place-wlsta,Red Line,2164.857,3342.0,Wollaston,False,1.544,0.009,277.0,0.009
+place-brntn,Red Line,2765.727,3151.0,Braintree,False,1.139,0.009,560.0,0.006
 place-smmnl,Red Line,1328.683,1634.0,Shawmut,False,1.23,0.012,219.0,0.011

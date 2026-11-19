@@ -17,6 +17,14 @@ RAW, OUT = ROOT / "data" / "raw", ROOT / "outputs"
 YEAR = 2025
 
 
+def open_station_days(g):
+    """Keep only days each station was open (drop shutdown/diversion days with almost no taps)."""
+    daily = g.groupby(["stop_id", "d"])["gated_entries"].sum()
+    typical = daily.groupby("stop_id").transform("median")
+    keep = daily[daily >= 0.2 * typical].reset_index()[["stop_id", "d"]]
+    return g.merge(keep, on=["stop_id", "d"])
+
+
 def taps_by_station_hour():
     g = pd.read_csv(RAW / "gse_hist" / "GSE_by_year" / f"GSE_{YEAR}.csv",
                     usecols=["service_date", "time_period", "gated_entries", "stop_id"])
@@ -24,9 +32,11 @@ def taps_by_station_hour():
     hol = set(USFederalHolidayCalendar().holidays(f"{YEAR}-01-01", f"{YEAR}-12-31"))
     hol |= {h + pd.Timedelta(days=1) for h in hol if h.month == 11 and h.day >= 22}
     g = g[(g["d"].dt.month >= 9) & (g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
-    days = g["d"].nunique()
+    g = open_station_days(g)
+    days = g.groupby("stop_id")["d"].nunique()
     g["hour"] = g["time_period"].str.slice(1, 3).astype(int)  # 30-minute periods rolled up to the hour
-    return (g.groupby(["stop_id", "hour"])["gated_entries"].sum() / days).unstack(fill_value=0)
+    t = g.groupby(["stop_id", "hour"])["gated_entries"].sum().unstack(fill_value=0)
+    return t.div(days, axis=0)
 
 
 def taps_by_station():
@@ -36,8 +46,10 @@ def taps_by_station():
     hol = set(USFederalHolidayCalendar().holidays(f"{YEAR}-01-01", f"{YEAR}-12-31"))
     hol |= {h + pd.Timedelta(days=1) for h in hol if h.month == 11 and h.day >= 22}
     g = g[(g["d"].dt.month >= 9) & (g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
-    days = g["d"].nunique()
-    t = g.groupby(["stop_id", "route_or_line"])["gated_entries"].sum() / days
+    g = open_station_days(g)
+    days = g.groupby("stop_id")["d"].nunique()
+    t = g.groupby(["stop_id", "route_or_line"])["gated_entries"].sum()
+    t = t / t.index.get_level_values("stop_id").map(days).values
     return t.rename("taps")
 
 
