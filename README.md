@@ -64,6 +64,8 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 
 **7. A third, independent source agrees.** In the MBTA's 2025 System-Wide Passenger Survey, 82% of Blue Line riders boarding at Government Center and 60% at State said they arrived on another subway line (vs 0–2% at regular Blue Line stations). At the four downtown hubs, the model counts 127,852 weekday boardings; gate taps × the normal 1.21 uplift explain 42,688 (33%); adding the survey's transfer share gives 124,580 — within 3%.
 
+**7b. A tested fix.** Out of sample (calibrate on one fall, predict the next from gate taps alone): recalibrating the Blue Line factor once a year against the trip model cuts its mean absolute error from 18.1% to 6.3%. It makes no difference for Red (8.0% vs 8.0%) or Orange (4.2% vs 4.5%), and finer station-level factors did slightly worse — the fix is recalibration, not detail (`scripts/07_fix.py`, `outputs/fix_test.csv`).
+
 **8. Why it matters.** The monthly dataset is published as the MBTA's `NTD_Reporting` service; NTD data feeds FTA formula programs (Section 5307 uses NTD service data including passenger miles). The MBTA's own Ridership Guide states that rapid-transit ridership is fare-gate data "adjusted with factors to account for behind the gate transfers, and non-interaction" — the exact factors this project reverse-engineers. (No funding impact is estimated.)
 
 **Bottom line:** on the Blue Line, the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. On the Green Line, the swing tracks shifts in the monthly dataset's own scaling. Along the way, the analysis surfaced three unflagged breaks in the public data.
@@ -79,6 +81,7 @@ python scripts/02_analyze.py   # writes reconciliation tables to outputs/
 python scripts/04_system.py     # system-wide station test + rider-survey check + hourly boardings
 python scripts/05_geo.py        # official GTFS shapes/stops -> projected map data
 python scripts/06_trains.py     # every scheduled subway trip on one weekday -> real train positions (trains.json)
+python scripts/07_fix.py        # out-of-sample test of a proposed fix (recalibrated factor)
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 

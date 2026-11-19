@@ -47,6 +47,11 @@ check("Four hubs present in the survey test", len(T) == 4, [r["name"] for r in T
 check("Taps + survey within 10% of the model at the hubs", abs(est - odx) / odx < 0.10, f"{est} vs {odx}")
 check("Normal uplift k in a plausible range (1.0-1.5)", 1.0 <= d["k"] <= 1.5, d["k"])
 
+fx = pd.read_csv(OUT / "fix_test.csv")
+fb = fx[fx["line"] == "Blue Line"]
+check("Fix test: recalibrated Blue factor beats today's monthly dataset (mean abs error)",
+      fb["refreshed_single_err_pct"].abs().mean() < fb["monthly_today_err_pct"].abs().mean())
+
 m = json.loads((OUT / "map.json").read_text())
 gated = [x for x in m["stations"] if x["ratio"]]
 check("Map has 100+ stations and 9 line shapes", len(m["stations"]) >= 100 and len(m["lines"]) == 9)

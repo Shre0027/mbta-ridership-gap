@@ -18,4 +18,6 @@
 | 14 | Normal uplift **k = 1.21** = model ÷ taps at heavy-rail stations where <5% of riders arrive by subway | Data-driven baseline for non-tapping riders, independent of transfers | A fixed assumed value |
 | 15 | Keep the **official MBTA line colors** even though Red/Green fail a strict colorblind check | They are the system's identity; every chart and map also labels lines by name and offers a table view | Swapping to a CVD-optimized palette — would break recognition |
 | 16 | Animated trains come from the **official MBTA GTFS schedule** (every scheduled subway trip on one regular Tuesday, interpolated along each trip's own track shape); station glow uses Fall 2025 modeled boardings | Real scheduled positions instead of decoration; a regular Tuesday with no schedule exceptions represents a typical weekday | Illustrative trains (v2.0) — replaced once the GTFS feed was reachable |
+| 17 | Test the proposed fix **out of sample** (calibrate on fall A, predict fall B from taps only) | Calibrating and testing on the same season would be circular and would always look perfect | In-sample fit |
+| 18 | Report that **station-level factors did slightly worse** than one recalibrated factor | It is the honest result and it sharpens the recommendation (recalibration, not granularity) | Leaving out the variant that didn't win |
 
