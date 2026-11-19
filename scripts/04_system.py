@@ -22,7 +22,7 @@ def taps_by_station():
     g["d"] = pd.to_datetime(g["service_date"])
     hol = set(USFederalHolidayCalendar().holidays(f"{YEAR}-01-01", f"{YEAR}-12-31"))
     hol |= {h + pd.Timedelta(days=1) for h in hol if h.month == 11 and h.day >= 22}
-    g = g[(g["d"].dt.month >= 9) & (g["d"].dt.dayofweek < 5) & ~g["d"].isin(hol)]
+    g = g[(g["d"].dt.month >= 9) & (g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
     days = g["d"].nunique()
     t = g.groupby(["stop_id", "route_or_line"])["gated_entries"].sum() / days
     return t.rename("taps")
@@ -76,7 +76,7 @@ def main():
     chk = chk[chk["line"] != "Green Line"]  # Green surface stops are ungated; keep heavy rail for a clean test
     chk.round(3).to_csv(OUT / "survey_transfer_check.csv", index=False)
     r = chk["survey_arrived_by_subway"].corr(chk["model_per_tap"])
-    rs = chk["survey_arrived_by_subway"].corr(chk["model_per_tap"], method="spearman")
+    rs = chk["survey_arrived_by_subway"].rank().corr(chk["model_per_tap"].rank())  # Spearman without scipy
 
     hourly.index.name = "stop_id"
     hourly.to_csv(OUT / "station_hourly_2025.csv")

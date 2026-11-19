@@ -65,7 +65,7 @@ def load_taps(year):
                     usecols=["service_date", "station_name", "route_or_line", "gated_entries"])
     g["d"] = pd.to_datetime(g["service_date"])
     hol = fall_weekdays(year)
-    g = g[(g["d"].dt.month >= 9) & (g["d"].dt.dayofweek < 5) & ~g["d"].isin(hol)]
+    g = g[(g["d"].dt.month >= 9) & (g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
     days = g["d"].nunique()
     g["station"] = g["station_name"].map(norm_station)
     return (g.groupby(["route_or_line", "station"])["gated_entries"].sum() / days).rename("taps")
@@ -76,7 +76,7 @@ def load_taps_by_month(year):
                     usecols=["service_date", "route_or_line", "gated_entries"])
     g["d"] = pd.to_datetime(g["service_date"])
     hol = set(USFederalHolidayCalendar().holidays(f"{year}-01-01", f"{year}-12-31"))
-    g = g[(g["d"].dt.dayofweek < 5) & ~g["d"].isin(hol)]
+    g = g[(g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
     g["month"] = g["d"].dt.to_period("M")
     days = g.groupby("month")["d"].nunique()
     t = g.groupby(["month", "route_or_line"])["gated_entries"].sum().unstack()
