@@ -35,6 +35,9 @@ GTFS_MAP = f"{SVC}/MBTA_Systemwide_GTFS_Map_WFL1/FeatureServer"
 GEO_LAYERS = {"rt_routes.geojson": 2, "cr_routes.geojson": 4, "rt_stops.geojson": 6}
 # MassGIS town boundaries around Boston (land shape for the map background)
 TOWNS = "https://services.arcgis.com/kbDdtKcFi2adamXa/arcgis/rest/services/Massachusetts_Town_Boundaries/FeatureServer/3"
+# Official MBTA GTFS schedule (for real scheduled train positions on the map)
+GTFS_ZIP = "https://cdn.mbta.com/MBTA_GTFS.zip"
+GTFS_FILES = ["calendar.txt", "calendar_dates.txt", "routes.txt", "trips.txt", "stop_times.txt", "stops.txt", "shapes.txt", "feed_info.txt"]
 # Gated Station Entries - Historical (raw, unscaled fare-gate taps), zip of yearly CSVs
 GSE_HIST_ITEM = "7859894afb5641ce91a2bb03599fdf5b"
 GSE_FIRST_YEAR = 2017  # every yearly file from here to the latest is extracted
@@ -85,6 +88,12 @@ def main():
              "geometryPrecision": 5, "f": "geojson"}), timeout=300) as r:
         (RAW / "geo" / "towns.geojson").write_bytes(r.read())
     print("geo/towns.geojson: downloaded")
+    with urllib.request.urlopen(GTFS_ZIP, timeout=600) as r:
+        gz = zipfile.ZipFile(io.BytesIO(r.read()))
+    (RAW / "gtfs").mkdir(exist_ok=True)
+    for name in GTFS_FILES:
+        (RAW / "gtfs" / name).write_bytes(gz.read(name))
+    print("gtfs/: extracted")
     for name, item in FILES.items():
         (RAW / name).write_bytes(download(item))
         print(f"{name}: downloaded")

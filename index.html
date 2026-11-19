@@ -208,10 +208,10 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   </div>
   <div>
     <div class="mapcard" id="heromap">
-      <div class="hud" aria-live="off"><div class="lbl">Average weekday · Fall 2025</div><div class="clock" id="clock">8:00 AM</div><div class="cnt"><b id="hcount">–</b> boardings this hour</div></div>
+      <div class="hud" aria-live="off"><div class="lbl">Average weekday · Fall 2025</div><div class="clock" id="clock">8:00 AM</div><div class="cnt"><b id="hcount">–</b> boardings this hour</div><div class="cnt" id="tcount-row" style="display:none"><b id="tcount">–</b> trains running</div></div>
       <div class="ctrl"><button type="button" id="play" aria-label="Pause">❚❚</button><input type="range" id="hour" min="0" max="23" step="0.01" value="5" aria-label="Hour of day"><span id="hlbl">3 AM → 2 AM</span></div>
     </div>
-    <p class="mapnote">Official track geometry and line colors. Station glow = real modeled boardings in each hour (Fall 2025 weekday). Trains are illustrative, with more of them at rush hour.</p>
+    <p class="mapnote">Official track geometry and line colors. Station glow = modeled boardings in each hour (Fall 2025 weekday). <span id="trainnote">Trains are illustrative.</span></p>
   </div>
 </div>
 <div class="wrap"><div class="hero-num">
@@ -393,7 +393,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <li><b>Stop-level totals:</b> the sum of average weekday boardings across every stop, direction and time period.</li>
     <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.21×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway.</li>
     <li><b>Survey check:</b> share of riders who arrived on another subway or light-rail line ("Access to Each MBTA Trip Leg"), weighted by modeled boardings across the lines at each station.</li>
-    <li><b>Map:</b> official GTFS route shapes (one canonical shape per service), MassGIS town boundaries for land. Trains in the hero animation are illustrative.</li>
+    <li><b>Map:</b> official GTFS route shapes (one canonical shape per service), MassGIS town boundaries for land. Hero trains: every scheduled subway trip on one regular Tuesday from the MBTA GTFS feed, interpolated between scheduled stop times along each trip's own shape.</li>
     <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated. Ten issues are logged in the repo.</li>
   </ul>
   <div class="links">
@@ -719,28 +719,54 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   });
   const sysByHour = MAP.hours.map((_, i) => stations.reduce((a, st) => a + st.h[i], 0));
   const sysPeak = Math.max(...sysByHour);
+  // ---- trains: real scheduled positions from MBTA GTFS (loaded separately); illustrative fallback ----
   const BASE = {"Red-Ashmont":7, "Red-Braintree":8, "Mattapan":2, "Orange":10, "Blue":6, "Green-B":5, "Green-C":4, "Green-D":7, "Green-E":5};
-  const lines = MAP.lines.map(l => ({...l, s: sampler(l.pts), n: BASE[l.id] || 4, dots: []}));
-  lines.forEach(l => { for (let k = 0; k < l.n * 2; k++) l.dots.push(el("circle", {r:4.2, fill:l.color, class:"train", opacity:0}, gTrain)); });
-  const clock = document.getElementById("clock"), cnt = document.getElementById("hcount"), slider = document.getElementById("hour"), btn = document.getElementById("play");
+  const fake = MAP.lines.map(l => ({s: sampler(l.pts), n: BASE[l.id] || 4, color:l.color}));
+  const POOL = 170, pool = [];
+  for (let k = 0; k < POOL; k++) pool.push(el("circle", {r:5, fill:"#888", class:"train", opacity:0}, gTrain));
+  let TR = null; // {trips:[{sh, col, t0, t:[], d:[]}], shapes:[sampler]}
+  fetch("trains.json").then(r => r.ok ? r.json() : Promise.reject()).then(j => {
+    const shapes = j.shapes.map(pts => sampler(pts));
+    const trips = j.trips.map(a => { const t = [a[2]], d = [0]; let ct = a[2], cd = 0;
+      for (let i = 3; i < a.length; i += 2){ ct += a[i]; cd += a[i+1]; t.push(ct); d.push(cd); }
+      t.shift(); d.shift(); return {sh: shapes[a[0]], col: j.colors[a[1]], t, d}; }); // first pair is the first stop
+    TR = {trips, date: j.date};
+    document.getElementById("trainnote").textContent = "Trains = every scheduled MBTA subway trip on Tuesday, " + new Date(j.date + "T12:00").toLocaleDateString("en-US", {month:"long", day:"numeric", year:"numeric"}) + " (official GTFS schedule).";
+    document.getElementById("tcount-row").style.display = "";
+  }).catch(() => {});
+  const clock = document.getElementById("clock"), cnt = document.getElementById("hcount"), slider = document.getElementById("hour"), btn = document.getElementById("play"), tcount = document.getElementById("tcount");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let hour = 5, playing = !reduce, last = performance.now(), phase = 0;
   function render(){
     const i0 = Math.floor(hour) % 24, i1 = (i0 + 1) % 24, f = hour - Math.floor(hour);
     stations.forEach((st, k) => { const v = st.h[i0]*(1-f) + st.h[i1]*f; glows[k].setAttribute("r", (2 + 34*Math.sqrt(v/peak)).toFixed(1)); });
     const sv = sysByHour[i0]*(1-f) + sysByHour[i1]*f, act = sv / sysPeak;
-    clock.textContent = hourLabel(hour); cnt.textContent = Math.round(sv).toLocaleString("en-US");
-    lines.forEach(l => { const n = Math.max(1, Math.round(l.n * (0.25 + 0.75*act)));
-      l.dots.forEach((d, k) => { const dir = k % 2, idx = Math.floor(k/2);
-        if (idx >= n){ d.setAttribute("opacity", 0); return; }
-        let u = ((phase * 260 / l.s.L) + idx / n) % 1; if (dir) u = 1 - u;
-        const [x, y, nx, ny] = l.s.at(u), off = dir ? -3.2 : 3.2;
-        d.setAttribute("cx", (x + nx*off).toFixed(1)); d.setAttribute("cy", (y + ny*off).toFixed(1)); d.setAttribute("opacity", 1); }); });
+    clock.textContent = hourLabel(hour) .replace(":00", ":" + String(Math.floor(f*60)).padStart(2, "0"));
+    cnt.textContent = Math.round(sv).toLocaleString("en-US");
+    let used = 0;
+    if (TR){
+      const T = (3 + hour) * 3600; // service seconds (GTFS times run past 24:00)
+      for (const tr of TR.trips){
+        if (T < tr.t[0] || T > tr.t[tr.t.length-1] || used >= POOL) continue;
+        let i = 1; while (tr.t[i] < T) i++;
+        const span = tr.t[i] - tr.t[i-1] || 1, q = (tr.d[i-1] + (tr.d[i]-tr.d[i-1]) * (T - tr.t[i-1]) / span) / 1000;
+        const [x, y, nx, ny] = tr.sh.at(q), c = pool[used++];
+        c.setAttribute("cx", (x + nx*3.2).toFixed(1)); c.setAttribute("cy", (y + ny*3.2).toFixed(1)); c.setAttribute("fill", tr.col); c.setAttribute("opacity", 1);
+      }
+      tcount.textContent = used;
+    } else {
+      fake.forEach(l => { const n = Math.max(1, Math.round(l.n * (0.25 + 0.75*act)));
+        for (let k = 0; k < n*2 && used < POOL; k++){ const dir = k % 2, idx = Math.floor(k/2);
+          let u = ((phase * 260 / l.s.L) + idx / n) % 1; if (dir) u = 1 - u;
+          const [x, y, nx, ny] = l.s.at(u), off = dir ? -3.2 : 3.2, c = pool[used++];
+          c.setAttribute("cx", (x + nx*off).toFixed(1)); c.setAttribute("cy", (y + ny*off).toFixed(1)); c.setAttribute("fill", l.color); c.setAttribute("opacity", 1); } });
+    }
+    for (let k = used; k < POOL; k++) pool[k].setAttribute("opacity", 0);
     slider.value = hour;
   }
   function tick(t){
     const dt = Math.min(0.05, (t - last)/1000); last = t;
-    if (playing){ hour = (hour + dt * 0.55) % 24; phase += dt * 0.08 * (0.6 + 0.4 * (sysByHour[Math.floor(hour)%24] / sysPeak)); }
+    if (playing){ hour = (hour + dt * 0.3) % 24; phase += dt * 0.08 * (0.6 + 0.4 * (sysByHour[Math.floor(hour)%24] / sysPeak)); }
     render(); requestAnimationFrame(tick);
   }
   btn.addEventListener("click", () => { playing = !playing; btn.textContent = playing ? "❚❚" : "▶"; btn.setAttribute("aria-label", playing ? "Pause" : "Play"); });

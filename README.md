@@ -72,6 +72,7 @@ python scripts/01_fetch.py     # downloads raw data from the MBTA Open Data Port
 python scripts/02_analyze.py   # writes reconciliation tables to outputs/
 python scripts/04_system.py     # system-wide station test + rider-survey check + hourly boardings
 python scripts/05_geo.py        # official GTFS shapes/stops -> projected map data
+python scripts/06_trains.py     # every scheduled subway trip on one weekday -> real train positions (trains.json)
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 
@@ -82,7 +83,7 @@ Validation: with the comparison window used here, Fall 2023 results reproduce th
 ## Repo map
 
 - `scripts/` — fetch and analysis pipeline
-- `index.html`, `site/template.html` — the interactive data story
+- `index.html`, `site/template.html`, `trains.json` — the interactive data story (the hero map animates every scheduled subway trip from the official MBTA GTFS feed)
 - `outputs/` — reconciliation tables (line gap, Blue Line stations, Blue Line summary and bridge, monthly factor by month, Green Line summary)
 - `docs/data_dictionary.md` — every field used, from both datasets
 - `docs/decision_log.md` — analysis decisions and why

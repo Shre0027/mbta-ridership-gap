@@ -47,4 +47,6 @@ html = (ROOT / "site" / "template.html").read_text()
 html = html.replace("/*__DATA__*/null", json.dumps(data, separators=(",", ":")))
 html = html.replace("/*__MAP__*/null", json.dumps(mapdata, separators=(",", ":")))
 (ROOT / "index.html").write_text(html)
+if (OUT / "trains.json").exists():  # served next to the page; loaded at runtime
+    (ROOT / "trains.json").write_text((OUT / "trains.json").read_text())
 print("index.html written")
