@@ -32,7 +32,7 @@ In February 2025 a developer [asked on the MBTA Developers forum](https://groups
 | 2024 | -15.6% | -1.1% | **-21.9%** | +15.4% |
 | 2025 | -10.4% | +1.8% | **-19.7%** | +15.9% |
 
-The Blue Line is the only line the monthly dataset undercounts every single year.
+The Blue Line is the only line the monthly dataset undercounts every single year — and it holds on weekends too: 15 of 15 comparisons across weekdays, Saturdays and Sundays, with weekend gaps of −23.7% to −27.5% since 2023 (`outputs/line_gap_by_daytype.csv`).
 
 **2. The Blue Line gap sits downtown, not in East Boston.** Comparing raw gate taps (the input to Dataset A) with modeled boardings (Dataset B), station by station:
 

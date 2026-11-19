@@ -255,6 +255,12 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
     <p class="sowhat"><b>So what?</b>This isn't a one-season glitch. The two datasets follow different rules. On the Blue Line, those rules always undercount in the same direction, so something structural is going on. The Green Line swings both ways, and has a different cause (section 07).</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="t1"></div></details>
   </div>
+  <div class="figure rv">
+    <h3>Does it hold on weekends? Yes, and the gap is bigger.</h3>
+    <p class="sub">Blue Line: how far the monthly dataset sits from the stop-level dataset, by day type and fall season</p>
+    <div class="tablewrap" id="tdt"></div>
+    <p class="sowhat"><b>So what?</b><span id="dt-sowhat"></span></p>
+  </div>
 </div></section>
 
 <section id="system"><div class="wrap">
@@ -425,7 +431,7 @@ const LIVE_URL = "https://raw.githubusercontent.com/Shre0027/mbta-ridership-gap/
   let done = false;
   const go = d => { if (done) return; done = true; try { boot(d); } catch (e) { console.error(e); } };
   setTimeout(() => go(EMBEDDED), 2500);
-  fetch(LIVE_URL, {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject()).then(d => go(d && d.schema === EMBEDDED.schema && d.updated >= EMBEDDED.updated ? d : EMBEDDED)).catch(() => go(EMBEDDED));
+  fetch(LIVE_URL, {cache:"no-store"}).then(r => r.ok ? r.json() : Promise.reject()).then(d => go(d && d.schema === EMBEDDED.schema && (d.build || "") >= (EMBEDDED.build || "") ? d : EMBEDDED)).catch(() => go(EMBEDDED));
 })();
 function boot(DATA){
 document.getElementById("updated").textContent = "Data through " + DATA.latest_month + " · refreshed " + DATA.updated;
@@ -506,6 +512,21 @@ drawC1();
   document.getElementById("h-years").textContent = blue.filter(d => d.gap_pct < 0).length + " of " + blue.length;
   const f23 = blue.find(d => d.fall === 2023);
   if (f23) document.getElementById("h-gap").textContent = Math.abs(f23.gap_pct).toFixed(1) + "%";
+})();
+
+/* ---------- Weekend robustness table (Blue Line) ---------- */
+(function(){
+  const D = DATA.daytype || []; if (!D.length) return;
+  const years = [...new Set(D.map(d => d.fall))].sort(), types = ["weekday","saturday","sunday"];
+  const get = (y, t) => (D.find(d => d.fall === y && d.day_type === t) || {}).gap_pct;
+  const cell = v => v == null ? "–" : `<span style="display:inline-block;min-width:58px;padding:3px 8px;border-radius:6px;background:rgba(0,61,165,${Math.min(.9, Math.abs(v)/30).toFixed(2)});color:${Math.abs(v) > 15 ? "#fff" : "var(--ink)"}">${pct(v)}</span>`;
+  const t = document.createElement("table");
+  t.innerHTML = "<thead><tr><th>Day type</th>" + years.map(y => `<th>Fall ${y}</th>`).join("") + "</tr></thead><tbody>" +
+    types.map(tp => `<tr><td>${tp[0].toUpperCase() + tp.slice(1)}</td>` + years.map(y => `<td>${cell(get(y, tp))}</td>`).join("") + "</tr>").join("") + "</tbody>";
+  document.getElementById("tdt").appendChild(t);
+  const neg = D.filter(d => d.gap_pct < 0).length;
+  const wk = D.filter(d => d.day_type !== "weekday" && d.fall >= 2023).map(d => d.gap_pct);
+  document.getElementById("dt-sowhat").textContent = `The monthly dataset undercounts the Blue Line in ${neg} of ${D.length} comparisons across weekdays, Saturdays and Sundays. On weekends since 2023 the gap runs ${pct(Math.max(...wk))} to ${pct(Math.min(...wk))}, larger than on weekdays. Whatever the cause, it isn't a weekday-commute quirk.`;
 })();
 
 /* ---------- Chart 2: paired horizontal bars per station, year toggle ---------- */

@@ -18,6 +18,7 @@ stations = pd.read_csv(OUT / "blue_stations_by_year.csv")
 summary = pd.read_csv(OUT / "blue_summary_by_year.csv")
 factor = pd.read_csv(OUT / "monthly_factor_by_month.csv")
 green = pd.read_csv(OUT / "green_summary_by_year.csv")
+daytype = pd.read_csv(OUT / "line_gap_by_daytype.csv")
 mapdata = json.loads((OUT / "map.json").read_text())
 chk = pd.read_csv(OUT / "survey_transfer_check.csv")
 base = chk[chk["survey_arrived_by_subway"] < 0.05]
@@ -31,7 +32,8 @@ for st in mapdata["stations"]:
 three.sort(key=lambda r: -r["odx"])
 
 data = {
-    "schema": 2,
+    "schema": 3,
+    "build": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
     "updated": pd.Timestamp.now(tz="America/New_York").strftime("%Y-%m-%d"),
     "latest_month": str(factor["month"].max()),
     "line": clean(line[["fall", "line", "stop_level", "monthly", "gap_pct"]].to_dict("records")),
@@ -40,6 +42,7 @@ data = {
     "factor": clean(factor.round(3).to_dict("records")),
     "green": clean(green.to_dict("records")),
     "k": round(K, 3),
+    "daytype": clean(daytype[daytype["line"] == "Blue Line"][["fall", "day_type", "gap_pct"]].to_dict("records")),
     "three": three,
 }
 (OUT / "story_data.json").write_text(json.dumps(data, separators=(",", ":")))

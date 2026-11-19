@@ -2,6 +2,7 @@
 
 Outputs (outputs/):
   line_gap_by_year.csv          - weekday riders per subway line: monthly dataset vs stop-level (ODX) dataset
+  line_gap_by_daytype.csv       - the same comparison for weekdays, Saturdays and Sundays (robustness)
   blue_stations_by_year.csv     - Blue Line, per station: raw gate taps vs ODX boardings
   blue_summary_by_year.csv      - Blue Line decomposition and bridge by fall season
   monthly_factor_by_month.csv   - effective scaling factor in the monthly dataset (monthly riders / gate taps), by line and month
@@ -100,6 +101,25 @@ def main():
     line = line[line["line"].isin(LINES) & line["fall"].isin(FALLS)].dropna(subset=["stop_level"])
     line["gap_pct"] = (line["monthly"] - line["stop_level"]) / line["stop_level"] * 100
     line.round(1).to_csv(OUT / "line_gap_by_year.csv", index=False)
+
+    # 1b) Robustness: same comparison for Saturdays and Sundays
+    sall = pd.concat([pd.read_csv(RAW / f) for f in ["rail_stop_season.csv", "fall2023_stop.csv", "fall2024_stop.csv", "fall2025_hour.csv"]], ignore_index=True)
+    sall["fall"] = sall["season"].str.extract(r"(\d{4})").astype(int)
+    sall["dt"] = sall["day_type_name"].str.lower()
+    sall["route_name"] = sall["route_name"].str.replace(r"^Green Line [B-E]$", "Green Line", regex=True)
+    odx_dt = sall.groupby(["fall", "dt", "route_name"])["average_ons"].sum()
+    mm = pd.read_csv(RAW / "monthly_by_mode_line.csv")
+    mm["month"] = pd.to_datetime(mm["month_of_service"], unit="ms")
+    mm = mm[mm["month"].dt.month >= 9]
+    mm["fall"] = mm["month"].dt.year
+    gm = mm.groupby(["fall", "daytype", "route_or_line"])
+    mon_dt = gm["ridership_total"].sum() / gm["daycount"].sum()
+    rows = []
+    for (yr, dt_, ln), a in odx_dt.items():
+        b = mon_dt.get((yr, dt_.capitalize(), ln))
+        if ln in LINES and pd.notna(b) and a:
+            rows.append({"fall": yr, "day_type": dt_, "line": ln, "stop_level": a, "monthly": b, "gap_pct": (b - a) / a * 100})
+    pd.DataFrame(rows).round(1).to_csv(OUT / "line_gap_by_daytype.csv", index=False)
 
     # 2) Blue Line station-level test
     station_rows, summary = [], []

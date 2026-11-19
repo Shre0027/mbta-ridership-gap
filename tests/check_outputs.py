@@ -30,6 +30,10 @@ check("Fall 2023 reproduces the Feb 2025 forum figures exactly",
 blue = line[line["line"] == "Blue Line"].dropna(subset=["gap_pct"])
 check("Blue Line monthly undercount in every compared fall", (blue["gap_pct"] < 0).all(), blue["gap_pct"].tolist())
 
+dt_ = pd.read_csv(OUT / "line_gap_by_daytype.csv")
+bd = dt_[dt_["line"] == "Blue Line"]
+check("Blue Line undercount holds on weekdays, Saturdays and Sundays", len(bd) >= 15 and (bd["gap_pct"] < 0).all(), len(bd))
+
 s = pd.read_csv(OUT / "blue_summary_by_year.csv").dropna(subset=["monthly"])
 resid = (s["bridge_transfer_stations"] + s["bridge_regular_stations"] - s["bridge_total"]).abs().max()
 check("Bridge parts sum exactly to the gap (every season)", resid < 1, f"max residual {resid:.3f}")
