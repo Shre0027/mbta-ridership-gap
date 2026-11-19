@@ -2,6 +2,8 @@
 
 **Two official MBTA ridership datasets disagree about how many people ride the Blue Line — by up to 23%. This project reconciles them and finds where the gap comes from.**
 
+**→ Read the interactive data story: [shre0027.github.io/mbta-ridership-gap](https://shre0027.github.io/mbta-ridership-gap/)**
+
 ## The problem
 
 The MBTA publishes two "official" ridership numbers for the same subway lines:
@@ -48,6 +50,7 @@ The Blue Line is the only line the monthly dataset undercounts every single year
 pip install -r requirements.txt
 python scripts/01_fetch.py     # downloads raw data from the MBTA Open Data Portal into data/raw/
 python scripts/02_analyze.py   # writes reconciliation tables to outputs/
+python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 
 Validation: with the comparison window used here, Fall 2023 results reproduce the forum post's figures exactly.
@@ -55,6 +58,7 @@ Validation: with the comparison window used here, Fall 2023 results reproduce th
 ## Repo map
 
 - `scripts/` — fetch and analysis pipeline
+- `index.html`, `site/template.html` — the interactive data story
 - `outputs/` — reconciliation tables (line gap, Blue Line stations, Blue Line summary)
 - `docs/data_dictionary.md` — every field used, from both datasets
 - `docs/decision_log.md` — analysis decisions and why
