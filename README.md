@@ -36,11 +36,11 @@ The Blue Line is the only line the monthly dataset undercounts every single year
 - At the two transfer stations, **State and Government Center**, the model counts **~21,000–29,000 Blue Line boardings a day against only ~1,200–8,300 taps.** Riders transferring from Orange or Green never tap again, and the fixed survey "split factor" credits Blue with only ~10% of Government Center entries.
 - These two stations hold **34–38% of all Blue Line boardings in every year from 2017 to 2025.**
 
-**3. Two method changes widened the gap over time.**
-- **~2019:** gate taps credited to the Blue Line at Government Center fell from ~6,700–7,000/day to ~400–800/day — consistent with a change to the split factor. The dataset does not flag it.
-- **After COVID:** the model's uplift at regular stations rose from ~1.03–1.07× (2017–19) to ~1.16–1.24× (2023–25) — consistent with OPMI's note that the model now uses faregate passenger counters to catch riders who don't tap.
+**3. One real shift over time, and one silent swap.**
+- **After COVID (helps explain the gap):** the model's uplift at regular stations rose from ~1.03–1.07× (2017–19) to ~1.16–1.24× (2023–25), consistent with OPMI's note that the model now uses faregate passenger counters to catch riders who don't tap. A fixed factor in the monthly method would not follow it — which fits the gap roughly doubling after 2019.
+- **March 6, 2019 (data quality finding):** in the Gated Station Entries data, the Government Center split flipped overnight from **90% Blue / 10% Green to 10% Blue / 90% Green**, with no note in the data or documentation. Taps credited to the Blue Line there fell from ~6,700–7,000/day to ~400–800/day. This changes the tap data, not the gap between the two ridership datasets (the gap actually shrank from 2018 to 2019) — but anyone trending station entries across that date would see a ridership collapse that never happened.
 
-**Bottom line:** the datasets disagree for three reasons — behind-the-gate transfers downtown, a 2019 split-factor change, and a larger non-tap allowance after COVID. East Boston stations scale consistently and are not the driver.
+**Bottom line:** the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, which the tap-based method has to estimate with fixed factors, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. Along the way, the analysis surfaced an unflagged split-factor swap in the public tap data.
 
 **Caveat:** OPMI does not publish the exact factors behind Dataset A, so the transfer-allowance part of this decomposition is inferred from the published data, not confirmed by the MBTA.
 

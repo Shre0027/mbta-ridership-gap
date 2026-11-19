@@ -139,7 +139,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 <header><div class="wrap">
   <p class="eyebrow">Public data project · Transit · Data reconciliation</p>
   <h1>Two official numbers. <em>One Blue Line.</em></h1>
-  <p class="dek">The MBTA publishes two ridership datasets that disagree by up to 23%. The MBTA suspected growth in East Boston. A station-by-station check points downtown.</p>
+  <p class="dek">The MBTA publishes two ridership datasets that disagree by up to 23%. The MBTA suspected growth in East Boston. A station-by-station check points downtown, and turns up a silent swap in the tap data along the way.</p>
   <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI)</p>
   <div class="hero-num">
     <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two datasets, Fall 2023</span></div>
@@ -195,20 +195,22 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
 
 <section id="why"><div class="wrap">
   <p class="eyebrow">03 · Over time</p>
-  <h2>Two quiet method changes made the gap wider.</h2>
-  <p class="lede">Running the same test for every season from 2017 to 2025 turns up two shifts in how riders are counted. Neither one is flagged in the data.</p>
+  <h2>Over time: one real shift, and one silent swap.</h2>
+  <p class="lede">I ran the same test for every season from 2017 to 2025. Two things changed. Neither one is flagged in the data, and only one of them helps explain the gap.</p>
   <div class="two">
     <div class="figure rv" style="margin-top:0">
-      <h3>Taps credited to the Blue Line at Government Center</h3>
-      <p class="sub">Average weekday, fall season</p>
-      <div class="chart" id="c3a"></div>
-      <p class="sowhat"><b>So what?</b>The count fell about 90% between 2018 and 2019. Riders didn't vanish. The most likely cause is a new survey split factor. It now credits Blue with only about 10% of entries.</p>
-    </div>
-    <div class="figure rv" style="margin-top:0">
+      <span class="eyebrow" style="color:var(--accent)">Helps explain the gap</span>
       <h3>Model uplift at regular Blue Line stations</h3>
       <p class="sub">Modeled boardings ÷ gate taps, excluding State and Government Center. Axis starts at 0.9×</p>
       <div class="chart" id="c3b"></div>
-      <p class="sowhat"><b>So what?</b>Before COVID the model matched the taps almost exactly. Since 2023 it adds 16–24% for riders who don't tap, likely using faregate passenger counters.</p>
+      <p class="sowhat"><b>So what?</b>Before COVID the model was within 3–7% of the taps. Since 2023 it adds 16–24% for riders who don't tap, likely using faregate passenger counters. A fixed factor in the monthly method wouldn't move with it, which fits the gap growing after 2019.</p>
+    </div>
+    <div class="figure rv" style="margin-top:0">
+      <span class="eyebrow">Data quality finding</span>
+      <h3>Taps credited to the Blue Line at Government Center</h3>
+      <p class="sub">Average weekday, fall season</p>
+      <div class="chart" id="c3a"></div>
+      <p class="sowhat"><b>So what?</b>On March 6, 2019, the tap data's split at Government Center flipped. It went from 90% Blue and 10% Green to 10% Blue and 90% Green, overnight, with no note anywhere. Anyone trending station entries across that date would see a ridership collapse that never happened.</p>
     </div>
   </div>
   <details><summary>Show the table</summary><div class="tablewrap" id="t3"></div></details>
@@ -216,10 +218,10 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   <h2 style="margin-top:56px">So why do the two numbers disagree?</h2>
   <div class="reasons">
     <div class="reason rv"><div><h3>Behind-the-gate transfers downtown</h3><p>About a third of Blue Line boardings happen at State and Government Center, mostly by riders who already tapped in on another line. The tap-based method has to estimate them with fixed factors. The trip model follows each trip.</p></div></div>
-    <div class="reason rv"><div><h3>A split-factor change around 2019</h3><p>Taps credited to the Blue Line at Government Center fell about 90% from one year to the next. That points to a change in the survey split, and the dataset doesn't flag it.</p></div></div>
-    <div class="reason rv"><div><h3>A bigger allowance for non-tappers after COVID</h3><p>The model's uplift at ordinary stations rose from about 1.05× to about 1.2×. A single fixed factor in the monthly method would not move with it.</p></div></div>
+    <div class="reason rv"><div><h3>A bigger allowance for non-tappers after COVID</h3><p>The model's uplift at ordinary stations rose from about 1.05× to about 1.2×. A single fixed factor in the monthly method wouldn't move with it, which fits the gap roughly doubling after 2019.</p></div></div>
   </div>
-  <p class="lede" style="margin-top:26px"><b>And East Boston?</b> Maverick, Airport, Wood Island, Orient Heights and the Revere stations scale steadily, at almost the same ratio as every other regular station. The data doesn't show them driving the gap.</p>
+  <p class="lede" style="margin-top:26px"><b>And the Government Center swap?</b> It changes the tap data, not the gap: the gap actually shrank from 2018 to 2019. It matters because it's an unflagged break in a public dataset.</p>
+  <p class="lede"><b>And East Boston?</b> Maverick, Airport, Wood Island, Orient Heights and the Revere stations scale steadily, at almost the same ratio as every other regular station. The data doesn't show them driving the gap.</p>
   <p class="muted" style="font-size:15px">Caveat: OPMI doesn't publish the exact factors behind Dataset A, so how much of the gap each reason explains is inferred from the published data, not confirmed by the MBTA.</p>
 </div></section>
 
@@ -229,7 +231,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);f
   <p class="lede">Written the way I'd hand it to a product owner: specific, cheap to act on, and tied to the evidence.</p>
   <div class="recs">
     <div class="rec rv"><span class="k">Document</span><h3>Publish the scaling factors and their history</h3><p>List the non-interaction, station-split and transfer factors used in Dataset A, with the date each one changed. Users could then reconcile the datasets themselves.</p></div>
-    <div class="rec rv"><span class="k">Flag</span><h3>Mark method changes in the data</h3><p>Add a method-version field or a change note to every dataset, so a 90% drop at one station isn't mistaken for a real ridership change.</p></div>
+    <div class="rec rv"><span class="k">Flag</span><h3>Mark method changes in the data</h3><p>Add a method-version field or a change note to every dataset, so a swap like Government Center on March 6, 2019 isn't mistaken for a real ridership change.</p></div>
     <div class="rec rv"><span class="k">Standardize</span><h3>One name and ID per station and line</h3><p>"State" vs "State Street," and a Green Line split into four branches in only one season. Shared IDs would make every join reliable.</p></div>
     <div class="rec rv"><span class="k">Reconcile</span><h3>Ship a published bridge table</h3><p>For each line and season: taps, plus each factor's contribution, equals Dataset A. Next to it, Dataset B. The gap stops being a mystery and becomes a line item.</p></div>
   </div>

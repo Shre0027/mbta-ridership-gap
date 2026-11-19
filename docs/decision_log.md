@@ -10,3 +10,4 @@
 | 6 | Treat **State and Government Center** as the Blue Line transfer stations | They are the only Blue Line stations with behind-the-gate transfers to other subway lines | Bowdoin — no transfer |
 | 7 | Report the transfer allowance as **inferred**, not proven | OPMI does not publish the exact scaling factors in Dataset A | Claiming a precise split — would overstate what the data supports |
 | 8 | Dropped the claim that Dataset A was revised after Feb 2025 | Once the forum's window (decision 2) was used, the numbers matched exactly — no revision | — |
+| 9 | Treat the March 2019 Government Center swap as a **data quality finding, not a driver of the gap** | The monthly-vs-stop-level gap shrank from 2018 (-15.1%) to 2019 (-10.6%), so the swap in the tap data did not widen it; an earlier draft wrongly listed it as a cause | Keeping it as a "method change that widened the gap" — not supported by the numbers |
