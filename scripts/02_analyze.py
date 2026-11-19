@@ -1,9 +1,15 @@
 """Step 2: reconcile the two MBTA ridership datasets.
 
 Outputs (outputs/):
-  line_gap_by_year.csv      - weekday riders per subway line: monthly dataset vs stop-level (ODX) dataset
-  blue_stations_by_year.csv - Blue Line, per station: raw gate taps vs ODX boardings
-  blue_summary_by_year.csv  - Blue Line decomposition by fall season
+  line_gap_by_year.csv          - weekday riders per subway line: monthly dataset vs stop-level (ODX) dataset
+  blue_stations_by_year.csv     - Blue Line, per station: raw gate taps vs ODX boardings
+  blue_summary_by_year.csv      - Blue Line decomposition and bridge by fall season
+  monthly_factor_by_month.csv   - effective scaling factor in the monthly dataset (monthly riders / gate taps), by line and month
+  green_summary_by_year.csv     - Green Line: monthly factor vs model factor, gated vs ungated boardings
+
+Bridge (exact identity, per fall season):
+  stop_level - monthly = [regular-station boardings - regular taps x F] + [transfer-station boardings - transfer taps x F]
+  where F = monthly / total taps is the effective factor the monthly dataset applies to Blue Line taps.
 
 Comparison window (see docs/decision_log.md):
   "Fall YYYY" = weekdays, September-December, holidays excluded.
@@ -65,6 +71,24 @@ def load_taps(year):
     return (g.groupby(["route_or_line", "station"])["gated_entries"].sum() / days).rename("taps")
 
 
+def load_taps_by_month(year):
+    g = pd.read_csv(RAW / "gse_hist" / "GSE_by_year" / f"GSE_{year}.csv",
+                    usecols=["service_date", "route_or_line", "gated_entries"])
+    g["d"] = pd.to_datetime(g["service_date"])
+    hol = set(USFederalHolidayCalendar().holidays(f"{year}-01-01", f"{year}-12-31"))
+    g = g[(g["d"].dt.dayofweek < 5) & ~g["d"].isin(hol)]
+    g["month"] = g["d"].dt.to_period("M")
+    days = g.groupby("month")["d"].nunique()
+    t = g.groupby(["month", "route_or_line"])["gated_entries"].sum().unstack()
+    return t.div(days, axis=0)
+
+
+def monthly_weekday_avg():
+    m = pd.read_csv(RAW / "monthly_by_mode_line.csv")
+    m["month"] = pd.to_datetime(m["month_of_service"], unit="ms").dt.to_period("M")
+    return m[m["daytype"] == "Weekday"].pivot_table(index="month", columns="route_or_line", values="ridership_average")
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     stop, monthly = load_stop_level(), load_monthly()
@@ -101,14 +125,46 @@ def main():
             "transfer_share_of_boardings_pct": x["odx"].sum() / t["odx"].sum() * 100,
             "gov_center_taps_credited_to_blue": t.loc["Government Center", "taps"],
         })
+        if pd.notna(mon):
+            F = mon / t["taps"].sum()
+            summary[-1].update({
+                "monthly_factor": F,
+                "bridge_transfer_stations": x["odx"].sum() - x["taps"].sum() * F,
+                "bridge_regular_stations": reg["odx"].sum() - reg["taps"].sum() * F,
+                "bridge_total": t["odx"].sum() - mon,
+            })
     pd.concat(station_rows).round(2).to_csv(OUT / "blue_stations_by_year.csv", index=False)
     s = pd.DataFrame(summary).round(2)
     s.to_csv(OUT / "blue_summary_by_year.csv", index=False)
+
+    # 3) Effective monthly factor by month (monthly riders / gate taps)
+    mw = monthly_weekday_avg()
+    taps_m = pd.concat([load_taps_by_month(y) for y in sorted(set(FALLS) - {2017})])
+    fac = (mw[LINES] / taps_m[LINES]).dropna(how="all")
+    fac.index = fac.index.astype(str)
+    fac.round(3).rename_axis("month").to_csv(OUT / "monthly_factor_by_month.csv")
+
+    # 4) Green Line: monthly factor vs model factor, gated vs ungated stops
+    green = []
+    for yr in [y for y in FALLS if y != 2017]:
+        taps = load_taps(yr).loc["Green Line"]
+        odx = stop[(stop["fall"] == yr) & (stop["route_name"] == "Green Line")].groupby("station")["average_ons"].sum()
+        t = pd.concat([taps, odx.rename("odx")], axis=1).fillna(0)
+        mon = monthly.get((yr, "Green Line"))
+        gated = t[t["taps"] > 0]
+        green.append({"fall": yr, "monthly": mon, "stop_level_total": t["odx"].sum(), "taps_total": t["taps"].sum(),
+                      "monthly_factor": mon / t["taps"].sum(), "model_factor": t["odx"].sum() / t["taps"].sum(),
+                      "gated_stations": len(gated), "ungated_stations": int((t["taps"] == 0).sum()),
+                      "ungated_share_of_boardings_pct": t.loc[t["taps"] == 0, "odx"].sum() / t["odx"].sum() * 100})
+    gs = pd.DataFrame(green).round(3)
+    gs.to_csv(OUT / "green_summary_by_year.csv", index=False)
 
     pd.set_option("display.width", 200)
     print(line.round(1).to_string(index=False))
     print()
     print(s.to_string(index=False))
+    print()
+    print(gs.to_string(index=False))
 
 
 if __name__ == "__main__":

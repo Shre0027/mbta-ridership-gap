@@ -46,3 +46,7 @@ Yearly CSVs. Grain: service date × 30-minute period × station × line.
 | `taps` | Σ `gated_entries` ÷ number of non-holiday weekdays, Sep–Dec |
 | `model_per_tap` | ODX boardings ÷ taps at a station |
 | `transfer_share_of_boardings_pct` | Blue boardings at State + Government Center ÷ all Blue boardings |
+| `monthly_factor` | Dataset A riders ÷ gate taps for the same line and window — the effective scaling the monthly dataset applies |
+| `model_factor` | Dataset B boardings ÷ gate taps (Green Line) |
+| `bridge_transfer_stations` | Blue boardings at State + Government Center − their taps × `monthly_factor` |
+| `bridge_regular_stations` | Blue boardings at all other stations − their taps × `monthly_factor` (the two bridge parts sum exactly to stop_level − monthly) |

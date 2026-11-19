@@ -40,7 +40,21 @@ The Blue Line is the only line the monthly dataset undercounts every single year
 - **After COVID (helps explain the gap):** the model's uplift at regular stations rose from ~1.03–1.07× (2017–19) to ~1.16–1.24× (2023–25), consistent with OPMI's note that the model now uses faregate passenger counters to catch riders who don't tap. A fixed factor in the monthly method would not follow it — which fits the gap roughly doubling after 2019.
 - **March 6, 2019 (data quality finding):** in the Gated Station Entries data, the Government Center split flipped overnight from **90% Blue / 10% Green to 10% Blue / 90% Green**, with no note in the data or documentation. Taps credited to the Blue Line there fell from ~6,700–7,000/day to ~400–800/day. This changes the tap data, not the gap between the two ridership datasets (the gap actually shrank from 2018 to 2019) — but anyone trending station entries across that date would see a ridership collapse that never happened.
 
-**Bottom line:** the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, which the tap-based method has to estimate with fixed factors, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. Along the way, the analysis surfaced an unflagged split-factor swap in the public tap data.
+**4. The bridge: the gap, split exactly into two parts.** Dividing the monthly Blue Line number by Blue Line gate taps gives the single factor it effectively applies (1.21–1.43×). With it, every season's gap splits exactly:
+
+| Fall | Monthly (A) | + State & Gov Center | − Regular stations | = Stop-level (B) |
+|---|---|---|---|---|
+| 2018 | 65,961 | +18,303 | −6,616 | 77,647 |
+| 2019 | 70,171 | +25,765 | −17,454 | 78,483 |
+| 2023 | 48,385 | +19,609 | −4,801 | 63,193 |
+| 2024 | 52,059 | +21,429 | −6,841 | 66,647 |
+| 2025 | 50,339 | +19,864 | −7,507 | 62,695 |
+
+The transfer stations always push the model up by 18–26k. The monthly method's blanket factor over-credits regular stations, partly offsetting it; as the model's uplift grew after COVID, that offset shrank from ~17k to ~5–8k, and the gap widened. *(This treats the monthly dataset as one factor on all taps — a model of OPMI's method, not their published breakdown.)*
+
+**5. The Green Line swing comes from the monthly factor, not riders.** The stop-level model's Green Line factor (boardings ÷ taps) holds near 2.3–2.4× in 2018 and 2023–25. The monthly dataset's factor drops to mostly 1.7–2.0× from July 2023 to June 2024, then jumps to mostly 2.4–2.8× from August 2024 — so Fall 2023 lands below the model (−16%) and Fall 2024–25 above it (+15–16%). Red, Orange and Blue factors barely move. Separately, Fall 2019 stop-level data counts about half as many boardings at ungated surface stops as Fall 2018 (21k vs 44k), which is why the 2019 Green gap looks so large.
+
+**Bottom line:** on the Blue Line, the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. On the Green Line, the swing tracks shifts in the monthly dataset's own scaling. Along the way, the analysis surfaced three unflagged breaks in the public data.
 
 **Caveat:** OPMI does not publish the exact factors behind Dataset A, so the transfer-allowance part of this decomposition is inferred from the published data, not confirmed by the MBTA.
 
@@ -59,7 +73,7 @@ Validation: with the comparison window used here, Fall 2023 results reproduce th
 
 - `scripts/` — fetch and analysis pipeline
 - `index.html`, `site/template.html` — the interactive data story
-- `outputs/` — reconciliation tables (line gap, Blue Line stations, Blue Line summary)
+- `outputs/` — reconciliation tables (line gap, Blue Line stations, Blue Line summary and bridge, monthly factor by month, Green Line summary)
 - `docs/data_dictionary.md` — every field used, from both datasets
 - `docs/decision_log.md` — analysis decisions and why
 - `docs/data_quality_log.md` — issues found in the source data
