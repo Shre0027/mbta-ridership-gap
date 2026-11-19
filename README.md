@@ -8,6 +8,8 @@
 
 *Morning rush on the T: every scheduled subway train (official GTFS), stations glowing with modeled boardings per hour.*
 
+The page opens with a five-step scroll story around one pinned map: the morning rush, the four downtown transfer hubs, an animation of gate taps vs the riders who change lines without passing a gate (both from real 8 AM data), the Blue Line's 14× and 21× stations, and every station shaded by model ÷ taps. It works on phones and respects reduced-motion settings.
+
 ## The problem
 
 The MBTA publishes two "official" ridership numbers for the same subway lines:

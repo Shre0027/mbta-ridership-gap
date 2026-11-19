@@ -187,6 +187,36 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 .quick button:focus-visible,.pick select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin:0 4px 0 0}
 
+/* scroll story */
+.story{border-top:1px solid var(--line);padding:0}
+.story-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);max-width:1240px;margin:0 auto;padding:0 24px;gap:36px}
+.story-map .sticky{position:sticky;top:70px;height:calc(100vh - 90px);max-height:900px;border-radius:22px;overflow:hidden;background:var(--water);border:1px solid var(--line);margin:20px 0}
+.story-map svg{position:absolute;inset:0;width:100%;height:100%}
+.story-map .land{fill:var(--land);stroke:#e4dfd4;stroke-width:.6}
+.story-map .crl{fill:none;stroke:var(--cr);stroke-opacity:.25;stroke-width:2;stroke-dasharray:6 4}
+.story-map .case{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round}
+.story-map .rt{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.st-hud{position:absolute;left:14px;top:14px;z-index:2;display:flex;gap:12px;align-items:baseline;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:12px;padding:7px 12px;pointer-events:none}
+.st-hud #st-clock{font-family:var(--f-display);font-weight:800;font-size:20px;white-space:nowrap}
+@media (max-width:600px){.st-hud{left:8px;top:8px;right:8px;gap:8px;padding:5px 10px}.st-hud #st-clock{font-size:16px}.st-hud #st-cap{font-size:11.5px;line-height:1.25}}
+.st-hud #st-cap{font-size:13px;color:var(--muted)}
+.story-steps{padding:30vh 0 40vh}
+.step{min-height:70vh;display:flex;flex-direction:column;justify-content:center;opacity:.35;transition:opacity .35s}
+.step.on{opacity:1}
+.step h3{font-size:clamp(26px,2.6vw,34px);font-weight:800;margin-bottom:12px}
+.step p{font-size:17px;color:var(--ink);margin:0 0 10px}
+.step .eyebrow{color:var(--muted)}
+.dotk{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 6px 0 2px;vertical-align:-1px}
+.st-big{font-family:var(--f-display);font-weight:800;font-size:22px;margin-top:8px!important}
+@media (max-width:900px){
+  .story-grid{grid-template-columns:1fr;gap:0;padding:0 12px}
+  .story-map{position:sticky;top:62px;z-index:1;height:58vh}
+  .story-map .sticky{position:relative;top:0;height:calc(58vh - 16px);margin:8px 0}
+  .story-steps{padding:0 0 30vh;margin-top:-20vh;position:relative;z-index:3;pointer-events:none}
+  .step{min-height:85vh;justify-content:flex-end;opacity:1}
+  .step .card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:14px;padding:14px 16px 6px;box-shadow:0 6px 24px rgba(0,0,0,.08);pointer-events:auto}
+  .step h3{font-size:22px}.step p{font-size:15.5px}
+}
 #tip{position:fixed;pointer-events:none;z-index:20;background:var(--ink);color:#fff;font-size:13px;line-height:1.45;padding:9px 12px;border-radius:10px;opacity:0;transition:opacity .1s;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 #tip b{font-family:var(--f-display);font-weight:600;font-size:14px}
 #tip .r{display:flex;justify-content:space-between;gap:16px;font-variant-numeric:tabular-nums}
@@ -214,7 +244,7 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 <a class="skip" href="#datasets">Skip to the analysis</a>
 <div id="prog" aria-hidden="true"></div>
 <nav id="rail" aria-label="Sections"><ol>
-  <li><a href="#top">Start</a></li><li><a href="#datasets">The problem</a></li><li><a href="#system">System map</a></li><li><a href="#stations">Blue Line</a></li>
+  <li><a href="#top">Start</a></li><li><a href="#story">The story</a></li><li><a href="#datasets">The problem</a></li><li><a href="#system">System map</a></li><li><a href="#stations">Blue Line</a></li>
   <li><a href="#three">Three sources</a></li><li><a href="#bridge">Bridge</a></li><li><a href="#why">Over time</a></li><li><a href="#green">Green Line</a></li>
   <li><a href="#stakes">Why it matters</a></li><li><a href="#recs">Fixes</a></li></ol></nav>
 <header id="top"><div class="wrap hero">
@@ -240,6 +270,21 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 </div></div></header>
 
 <main id="main">
+<section id="story" class="story" aria-label="Scroll story: where the gates can't see riders">
+  <div class="story-grid">
+    <div class="story-map"><div class="sticky" id="stmap">
+      <div class="st-hud" aria-hidden="true"><span id="st-clock">8:30 AM</span><span id="st-cap"></span></div>
+    </div></div>
+    <div class="story-steps">
+      <div class="step" data-step="0"><div class="card"><p class="eyebrow">The story in one map · 1 of 5</p><h3>8:30 on a weekday morning.</h3><p>About 100 trains are running. Every dot is a real scheduled train, and every glow is the riders boarding at that station this hour. Most stations look the same to both official datasets.</p></div></div>
+      <div class="step" data-step="1"><div class="card"><p class="eyebrow">2 of 5</p><h3>Except four.</h3><p>Park Street, Government Center, Downtown Crossing and State sit where two lines meet underground. Riders here can change trains without ever passing a fare gate.</p></div></div>
+      <div class="step" data-step="2"><div class="card"><p class="eyebrow">3 of 5</p><h3>The riders the gates can't see.</h3><p><span class="dotk" style="background:var(--taps)"></span>Orange dots tap in at the gates. <span class="dotk" style="background:var(--blue)"></span>Blue dots change lines underground and never touch a gate. Both come from real 8 AM data: gate taps, and the trip model's boardings beyond them.</p><p class="st-big" id="st-ratio"></p></div></div>
+      <div class="step" data-step="3"><div class="card"><p class="eyebrow">4 of 5</p><h3>That's the Blue Line's missing 20%.</h3><p>Now count only Blue Line boardings over a whole weekday. At regular Blue Line stations the model sits about 1.2× above the Blue gates. At State it's 14×, and at Government Center 21×, because most people boarding the Blue there walked over from another line. A count built from taps, like the monthly dataset, has to guess at those riders.</p></div></div>
+      <div class="step" data-step="4"><div class="card"><p class="eyebrow">5 of 5</p><h3>Same test, every station.</h3><p>Shade every station by modeled boardings ÷ gate taps. 54 of 61 gated stations sit between 0.9× and 1.5×. The dark ones are the four hubs. The rest of this page shows the evidence, the bridge between the two numbers, and a tested fix.</p></div></div>
+    </div>
+  </div>
+</section>
+
 <section id="datasets"><div class="wrap">
   <p class="eyebrow">01 · The problem</p>
   <h2>Same line, same season, two different answers.</h2>
@@ -806,7 +851,7 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
     const trips = j.trips.map(a => { const t = [], d = []; let ct = a[2], cd = 0;
       for (let i = 3; i < a.length; i += 2){ ct += a[i]; cd += a[i+1]; t.push(ct); d.push(cd); }
       return {sh: shapes[a[0]], col: j.colors[a[1]], t, d, k: 1}; });
-    TR = {trips};
+    TR = {trips}; window.__TR = TR;
     document.getElementById("trainnote").textContent = "Trains = every scheduled MBTA subway trip on Tuesday, " + new Date(j.date + "T12:00").toLocaleDateString("en-US", {month:"long", day:"numeric", year:"numeric"}) + " (official GTFS schedule).";
     document.getElementById("tcount-row").style.display = "";
   }).catch(() => {});
@@ -864,6 +909,121 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   if (reduce){ btn.textContent = "▶"; btn.setAttribute("aria-label", "Play"); }
   new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; })).observe(box);
   draw(); requestAnimationFrame(tick);
+})();
+
+/* ================= SCROLL STORY (pinned map) ================= */
+(function(){
+  const host = document.getElementById("stmap"); if (!host) return;
+  const VIEWS = [{x:120, y:60, w:880, h:792}, {x:628, y:330, w:130, h:117}, {x:654, y:356, w:78, h:70}, {x:605, y:120, w:335, h:335}, {x:120, y:60, w:880, h:792}];
+  const svg = el("svg", {viewBox:"120 60 880 792", "aria-hidden":"true", preserveAspectRatio:"xMidYMid slice"});
+  host.insertBefore(svg, host.firstChild);
+  baseMap(svg, {cr:true, casing:true, w:5});
+  svg.querySelectorAll("path").forEach(p => p.setAttribute("vector-effect", "non-scaling-stroke")); // lines keep their width when the camera zooms
+  const cv = document.createElement("canvas"); cv.setAttribute("aria-hidden", "true");
+  cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none"; host.insertBefore(cv, svg.nextSibling);
+  const ctx = cv.getContext("2d");
+  // phones: widen each view so edge labels stay inside the frame
+  const viewFor = i => { const v = VIEWS[i], k = (host.clientWidth || 800) < 600 && i > 0 && i < 4 ? 1.3 : 1; return {x: v.x + v.w*(1-k)/2, y: v.y + v.h*(1-k)/2, w: v.w*k, h: v.h*k}; };
+  let vb = {...VIEWS[0]}, from = {...vb}, to = {...vb}, t0 = 0, step = 0, DPR = 1, CW = 0, CH = 0;
+  function fit(){ const r = host.getBoundingClientRect(); DPR = Math.min(2, devicePixelRatio || 1); CW = r.width; CH = r.height; cv.width = Math.round(CW*DPR); cv.height = Math.round(CH*DPR); }
+  new ResizeObserver(fit).observe(host); fit();
+  // slice mapping (fills the box, like preserveAspectRatio slice)
+  const map = () => { const S = Math.max(CW/vb.w, CH/vb.h); return {S, OX: (CW - vb.w*S)/2 - vb.x*S, OY: (CH - vb.h*S)/2 - vb.y*S}; };
+  const stations = MAP.stations.filter(s => s.odx > 0);
+  const HUBS = ["Park Street","Government Center","Downtown Crossing","State"].map(n => stations.find(s => s.name === n));
+  const peak = Math.max(...stations.map(s => Math.max(...s.h)));
+  const HI8 = MAP.hours.indexOf(8);
+  // spokes: points on each line near each hub, both directions, for transfer particles
+  const near = (pts, cx, cy, R) => { const out = []; for (let i = 1; i < pts.length; i++){ const [x1,y1] = pts[i-1], [x2,y2] = pts[i];
+      for (let t = 0; t <= 1; t += .05){ const x = x1 + (x2-x1)*t, y = y1 + (y2-y1)*t, d = Math.hypot(x-cx, y-cy); if (Math.abs(d - R) < .6) out.push([x, y]); } } return out; };
+  const LINECOLOR = {Red:"#DA291C", Orange:"#ED8B00", Blue:"#003DA5", Green:"#00843D"};
+  const hubSpokes = HUBS.map(h => { const sp = {}; h.lines.forEach(ln => { const pts = []; MAP.lines.filter(l => l.color.toUpperCase() === LINECOLOR[ln].toUpperCase()).forEach(l => pts.push(...near(l.pts, h.x, h.y, 7))); sp[ln] = pts.length ? pts : [[h.x + 6, h.y]]; }); return sp; });
+  // particles
+  const P = []; const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function spawn(dt){
+    HUBS.forEach((h, k) => { const taps = h.t[HI8], inv = Math.max(0, h.h[HI8] - h.t[HI8]);
+      const rate = 0.0032; // particles per rider per second of animation
+      [["tap", taps], ["inv", inv]].forEach(([kind, n]) => { let lam = n * rate * dt; while (Math.random() < lam){ lam -= 1;
+        if (kind === "tap"){ const a = Math.random()*6.283, R = 9; P.push({k:"tap", x0:h.x + Math.cos(a)*R, y0:h.y + Math.sin(a)*R, x1:h.x, y1:h.y, x2:h.x, y2:h.y, t:0, d:1.6}); }
+        else { const ls = h.lines, a = ls[Math.floor(Math.random()*ls.length)], b = ls.find(z => z !== a) || a;
+          const sa = hubSpokes[k][a], sb = hubSpokes[k][b], p0 = sa[Math.floor(Math.random()*sa.length)], p2 = sb[Math.floor(Math.random()*sb.length)];
+          P.push({k:"inv", x0:p0[0], y0:p0[1], x1:h.x, y1:h.y, x2:p2[0], y2:p2[1], t:0, d:2.2}); } } }); });
+  }
+  const RAMP = ["#ece9e2","#cfc9bd","#a39c8f","#6e675c","#3b362f","#151515"], CUTS = [1.15, 1.3, 1.6, 2.5, 4];
+  const colOf = r => RAMP[CUTS.filter(c => r >= c).length];
+  let hour = 5.5, last = performance.now(), visible = false;
+  const cap = document.getElementById("st-cap"), clk = document.getElementById("st-clock"), ratioEl = document.getElementById("st-ratio");
+  const CAPS = ["Real scheduled trains · boardings by hour", "The four downtown hubs", "Gate taps vs riders the gates can't see · 8 AM", "Blue Line · model ÷ taps", "Every station · model ÷ taps"];
+  function setStep(i){ if (i === step) return; step = i; from = {...vb}; to = viewFor(i); t0 = performance.now(); cap.textContent = CAPS[i];
+    document.querySelectorAll(".step").forEach(n => n.classList.toggle("on", +n.dataset.step === i)); if (i !== 2) P.length = 0; else if (reduce){ P.length = 0; spawn(2); P.forEach(q => q.t = Math.random()*.96); } }
+  cap.textContent = CAPS[0];
+  const tot = HUBS.reduce((a, h) => ({t:a.t + h.t[HI8], h:a.h + h.h[HI8]}), {t:0, h:0});
+  ratioEl.textContent = `At 8 AM: ${fmt(tot.t)} taps vs ${fmt(tot.h - tot.t)} riders the gates miss, about ${Math.round((tot.h - tot.t)/tot.t)} for every tap.`;
+  function frame(now){
+    const dt = Math.min(.05, (now - last)/1000); last = now;
+    if (!visible){ requestAnimationFrame(frame); return; }
+    const p = reduce ? 1 : Math.min(1, (now - t0)/900), e = p < .5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2)/2;
+    ["x","y","w","h"].forEach(k => vb[k] = from[k] + (to[k]-from[k])*e);
+    svg.setAttribute("viewBox", `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+    const {S, OX, OY} = map(), X = x => OX + x*S, Y = y => OY + y*S, zoom = S / (CW/880);
+    ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0, 0, CW, CH);
+    if (!reduce) hour = step === 0 ? 5 + ((hour - 5 + dt*0.05) % 1) : 5.5;
+    clk.textContent = hourLabel(hour).replace(":00", ":" + String(Math.floor((hour % 1)*60)).padStart(2, "0"));
+    const i0 = Math.floor(hour) % 24, f = hour % 1;
+    // glow (steps 0-1)
+    if (step <= 1) for (const st of stations){ const v = st.h[i0]*(1-f) + st.h[(i0+1)%24]*f; if (v <= 0) continue;
+      const r = (3 + 42*Math.sqrt(v/peak)) * S / Math.sqrt(zoom), g = ctx.createRadialGradient(X(st.x), Y(st.y), 0, X(st.x), Y(st.y), r);
+      const c = st.lines.length > 1 ? "21,21,21" : ({Red:"218,41,28", Orange:"237,139,0", Blue:"0,61,165", Green:"0,132,61"}[st.lines[0]] || "90,90,90");
+      g.addColorStop(0, `rgba(${c},.45)`); g.addColorStop(1, `rgba(${c},0)`); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(X(st.x), Y(st.y), r, 0, 6.283); ctx.fill(); }
+    // trains (steps 0-1)
+    if (step <= 1 && window.__TR){ const T = (3 + hour)*3600;
+      for (const tr of window.__TR.trips){ const t = tr.t; if (T < t[0] || T > t[t.length-1]) continue; let i = 1; while (t[i] < T) i++;
+        const q = (tr.d[i-1] + (tr.d[i]-tr.d[i-1])*(T - t[i-1])/((t[i]-t[i-1]) || 1))/1000, [x, y, nx, ny] = tr.sh.at(q);
+        const o = 4.2, L = 8*S/Math.sqrt(zoom), W = 4.2*S/Math.sqrt(zoom);
+        ctx.save(); ctx.translate(X(x + nx*o/Math.sqrt(zoom)), Y(y + ny*o/Math.sqrt(zoom))); ctx.rotate(Math.atan2(-nx, ny)); ctx.beginPath(); ctx.roundRect(-L, -W, 2*L, 2*W, W);
+        ctx.lineWidth = 2.2; ctx.strokeStyle = "rgba(20,20,20,.8)"; ctx.stroke(); ctx.fillStyle = tr.col; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "#fff"; ctx.stroke(); ctx.restore(); } }
+    // hub rings + labels (steps 1-2)
+    if (step === 1 || step === 2){ HUBS.forEach(h => { ctx.beginPath(); ctx.arc(X(h.x), Y(h.y), Math.min(6*S, 46), 0, 6.283); ctx.lineWidth = 1.6; ctx.setLineDash([4, 4]); ctx.strokeStyle = "rgba(21,21,21,.6)"; ctx.stroke(); ctx.setLineDash([]); }); }
+    // invisible riders (step 2)
+    if (step === 2){ if (!reduce) spawn(dt);
+      for (let i = P.length - 1; i >= 0; i--){ const q = P[i]; if (!reduce) q.t += dt/q.d; if (q.t >= 1){ P.splice(i, 1); continue; }
+        const u = q.t < .5 ? q.t*2 : (q.t - .5)*2, a = q.t < .5 ? [q.x0, q.y0, q.x1, q.y1] : [q.x1, q.y1, q.x2, q.y2];
+        const x = a[0] + (a[2]-a[0])*u, y = a[1] + (a[3]-a[1])*u, alpha = q.k === "tap" ? (q.t < .5 ? 1 : 1 - (q.t - .5)*2) : 1;
+        ctx.globalAlpha = alpha; ctx.beginPath(); ctx.arc(X(x), Y(y), q.k === "tap" ? 5.5 : 4.4, 0, 6.283); ctx.fillStyle = q.k === "tap" ? "#eb6834" : "#003DA5"; ctx.fill();
+        ctx.lineWidth = 1.8; ctx.strokeStyle = "#fff"; ctx.stroke(); ctx.globalAlpha = 1; }
+      HUBS.forEach(h => { ctx.font = "600 13px Instrument Sans, sans-serif"; ctx.fillStyle = "#151515"; ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.lineWidth = 4;
+        const lab = `${h.name} ${(h.h[HI8]/h.t[HI8]).toFixed(0)}×`, dx = {"Government Center":-1, "Park Street":-1, "State":1, "Downtown Crossing":1}[h.name], tx = X(h.x) + dx*(6*S + 8), ty = Y(h.y) + ({"Government Center":-8, "Park Street":10, "State":-6, "Downtown Crossing":14}[h.name]);
+        ctx.textAlign = dx < 0 ? "right" : "left"; ctx.strokeText(lab, tx, ty); ctx.fillText(lab, tx, ty); });
+    } else if (step === 1){ HUBS.forEach(h => { ctx.font = "600 14px Instrument Sans, sans-serif"; ctx.fillStyle = "#151515"; ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.lineWidth = 4;
+        const dx = {"Government Center":-1, "Park Street":-1, "State":1, "Downtown Crossing":1}[h.name], tx = X(h.x) + dx*(6*S + 8), ty = Y(h.y) + ({"Government Center":-8, "Park Street":10, "State":-6, "Downtown Crossing":14}[h.name]);
+        ctx.textAlign = dx < 0 ? "right" : "left"; ctx.strokeText(h.name, tx, ty); ctx.fillText(h.name, tx, ty); }); }
+    // Blue Line focus (step 3)
+    if (step === 3){ ctx.fillStyle = "rgba(246,244,239,.6)"; ctx.fillRect(0, 0, CW, CH);
+      MAP.lines.filter(l => l.id === "Blue").forEach(l => { ctx.beginPath(); l.pts.forEach(([x,y], i) => i ? ctx.lineTo(X(x), Y(y)) : ctx.moveTo(X(x), Y(y))); ctx.lineWidth = 7; ctx.strokeStyle = "#003DA5"; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.stroke(); });
+      stations.filter(s => s.lines.includes("Blue")).forEach(s => { const key = s.name === "State" ? 13.5 : s.name === "Government Center" ? 20.7 : null;
+        const big = !!key, r = big ? 11 : 6; ctx.beginPath(); ctx.arc(X(s.x), Y(s.y), r, 0, 6.283); ctx.fillStyle = big ? "#151515" : "#fff"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = big ? "#fff" : "#003DA5"; ctx.stroke();
+        if (["State","Government Center","Maverick","Airport","Wonderland"].includes(s.name)){ const lab = s.name + (big ? ` ${key.toFixed(0)}×` : ""); ctx.font = (big ? "700 15px" : "500 13px") + " Instrument Sans, sans-serif";
+          const wl = s.name === "Wonderland"; ctx.textAlign = wl ? "right" : "left"; ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,255,255,.95)"; const tx = X(s.x) + (wl ? -12 : big ? 14 : 10), ty = Y(s.y) + (s.name === "State" ? 26 : s.name === "Government Center" ? -16 : 5); ctx.strokeText(lab, tx, ty); ctx.fillStyle = "#151515"; ctx.fillText(lab, tx, ty); } });
+      ctx.font = "500 13px Instrument Sans, sans-serif"; ctx.textAlign = "left"; ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.strokeText("Regular Blue Line stations: about 1.2×", 16, CH - 18); ctx.fillStyle = "#3d3b37"; ctx.fillText("Regular Blue Line stations: about 1.2×", 16, CH - 18); }
+    // ratio map (step 4)
+    if (step === 4){ ctx.fillStyle = "rgba(246,244,239,.35)"; ctx.fillRect(0, 0, CW, CH);
+      const mx = Math.max(...stations.map(s => s.odx));
+      stations.slice().sort((a,b) => b.odx - a.odx).forEach(s => { const r = (2.5 + 15*Math.sqrt(s.odx/mx)) * S / Math.sqrt(zoom);
+        ctx.beginPath(); ctx.arc(X(s.x), Y(s.y), r, 0, 6.283); ctx.fillStyle = s.ratio ? colOf(s.ratio) : "#fff"; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = s.ratio ? "#fff" : "#8a867e"; ctx.stroke(); });
+      ctx.font = "600 13px Instrument Sans, sans-serif"; ctx.fillStyle = "#151515"; ctx.textAlign = "left"; ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,255,255,.95)";
+      const nar = CW < 600; ctx.textAlign = nar ? "right" : "left"; const lx = nar ? X(640) : X(724), ly = nar ? Y(470) : Y(424); ctx.strokeText("4 downtown hubs: 2.8–5.1×", lx, ly); ctx.fillText("4 downtown hubs: 2.8–5.1×", lx, ly);
+      // legend
+      const items = [[1, "≈1×"], [2, "2×"], [4, "4×+"], [null, "no gates"]]; let gx = 14, gy = CH - 16; ctx.font = "500 12px Instrument Sans, sans-serif"; ctx.textAlign = "left";
+      ctx.fillStyle = "rgba(255,255,255,.92)"; ctx.fillRect(8, gy - 16, nar ? 250 : 270, 26);
+      items.forEach(([v, t]) => { ctx.beginPath(); ctx.arc(gx + 6, gy - 3, 6, 0, 6.283); ctx.fillStyle = v ? colOf(v) : "#fff"; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = v ? "#fff" : "#8a867e"; ctx.stroke();
+        ctx.fillStyle = "#3d3b37"; ctx.fillText(t, gx + 16, gy + 1); gx += 22 + ctx.measureText(t).width + 14; }); }
+    requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; }), {rootMargin:"100px"}).observe(host.closest(".story"));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setStep(+e.target.dataset.step); }), {rootMargin:"-45% 0px -45% 0px"});
+  document.querySelectorAll(".step").forEach(n => io.observe(n));
+  document.querySelector('.step[data-step="0"]').classList.add("on");
+  requestAnimationFrame(frame);
 })();
 
 /* ================= SYSTEM RATIO MAP ================= */
