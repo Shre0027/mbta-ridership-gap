@@ -4,6 +4,10 @@
 
 **→ Read the interactive data story: [shre0027.github.io/mbta-ridership-gap](https://shre0027.github.io/mbta-ridership-gap/)**
 
+<a href="https://shre0027.github.io/mbta-ridership-gap/"><img src="media/demo.gif" width="520" alt="Animated map of the MBTA subway during morning rush hour: every scheduled train moving along official track geometry while stations glow with hourly boardings"></a>
+
+*Morning rush on the T: every scheduled subway train (official GTFS), stations glowing with modeled boardings per hour.*
+
 ## The problem
 
 The MBTA publishes two "official" ridership numbers for the same subway lines:
@@ -75,6 +79,8 @@ python scripts/05_geo.py        # official GTFS shapes/stops -> projected map da
 python scripts/06_trains.py     # every scheduled subway trip on one weekday -> real train positions (trains.json)
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
+
+**Checks:** `tests/check_outputs.py` asserts the key identities (Fall 2023 reproduces the forum figures, bridge parts sum to the gap, hubs reconcile within 10%, train schedule is sane). The monthly refresh runs it before committing, so a broken upstream file can't silently change the published numbers.
 
 **Auto-refresh:** a GitHub Action (`.github/workflows/refresh.yml`) reruns the pipeline on the 8th of every month and commits updated outputs. The published page loads `outputs/story_data.json` live, so it picks up new monthly data without a redeploy. A new fall stop-level season is added with one line in `scripts/01_fetch.py`.
 

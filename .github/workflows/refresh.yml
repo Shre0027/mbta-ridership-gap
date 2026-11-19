@@ -25,6 +25,8 @@ jobs:
           python scripts/05_geo.py
           python scripts/06_trains.py
           python scripts/03_build_page.py
+      - name: Check outputs before publishing
+        run: python tests/check_outputs.py
       - name: Commit if anything changed
         run: |
           git config user.name "github-actions[bot]"
