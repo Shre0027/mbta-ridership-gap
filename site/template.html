@@ -187,6 +187,29 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 .quick button:focus-visible,.pick select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin:0 4px 0 0}
 
+
+/* rail-track motif: nav track + "next stop" dividers */
+.navtrack{position:absolute;left:0;right:0;bottom:-5px;height:9px;pointer-events:none;z-index:6}
+.navtrack .ties{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#d9d3c6 0 2px,transparent 2px 9px);opacity:.8}
+.navtrack .rails{position:absolute;left:0;right:0;top:2px;height:5px;border-top:1px solid #cfc8ba;border-bottom:1px solid #cfc8ba}
+.navtrack .done{position:absolute;left:0;top:2px;height:5px;width:0;background:linear-gradient(90deg,var(--red) 0 25%,var(--orange) 25% 50%,var(--blue) 50% 75%,var(--green) 75% 100%);background-size:100vw 5px;border-radius:3px}
+.navtrack .ptrain{position:absolute;top:-4px;left:0;width:46px;height:17px;transform:translateX(-46px);transition:filter .3s}
+#prog{display:none}
+.trackdiv{position:relative;height:92px;overflow:hidden;border-top:1px solid var(--line)}
+.trackdiv .bed{position:absolute;left:0;right:0;bottom:22px;height:14px;background:repeating-linear-gradient(90deg,#ddd7ca 0 3px,transparent 3px 14px)}
+.trackdiv .bed::before,.trackdiv .bed::after{content:"";position:absolute;left:0;right:0;height:2px;background:#c9c2b3}
+.trackdiv .bed::before{top:3px}.trackdiv .bed::after{bottom:3px}
+.trackdiv .sign{position:absolute;top:14px;left:max(24px,calc(50% - 560px));display:flex;align-items:center;gap:10px;background:#1c1c1c;color:#fff;border-radius:8px;padding:6px 12px 6px 8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.trackdiv .sign i{width:18px;height:18px;border-radius:50%;border:3px solid #fff;flex:none}
+.trackdiv .sign b{font-family:var(--f-body);font-weight:700;letter-spacing:0;text-transform:none;font-size:13.5px}
+.trackdiv .sign span{opacity:.65}
+.trackdiv .train{position:absolute;bottom:22px;left:0;height:30px;transform:translateX(-110%);will-change:transform}
+.trackdiv.go .train{animation:tdrive 2.6s cubic-bezier(.2,.6,.25,1) forwards}
+@keyframes tdrive{from{transform:translateX(-110%)}to{transform:translateX(var(--park,40vw))}}
+section.has-div{border-top:none}
+@media (prefers-reduced-motion:reduce){.trackdiv .train,.trackdiv.go .train{animation:none;transform:translateX(var(--park,40vw))}.navtrack .ptrain{transition:none}}
+@media (max-width:600px){.trackdiv{height:96px}.trackdiv .sign{top:10px}.trackdiv .sign{font-size:10px}.trackdiv .sign b{font-size:12.5px}}
+
 /* scroll story */
 .story{border-top:1px solid var(--line);padding:0}
 .story-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);max-width:1240px;margin:0 auto;padding:0 24px;gap:36px}
@@ -1210,6 +1233,34 @@ drawThree();
 })();
 
 }
+
+/* rail-track motif */
+(function(){
+  const COL = {Red:"#DA291C", Orange:"#ED8B00", Blue:"#003DA5", Green:"#00843D"};
+  const car = (x, c, w, nose) => `<g transform="translate(${x},0)"><rect x="0" y="2" width="${w}" height="22" rx="${nose ? 7 : 3}" fill="${c}" stroke="#1c1c1c" stroke-width="1.5"/>` +
+    `<rect x="4" y="6" width="${w-8}" height="7" rx="1.5" fill="#fff" opacity=".9"/>` + `<rect x="0" y="16" width="${w}" height="2.5" fill="#fff" opacity=".85"/>` +
+    `<circle cx="9" cy="27" r="2.6" fill="#1c1c1c"/><circle cx="${w-9}" cy="27" r="2.6" fill="#1c1c1c"/></g>`;
+  const train = (c, n = 3, w = 52) => `<svg class="train" viewBox="0 0 ${n*(w+4)} 30" width="${n*(w+4)}" aria-hidden="true">` + [...Array(n)].map((_, i) => car(i*(w+4), c, w, i === n-1)).join("") + `</svg>`;
+  // nav track with a small train at the progress head
+  const nav = document.querySelector("nav:not(#rail)") || document.querySelector("nav");
+  if (nav){ const t = document.createElement("div"); t.className = "navtrack"; t.setAttribute("aria-hidden", "true");
+    t.innerHTML = `<div class="ties"></div><div class="rails"></div><div class="done"></div><svg class="ptrain" viewBox="0 0 46 17"><rect x="1" y="1" width="20" height="12" rx="2.5" fill="#DA291C" stroke="#1c1c1c" stroke-width="1.2"/><rect x="23" y="1" width="22" height="12" rx="5" fill="#DA291C" stroke="#1c1c1c" stroke-width="1.2"/><rect x="4" y="3.5" width="14" height="3.5" fill="#fff" opacity=".9"/><rect x="26" y="3.5" width="14" height="3.5" fill="#fff" opacity=".9"/><circle cx="6" cy="14.5" r="1.8" fill="#1c1c1c"/><circle cx="16" cy="14.5" r="1.8" fill="#1c1c1c"/><circle cx="28" cy="14.5" r="1.8" fill="#1c1c1c"/><circle cx="40" cy="14.5" r="1.8" fill="#1c1c1c"/></svg>`;
+    nav.appendChild(t);
+    const done = t.querySelector(".done"), pt = t.querySelector(".ptrain"), parts = [...pt.querySelectorAll("rect[fill^='#D']")], order = ["#DA291C", "#ED8B00", "#003DA5", "#00843D"];
+    const upd = () => { const h = document.documentElement, p = Math.max(0, Math.min(1, h.scrollTop / (h.scrollHeight - h.clientHeight))), w = t.clientWidth;
+      done.style.width = (p*100) + "%"; pt.style.transform = `translateX(${p*w - 46}px)`; const c = order[Math.min(3, Math.floor(p*4))]; parts.forEach(r => r.setAttribute("fill", c)); };
+    addEventListener("scroll", upd, {passive:true}); addEventListener("resize", upd); upd(); }
+  // "next stop" dividers between sections
+  const STOPS = [["datasets","The problem","Red"], ["system","System map","Orange"], ["stations","Blue Line stations","Blue"], ["three","Three sources","Green"], ["bridge","The bridge","Red"],
+    ["why","Over time","Orange"], ["green","Green Line","Green"], ["stakes","Why it matters","Blue"], ["recs","Recommendations","Red"], ["method","Method","Orange"]];
+  const tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("go"); tio.unobserve(e.target); } }), {threshold:.6});
+  STOPS.forEach(([id, name, line]) => { const sec = document.getElementById(id); if (!sec) return;
+    const d = document.createElement("div"); d.className = "trackdiv"; d.setAttribute("role", "presentation");
+    d.innerHTML = `<div class="sign"><i style="background:${COL[line]}"></i><span>Next stop</span><b>${name}</b></div><div class="bed"></div>` + train(COL[line]);
+    sec.before(d); sec.classList.add("has-div"); tio.observe(d); });
+  const park = () => document.querySelectorAll(".trackdiv").forEach(d => { const sg = d.querySelector(".sign"); const tw = d.querySelector(".train").getBoundingClientRect().width; d.style.setProperty("--park", Math.max(12, Math.min(sg.offsetLeft + sg.offsetWidth + 18, d.clientWidth - tw - 12)) + "px"); });
+  park(); addEventListener("resize", park);
+})();
 /* reveal on scroll */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
 document.querySelectorAll(".rv").forEach(n => io.observe(n));
