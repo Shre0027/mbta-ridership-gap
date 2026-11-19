@@ -3,6 +3,7 @@
 Outputs (outputs/):
   system_stations_2025.csv  - every subway station x line: gate taps vs modeled boardings, plus survey transfer share
   station_hourly_2025.csv   - modeled weekday boardings per station and hour (for the animated map)
+  station_hourly_taps_2025.csv - weekday gate taps per station and hour (30-minute periods rolled up)
   survey_transfer_check.csv - stations where both the survey and the tap/model test are available
 """
 from pathlib import Path
@@ -14,6 +15,18 @@ from pandas.tseries.holiday import USFederalHolidayCalendar
 ROOT = Path(__file__).resolve().parents[1]
 RAW, OUT = ROOT / "data" / "raw", ROOT / "outputs"
 YEAR = 2025
+
+
+def taps_by_station_hour():
+    g = pd.read_csv(RAW / "gse_hist" / "GSE_by_year" / f"GSE_{YEAR}.csv",
+                    usecols=["service_date", "time_period", "gated_entries", "stop_id"])
+    g["d"] = pd.to_datetime(g["service_date"])
+    hol = set(USFederalHolidayCalendar().holidays(f"{YEAR}-01-01", f"{YEAR}-12-31"))
+    hol |= {h + pd.Timedelta(days=1) for h in hol if h.month == 11 and h.day >= 22}
+    g = g[(g["d"].dt.month >= 9) & (g["d"].dt.day_of_week < 5) & ~g["d"].isin(hol)]
+    days = g["d"].nunique()
+    g["hour"] = g["time_period"].str.slice(1, 3).astype(int)  # 30-minute periods rolled up to the hour
+    return (g.groupby(["stop_id", "hour"])["gated_entries"].sum() / days).unstack(fill_value=0)
 
 
 def taps_by_station():
@@ -80,6 +93,9 @@ def main():
 
     hourly.index.name = "stop_id"
     hourly.to_csv(OUT / "station_hourly_2025.csv")
+    th = taps_by_station_hour()
+    th.index.name = "stop_id"
+    th.round(1).to_csv(OUT / "station_hourly_taps_2025.csv")
 
     print(f"stations x lines: {len(t)}, survey-matched heavy rail: {len(chk)}, pearson r={r:.2f}, spearman={rs:.2f}")
     print(t.sort_values("odx", ascending=False).head(25)[["station", "line", "taps", "odx", "model_per_tap",

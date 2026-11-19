@@ -103,6 +103,8 @@ def main():
     sysst = pd.read_csv(OUT / "system_stations_2025.csv")
     hourly = pd.read_csv(OUT / "station_hourly_2025.csv", index_col=0)
     hourly.columns = [int(c) for c in hourly.columns]
+    htaps = pd.read_csv(OUT / "station_hourly_taps_2025.csv", index_col=0)
+    htaps.columns = [int(c) for c in htaps.columns]
     order = list(range(3, 24)) + [0, 1, 2]  # service day 3am..2am
     stations = []
     for sid, grp in sysst.groupby("stop_id"):
@@ -121,6 +123,7 @@ def main():
             "survey": None if grp["survey_arrived_by_subway"].isna().all() else round(float((grp["survey_arrived_by_subway"] * grp["odx"]).sum() / grp.loc[grp["survey_arrived_by_subway"].notna(), "odx"].sum()), 2),
             "transfer": bool(grp["transfer_station"].any()),
             "h": hrs,
+            "t": [0 if sid in UNGATED or sid not in htaps.index or h not in htaps.columns else round(float(htaps.loc[sid, h])) for h in order],
         })
     out = {"w": W, "h": H, "land": land, "lines": lines, "cr": cr_paths, "stations": stations, "hours": order}
     (OUT / "map.json").write_text(json.dumps(out, separators=(",", ":")))
