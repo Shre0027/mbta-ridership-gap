@@ -1,0 +1,48 @@
+# Data dictionary
+
+Only the fields used in this analysis are listed.
+
+## Dataset A — MBTA Monthly Ridership By Mode and Line
+Feature service `NTD_Reporting`. Grain: one row per month × day type × line.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `month_of_service` | date (epoch ms) | First day of the service month |
+| `daytype` | text | Weekday, Saturday, Sunday, Total |
+| `daycount` | int | Number of service days of that type in the month |
+| `route_or_line` | text | Line or mode (Red Line, Blue Line, Heavy Rail, Bus, ...) |
+| `ridership_total` | int | Scaled ridership for the month and day type |
+| `ridership_average` | int | `ridership_total` ÷ `daycount` |
+
+## Dataset B — MBTA Rail Ridership by Season, Route/Line and Stop (ODX)
+Fall 2017–2019 (one service), Fall 2023, Fall 2024 (SDP time periods), Fall 2025 (by hour). Grain: season × line × direction × day type × time period (or hour) × stop.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `season` | text | e.g. "Fall 2023" |
+| `route_name` | text | Line (Fall 2025 splits Green into B/C/D/E) |
+| `day_type_name` | text | weekday / saturday / sunday (case varies by file) |
+| `stop_name` | text | Station name |
+| `average_ons` | int | Average boardings per service day in the period |
+| `number_service_days` | int | Days averaged |
+
+## Gated Station Entries (GSE) — historical
+Yearly CSVs. Grain: service date × 30-minute period × station × line.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `service_date` | date | Service day (3:00 AM–2:59 AM) |
+| `station_name` | text | Station name |
+| `route_or_line` | text | Line credited with the entry (transfer stations get one row per line using CTPS survey split factors) |
+| `gated_entries` | number | Unscaled successful taps/ticket insertions at faregates (decimals at split stations) |
+
+## Derived measures (outputs/)
+
+| Measure | Definition |
+|---|---|
+| `stop_level` | Sum of `average_ons` across all stops, directions and periods for a line, weekday |
+| `monthly` | Σ `ridership_total` ÷ Σ `daycount`, weekday, Sep–Dec |
+| `gap_pct` | (monthly − stop_level) ÷ stop_level × 100 |
+| `taps` | Σ `gated_entries` ÷ number of non-holiday weekdays, Sep–Dec |
+| `model_per_tap` | ODX boardings ÷ taps at a station |
+| `transfer_share_of_boardings_pct` | Blue boardings at State + Government Center ÷ all Blue boardings |
