@@ -43,7 +43,7 @@ In February 2025 a developer [asked on the MBTA Developers forum](https://groups
 | 2024 | -15.6% | -1.1% | **-21.9%** | +15.4% |
 | 2025 | -10.4% | +1.8% | **-19.7%** | +15.9% |
 
-The Blue Line is the only line the monthly dataset undercounts every single year — and it holds on weekends too: 15 of 15 comparisons across weekdays, Saturdays and Sundays, with weekend gaps of −23.7% to −27.5% since 2023 (`outputs/line_gap_by_daytype.csv`).
+The Blue Line is the only line where the monthly dataset sits below the trip model every single year — and it holds on weekends too: 15 of 15 comparisons across weekdays, Saturdays and Sundays, with weekend gaps of −23.7% to −27.5% since 2023 (`outputs/line_gap_by_daytype.csv`).
 
 **2. The Blue Line gap sits downtown, not in East Boston.** Comparing raw gate taps (the input to Dataset A) with modeled boardings (Dataset B), station by station:
 
@@ -75,7 +75,7 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 
 **7. A third, independent source agrees.** In the MBTA's 2025 System-Wide Passenger Survey, 82% of Blue Line riders boarding at Government Center and 60% at State said they arrived on another subway line (vs 0–2% at regular Blue Line stations). At the four downtown hubs, the model counts 127,852 weekday boardings; gate taps × the normal 1.20 uplift explain 42,487 (33%); adding the survey's transfer share gives 123,996 — within 3%.
 
-**7b. A tested fix.** Out of sample (calibrate on one fall, predict the next from gate taps alone): recalibrating the line factor once a year against the trip model cuts mean absolute error from 18.1% to 6.3% on the Blue Line, 8.0% to 5.1% on Red and 4.2% to 3.5% on Orange. Finer station-level factors did no better — the fix is recalibration, not detail (`scripts/07_fix.py`, `outputs/fix_test.csv`).
+**7b. A tested fix.** Out of sample (calibrate on one fall, predict the next from gate taps alone): recalibrating the line factor once a year against the trip model cuts the mean absolute gap to the model from 18.1% to 6.3% on the Blue Line, 8.0% to 5.1% on Red and 4.2% to 3.5% on Orange. The yardstick is the trip model, so this shows the factor is stable enough to refresh yearly, not that either dataset is the true count. Finer station-level factors did no better — the fix is recalibration, not detail (`scripts/07_fix.py`, `outputs/fix_test.csv`).
 
 **7c. The Red Line's 2024 dip is a shutdown.** The Braintree branch closed Sep 6–29, 2024 and part of the line again in November; the monthly number fell to 124,470 (Sep) and 106,335 (Nov). October 2024, the one fall month without a major closure, was 146,264 — within 1.3% of the model's 148,203.
 
@@ -88,6 +88,8 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 **8. Why it matters.** The monthly dataset is published as the MBTA's `NTD_Reporting` service; NTD data feeds FTA formula programs (Section 5307 uses NTD service data including passenger miles). The MBTA's own Ridership Guide states that rapid-transit ridership is fare-gate data "adjusted with factors to account for behind the gate transfers, and non-interaction" — the exact factors this project reverse-engineers. (No funding impact is estimated.)
 
 **Bottom line:** on the Blue Line, the datasets disagree mainly because of behind-the-gate transfers at State and Government Center, plus a larger non-tap allowance in the model after COVID. East Boston stations scale consistently and are not the driver. On the Green Line, the swing tracks shifts in the monthly dataset's own scaling. Along the way, the analysis surfaced unflagged breaks in the public data, logged in `docs/data_quality_log.md`.
+
+**What this project does not claim:** that the trip model is the true count (both are estimates; the claim is that the gap sits where transfers happen and an independent survey agrees with the model there); that the MBTA has confirmed the cause; that either dataset is wrong; that the fix improves accuracy in an absolute sense (it's tested against the model); or a precise yearly number or funding impact.
 
 **Caveat:** OPMI does not publish the exact factors behind Dataset A, so the transfer-allowance part of this decomposition is inferred from the published data, not confirmed by the MBTA.
 

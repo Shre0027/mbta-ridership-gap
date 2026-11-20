@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Who the turnstiles miss · Why two official MBTA ridership numbers disagree</title>
-<meta name="description" content="Two official MBTA ridership numbers disagree by up to 23% on the Blue Line. A reconciliation across fare taps, the trip model and the 2025 rider survey shows where the missing riders are.">
+<meta name="description" content="Two official MBTA ridership numbers disagree by up to 23% on the Blue Line. A reconciliation across fare taps, the trip model and the 2025 rider survey shows where the gap comes from.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://shre0027.github.io/mbta-ridership-gap/">
 <meta property="og:title" content="Who the turnstiles miss · MBTA ridership reconciliation">
-<meta property="og:description" content="Two official MBTA ridership numbers disagree by up to 23% on the Blue Line. Three datasets and an animated map of every scheduled train show where the missing riders are.">
+<meta property="og:description" content="Two official MBTA ridership numbers disagree by up to 23% on the Blue Line. Three datasets and an animated map of every scheduled train show where the gap comes from.">
 <meta property="og:image" content="https://shre0027.github.io/mbta-ridership-gap/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
@@ -202,8 +202,15 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 .about-links .btn:hover{opacity:.85}
 @media (max-width:760px){.about-card{grid-template-columns:1fr;padding:28px 20px 22px;gap:20px}}
 
+
+/* limits box */
+.limits{border:1.5px solid var(--ink);border-radius:16px;padding:20px 22px 8px;margin:18px 0 26px;background:var(--card)}
+.limits h3{font-family:var(--f-display);font-size:19px;margin:0 0 10px}
+.limits ul{margin:0;padding-left:18px}
+.limits li{margin:0 0 12px;line-height:1.55;font-size:15.5px}
+
 /* anchor targets clear the sticky nav */
-section[id],#stress,#pv-fig,#answer{scroll-margin-top:84px}
+section[id],#stress,#pv-fig,#answer,#limits{scroll-margin-top:84px}
 /* 30-second answer */
 .tldr{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;position:relative;overflow:hidden}
 .tldr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(var(--red) 0 25%,var(--orange) 25% 50%,var(--blue) 50% 75%,var(--green) 75%)}
@@ -325,13 +332,13 @@ section.has-div{border-top:none}
 <div class="wrap"><section class="tldr" id="answer" aria-labelledby="answer-h">
   <p class="eyebrow">The answer in 30 seconds</p>
   <h2 id="answer-h">Riders who change lines underground, where no gate sees them</h2>
-  <p class="find">The monthly dataset undercounts the Blue Line by <b id="tl-range">20–23%</b> every fall since 2023: <b id="tl-day">about 12,400 riders</b> on a fall weekday, or <b id="tl-year">roughly 4 million trips a year</b>. The gap comes from riders who walk from the Orange or Green Line onto the Blue at State and Government Center. Fare taps can't see them; the trip model can.</p>
+  <p class="find">On the Blue Line, the monthly dataset sits <b id="tl-range">20–23%</b> below the MBTA's own trip model every fall since 2023: <b id="tl-day">about 12,400 riders</b> on a fall weekday, or <b id="tl-year">roughly 4 million trips a year</b>. The gap comes from riders who walk from the Orange or Green Line onto the Blue at State and Government Center. Fare taps can't see them; the trip model can.</p>
   <ol class="proofs">
     <li><b>Only the transfer hubs are off.</b> Four downtown stations show 2.8–5.1 modeled boardings per tap. 54 of 61 gated stations sit at 0.9–1.5×. <a href="#system">See the map →</a></li>
     <li><b>Riders say so too.</b> In the 2025 survey, 82% of Blue Line riders at Government Center and 60% at State arrived on another subway line. Taps plus those transfers land within 3% of the model. <a href="#three">See the test →</a></li>
     <li><b>Nothing else explains it.</b> It holds on weekends, under both date windows and with every shutdown day removed, and East Boston stations scale normally. <a href="#stress">See the stress tests →</a></li>
   </ol>
-  <div class="foot"><span><b>The fix:</b> recalibrate the Blue Line factor once a year; out of sample, the error falls from 18% to 6%. <a href="#recs">Recommendations →</a></span><span id="tl-live"><b>Still live:</b> Fall 2026 early read <a href="#pv-fig">→</a></span></div>
+  <div class="foot"><span><b>The fix:</b> recalibrate the Blue Line factor once a year; out of sample, the gap to the model falls from 18% to 6%. <a href="#recs">Recommendations →</a></span><span><a href="#limits">What this doesn't claim →</a></span><span id="tl-live"><b>Still live:</b> Fall 2026 early read <a href="#pv-fig">→</a></span></div>
 </section></div></header>
 
 <main id="main">
@@ -344,7 +351,7 @@ section.has-div{border-top:none}
       <div class="step" data-step="0"><div class="card"><p class="eyebrow">The story in one map · 1 of 5</p><h3>8:30 on a weekday morning.</h3><p>About 100 trains are running. Every dot is a real scheduled train, and every glow is the riders boarding at that station this hour. Most stations look the same to both official datasets.</p></div></div>
       <div class="step" data-step="1"><div class="card"><p class="eyebrow">2 of 5</p><h3>Except four.</h3><p>Park Street, Government Center, Downtown Crossing and State sit where two lines meet underground. Riders here can change trains without ever passing a fare gate.</p></div></div>
       <div class="step" data-step="2"><div class="card"><p class="eyebrow">3 of 5</p><h3>The riders the gates can't see.</h3><p><span class="dotk" style="background:var(--taps)"></span>Orange dots tap in at the gates. <span class="dotk" style="background:var(--blue)"></span>Blue dots change lines underground and never touch a gate. Both come from real 8 AM data: gate taps, and the trip model's boardings beyond them.</p><p class="st-big" id="st-ratio"></p></div></div>
-      <div class="step" data-step="3"><div class="card"><p class="eyebrow">4 of 5</p><h3>That's the Blue Line's missing 20%.</h3><p>Now count only Blue Line boardings over a whole weekday. At regular Blue Line stations the model sits about 1.2× above the Blue gates. At State it's 14×, and at Government Center 21×, because most people boarding the Blue there walked over from another line. A count built from taps, like the monthly dataset, has to guess at those riders.</p></div></div>
+      <div class="step" data-step="3"><div class="card"><p class="eyebrow">4 of 5</p><h3>That's where the Blue Line's 20% gap comes from.</h3><p>Now count only Blue Line boardings over a whole weekday. At regular Blue Line stations the model sits about 1.2× above the Blue gates. At State it's 14×, and at Government Center 21×, because most people boarding the Blue there walked over from another line. A count built from taps, like the monthly dataset, has to guess at those riders.</p></div></div>
       <div class="step" data-step="4"><div class="card"><p class="eyebrow">5 of 5</p><h3>Same test, every station.</h3><p>Shade every station by modeled boardings ÷ gate taps. 54 of 61 gated stations sit between 0.9× and 1.5×. The dark ones are the four hubs. The rest of this page shows the evidence, the bridge between the two numbers, and a tested fix.</p></div></div>
     </div>
   </div>
@@ -370,10 +377,10 @@ section.has-div{border-top:none}
   </div>
 
   <div class="figure rv" id="fig1">
-    <h3>The gap shows up every year, and the Blue Line is the only consistent undercount</h3>
+    <h3>The gap shows up every year, and the Blue Line is the only line always below the model</h3>
     <p class="sub">Average weekday riders: how far the monthly dataset (A) sits from the stop-level dataset (B), by fall season</p>
     <div class="chart" id="c1"></div>
-    <p class="sowhat"><b>So what?</b>This isn't a one-season glitch. The two datasets follow different rules. On the Blue Line, those rules always undercount in the same direction, so something structural is going on. The Green Line swings both ways, and has a different cause (section 07).</p>
+    <p class="sowhat"><b>So what?</b>This isn't a one-season glitch. The two datasets follow different rules. On the Blue Line, the monthly number lands below the model every year, so something structural is going on. The Green Line swings both ways, and has a different cause (section 07).</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="t1"></div></details>
   </div>
   <div class="figure rv">
@@ -551,7 +558,7 @@ section.has-div{border-top:none}
   <div class="recs">
     <div class="rec rv"><span class="k">Federal reporting</span><h3>Dataset A is the reporting feed</h3><p>The monthly dataset is published as the MBTA's "NTD_Reporting" service. National Transit Database figures feed federal formula funding: FTA's Section 5307 urbanized-area formula uses NTD service data, including passenger miles. How riders are counted flows into what gets reported.</p></div>
     <div class="rec rv"><span class="k">Planning</span><h3>Two numbers, two pictures of the Blue Line</h3><p>One dataset says about 50,000 Blue Line riders on a fall weekday, the other about 63,000. Service, crowding and investment decisions read very differently depending on which one a planner picks up.</p></div>
-    <div class="rec rv"><span class="k">Riders</span><h3>Who rides the line that gets undercounted</h3><p>In the 2025 rider survey, <b id="blue-li">67%</b> of Blue Line riders were classified low-income under the MBTA's Title VI definition, and <b id="blue-mi">54%</b> as minority. Accurate counts matter most where service decisions affect riders who depend on transit.</p></div>
+    <div class="rec rv"><span class="k">Riders</span><h3>Who rides the line where the counts disagree</h3><p>In the 2025 rider survey, <b id="blue-li">67%</b> of Blue Line riders were classified low-income under the MBTA's Title VI definition, and <b id="blue-mi">54%</b> as minority. Accurate counts matter most where service decisions affect riders who depend on transit.</p></div>
     <div class="rec rv"><span class="k">Trust</span><h3>Official numbers should reconcile</h3><p>When two official sources disagree with no published explanation, every downstream user, from journalists to planners, has to guess which one to trust. A published bridge removes the guesswork.</p></div>
   </div>
   <p class="muted" style="font-size:15px">This project doesn't estimate funding impact. NTD reporting uses its own annual procedures, and formula funding depends on many factors. The point is that the counting method matters, and should be documented.</p>
@@ -564,7 +571,7 @@ section.has-div{border-top:none}
   <div class="figure rv" id="fig-fix">
     <div class="fig-top">
       <div><h3>We tested one fix: recalibrate the factor each fall</h3>
-      <p class="sub">Out of sample: calibrate on one fall, predict the next fall from its gate taps alone, compare with the trip model. Error vs the model, %</p></div>
+      <p class="sub">Out of sample: calibrate on one fall, predict the next fall from its gate taps alone, compare with the trip model. Gap to the model, % (the model is the yardstick here, not a true count)</p></div>
       <div class="seg" role="group" aria-label="Line" id="fx-line"></div>
     </div>
     <div class="legend" aria-hidden="true"><span><i style="background:var(--taps);border-radius:50%"></i>Monthly dataset today</span><span><i style="background:var(--blue);border-radius:50%"></i>Factor recalibrated each fall</span></div>
@@ -574,7 +581,7 @@ section.has-div{border-top:none}
   </div>
 
   <div class="recs">
-    <div class="rec rv"><span class="k">Recalibrate</span><h3>Refresh the Blue Line factor every fall</h3><p>Calibrating the tap-based Blue Line number against the fall trip model once a year cut its error from 18% to about 6% in an out-of-sample test (chart above). It's one number per line per year, and it reuses data OPMI already produces.</p></div>
+    <div class="rec rv"><span class="k">Recalibrate</span><h3>Refresh the Blue Line factor every fall</h3><p>Calibrating the tap-based Blue Line number against the fall trip model once a year cut its gap to the model from 18% to about 6% in an out-of-sample test (chart above). That shows the factor is stable enough to refresh yearly; it is measured against the model, not a true count. It's one number per line per year, and it reuses data OPMI already produces.</p></div>
     <div class="rec rv"><span class="k">Document</span><h3>Publish the scaling factors and their history</h3><p>List the non-interaction, station-split and transfer factors used in Dataset A, with the date each one changed. Users could then reconcile the datasets themselves.</p></div>
     <div class="rec rv"><span class="k">Flag</span><h3>Mark method changes in the data</h3><p>Add a method-version field or a change note to every dataset, so breaks like the Government Center swap (March 2019), the Green Line surface count (2019) and the Green Line factor shift at the August 2024 fare-system launch aren't mistaken for real ridership changes.</p></div>
     <div class="rec rv"><span class="k">Standardize</span><h3>One name and ID per station and line</h3><p>"State" vs "State Street," and a Green Line split into four branches in only one season. Shared IDs would make every join reliable.</p></div>
@@ -585,6 +592,16 @@ section.has-div{border-top:none}
 <section id="method"><div class="wrap"><div class="narrow">
   <p class="eyebrow">10 · Method</p>
   <h2>How this was built</h2>
+  <div class="limits" id="limits">
+    <h3>What this project does not claim</h3>
+    <ul>
+      <li><b>That the trip model is the true count.</b> Both datasets are estimates, and the trip model has its own assumptions about transfers and riders who don't tap. The claim is narrower: the gap sits exactly where lines meet underground, and an independent survey agrees with the model there.</li>
+      <li><b>That the MBTA has confirmed the cause.</b> OPMI doesn't publish the factors behind the monthly dataset. The bridge in section 05 is reconstructed from the outside, and the explanation is mine.</li>
+      <li><b>That either dataset is "wrong" or that anyone made a mistake.</b> The two are built for different jobs. The point is that the difference should be documented and reconciled.</li>
+      <li><b>That the fix makes the count more accurate in an absolute sense.</b> It's tested against the trip model. It shows the Blue Line factor is stable enough to refresh once a year.</li>
+      <li><b>A precise yearly number or any funding impact.</b> "About 4 million trips a year" is stretched from fall averages, and no dollar effect is estimated.</li>
+    </ul>
+  </div>
   <ul class="method">
     <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025, incl. by hour); Gated Station Entries (historical, 2017–2026); MBTA 2025 System-Wide Passenger Survey; MBTA Bus Ridership by Trip, Season, Route/Line and Stop (Fall 2016–2025); MBTA archived GTFS-Realtime service alerts (2020–2025); MBTA Ridership Guide (OPMI); official GTFS route shapes and stops; MassGIS town boundaries. All public.</li>
     <li><b>Yearly figure:</b> the latest fall's weekday, Saturday and Sunday gaps times that year's number of each day (holidays counted as Sundays). Fall is usually a busier season, so treat it as a rough, upper-leaning estimate.</li>
@@ -728,7 +745,7 @@ drawC1();
   document.getElementById("tdt").appendChild(t);
   const neg = D.filter(d => d.gap_pct < 0).length;
   const wk = D.filter(d => d.day_type !== "weekday" && d.fall >= 2023).map(d => d.gap_pct);
-  document.getElementById("dt-sowhat").textContent = `The monthly dataset undercounts the Blue Line in ${neg} of ${D.length} comparisons across weekdays, Saturdays and Sundays. On weekends since 2023 the gap runs ${pct(Math.max(...wk))} to ${pct(Math.min(...wk))}, larger than on weekdays. Whatever the cause, it isn't a weekday-commute quirk.`;
+  document.getElementById("dt-sowhat").textContent = `On the Blue Line the monthly dataset sits below the model in ${neg} of ${D.length} comparisons across weekdays, Saturdays and Sundays. On weekends since 2023 the gap runs ${pct(Math.max(...wk))} to ${pct(Math.min(...wk))}, larger than on weekdays. Whatever the cause, it isn't a weekday-commute quirk.`;
 })();
 
 /* ---------- Chart 2: paired horizontal bars per station, year toggle ---------- */
@@ -1077,7 +1094,7 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
     document.querySelectorAll(".step").forEach(n => n.classList.toggle("on", +n.dataset.step === i)); if (i !== 2) P.length = 0; else if (reduce){ P.length = 0; spawn(2); P.forEach(q => q.t = Math.random()*.96); } }
   cap.textContent = CAPS[0];
   const tot = HUBS.reduce((a, h) => ({t:a.t + h.t[HI8], h:a.h + h.h[HI8]}), {t:0, h:0});
-  ratioEl.textContent = `At 8 AM: ${fmt(tot.t)} taps vs ${fmt(tot.h - tot.t)} riders the gates miss, about ${Math.round((tot.h - tot.t)/tot.t)} for every tap.`;
+  ratioEl.textContent = `At 8 AM: ${fmt(tot.t)} gate taps vs ${fmt(tot.h - tot.t)} more modeled boardings, about ${Math.round((tot.h - tot.t)/tot.t)} for every tap.`;
   function frame(now){
     const dt = Math.min(.05, (now - last)/1000); last = now;
     if (!visible){ requestAnimationFrame(frame); return; }
@@ -1262,7 +1279,7 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
     const rows = F.filter(d => d.line === cur), W = Math.max(300, box.clientWidth), H = 250, left = 46, right = 16, top = 16, bot = 34;
     const lim = 25, y = v => top + (lim - Math.max(-lim, Math.min(lim, v))) / (2*lim) * (H-top-bot);
     const slot = (W-left-right)/rows.length, xc = i => left + slot*i + slot/2;
-    const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":`${cur}: error of today's monthly dataset versus a factor recalibrated each fall, by test year.`}, box);
+    const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":`${cur}: gap to the trip model for today's monthly dataset versus a factor recalibrated each fall, by test year.`}, box);
     [-20,-10,0,10,20].forEach(v => { el("line", {x1:left, x2:W-right, y1:y(v), y2:y(v), stroke: v ? "var(--grid)" : "var(--axis)", "stroke-width": v ? 1 : 1.5}, svg);
       el("text", {x:left-8, y:y(v)+4, "text-anchor":"end"}, svg, (v>0?"+":"") + v + "%"); });
     rows.forEach((d, i) => { const x = xc(i);
@@ -1280,7 +1297,7 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   draw(); window.redrawFX = draw;
   const b1 = mae("Blue Line","monthly_today_err_pct"), b2 = mae("Blue Line","refreshed_single_err_pct");
   const r1 = mae("Red Line","monthly_today_err_pct"), r2 = mae("Red Line","refreshed_single_err_pct"), o1 = mae("Orange Line","monthly_today_err_pct"), o2 = mae("Orange Line","refreshed_single_err_pct");
-  document.getElementById("fx-sowhat").textContent = `Recalibrating once a year helps every line, and the Blue Line most: its average error falls from ${b1.toFixed(0)}% to ${b2.toFixed(0)}%. Red goes from ${r1.toFixed(0)}% to ${r2.toFixed(0)}% and Orange from ${o1.toFixed(0)}% to ${o2.toFixed(1)}%. Blue gains far more because its fixed factor can't track the transfers at State and Government Center. Finer station-level factors did no better than one recalibrated line factor, so the fix is recalibration, not more detail.`;
+  document.getElementById("fx-sowhat").textContent = `Recalibrating once a year helps every line, and the Blue Line most: its average gap to the model falls from ${b1.toFixed(0)}% to ${b2.toFixed(0)}%. Red goes from ${r1.toFixed(0)}% to ${r2.toFixed(0)}% and Orange from ${o1.toFixed(0)}% to ${o2.toFixed(1)}%. Blue gains far more because its fixed factor can't track the transfers at State and Government Center. Finer station-level factors did no better than one recalibrated line factor, so the fix is recalibration, not more detail. One caution: the yardstick here is the trip model, so this shows the monthly method can be kept in line with the model cheaply, not that either one is the true count.`;
   table("tfx", ["Line","Calibrated on","Tested on","Monthly today","Recalibrated factor","Station-level factors"],
     F.map(d => [d.line, d.calibrate_on, d.test_on, pct(d.monthly_today_err_pct), pct(d.refreshed_single_err_pct), pct(d.refreshed_station_err_pct)]));
 })();
@@ -1432,7 +1449,7 @@ function drawThree(){
     hit.addEventListener("mouseleave", hideTip);
   });
   const T = rows.reduce((a, d) => ({odx:a.odx+d.odx, t:a.t+d.taps_est, x:a.x+d.transfer_est}), {odx:0, t:0, x:0});
-  document.getElementById("three-sowhat").textContent = `Across the four hubs the trip model counts ${fmt(T.odx)} weekday boardings. Fare taps with the normal uplift explain ${fmt(T.t)} of them (${Math.round(T.t/T.odx*100)}%). Add the transfers riders reported in the survey and the estimate reaches ${fmt(T.t+T.x)}, within ${Math.abs(Math.round((T.t+T.x-T.odx)/T.odx*100))}% of the model. Two independent sources agree on where the missing riders are.`;
+  document.getElementById("three-sowhat").textContent = `Across the four hubs the trip model counts ${fmt(T.odx)} weekday boardings. Fare taps with the normal uplift explain ${fmt(T.t)} of them (${Math.round(T.t/T.odx*100)}%). Add the transfers riders reported in the survey and the estimate reaches ${fmt(T.t+T.x)}, within ${Math.abs(Math.round((T.t+T.x-T.odx)/T.odx*100))}% of the model. Two independent sources agree on where the extra boardings come from.`;
   document.getElementById("h-hub").textContent = Math.round(T.t/T.odx*100) + "%";
   document.querySelectorAll(".kval").forEach(n => n.textContent = DATA.k.toFixed(2));
   const t3 = document.getElementById("t3s"); t3.innerHTML = "";

@@ -19,3 +19,12 @@ Every number on the published page checked against the pipeline outputs, before 
 | Method section | "Eleven issues are logged"; sources list | "Sixteen"; bus and alert datasets added | Out of date |
 | Portfolio card | "11 data quality issues", "4 recommendations" | 16 and 5 | Out of date |
 | All charts | mixed "-" and "−" | "−" everywhere | Typography |
+
+## 2026-11-19 (second pass: wording a critic could attack)
+
+| Where | Was | Now | Why |
+|---|---|---|---|
+| Whole page, README, portfolio card | "undercounts", "missing riders" | "sits below the trip model", "where the gap comes from" | "Undercount" assumes the trip model is the true count; the evidence supports a narrower claim |
+| Fix test (page, README) | "error falls from 18% to 6%" | "gap to the model falls from 18% to 6%", plus what the test shows | The test measures distance from the model, so calling it error was partly circular |
+| Scroll story | "riders the gates miss" | "more modeled boardings" | Same reason |
+| Method section, README | (none) | "What this project does not claim" box | States the limits before a reader has to find them |
