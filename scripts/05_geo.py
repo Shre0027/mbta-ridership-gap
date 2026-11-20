@@ -119,7 +119,7 @@ def main():
             "id": sid, "name": name, "x": x, "y": y,
             "lines": sorted(grp.loc[grp["odx"] > 0, "line"].str.replace(" Line", "").tolist()),
             "taps": round(taps), "odx": round(odx),
-            "ratio": round(odx / taps, 2) if taps > 0 else None,
+            "ratio": round(odx / taps, 2) if taps > 0 and odx > 0 else None,  # Mattapan: taps exist, trolley not in stop-level data
             "survey": None if grp["survey_arrived_by_subway"].isna().all() else round(float((grp["survey_arrived_by_subway"] * grp["odx"]).sum() / grp.loc[grp["survey_arrived_by_subway"].notna(), "odx"].sum()), 2),
             "transfer": bool(grp["transfer_station"].any()),
             "h": hrs,

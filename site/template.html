@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Who the turnstiles miss · Why two official MBTA ridership numbers disagree</title>
-<meta name="description" content="Two official MBTA ridership numbers disagree by up to 23%. A reconciliation across fare taps, the trip model and the 2025 rider survey shows where the missing riders are.">
+<meta name="description" content="Two official MBTA ridership numbers disagree by up to 23% on the Blue Line. A reconciliation across fare taps, the trip model and the 2025 rider survey shows where the missing riders are.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://shre0027.github.io/mbta-ridership-gap/">
 <meta property="og:title" content="Who the turnstiles miss · MBTA ridership reconciliation">
-<meta property="og:description" content="Two official MBTA ridership numbers disagree by up to 23%. Three datasets and an animated map of every scheduled train show where the missing riders are.">
+<meta property="og:description" content="Two official MBTA ridership numbers disagree by up to 23% on the Blue Line. Three datasets and an animated map of every scheduled train show where the missing riders are.">
 <meta property="og:image" content="https://shre0027.github.io/mbta-ridership-gap/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
@@ -274,7 +274,7 @@ section.has-div{border-top:none}
   <div>
     <p class="eyebrow">Public data project · Boston transit · Data reconciliation</p>
     <h1>Who the turnstiles <em>miss.</em></h1>
-    <p class="dek">The MBTA publishes two official ridership numbers that disagree by up to 23%. The MBTA suspected growth in East Boston. Three independent datasets point somewhere else: riders changing trains underground, where no fare gate ever sees them.</p>
+    <p class="dek">The MBTA publishes two official ridership numbers that disagree by up to 23% on the Blue Line. The MBTA's data team suspected growth in East Boston. Three independent datasets point somewhere else: riders changing trains underground, where no fare gate ever sees them.</p>
     <div class="linechips" aria-label="Lines covered"><span class="chip"><i style="background:var(--red)">R</i>Red</span><span class="chip"><i style="background:var(--orange)">O</i>Orange</span><span class="chip"><i style="background:var(--blue)">B</i>Blue</span><span class="chip"><i style="background:var(--green)">G</i>Green</span></div>
     <p class="byline">Shreyas Tayde · November 2026 · Data: MBTA Open Data Portal (OPMI) · <span id="updated"></span></p>
   </div>
@@ -289,7 +289,7 @@ section.has-div{border-top:none}
 <div class="wrap"><div class="hero-num">
   <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two official datasets, Fall 2023</span></div>
   <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
-  <div><b id="h-hub">33%</b><span>of boardings at the four downtown hubs that fare taps account for. The rider survey accounts for most of the rest</span></div>
+  <div><b id="h-hub">33%</b><span>of boardings at the four downtown hubs that fare taps explain, even with the normal allowance for non-tappers. The rider survey accounts for most of the rest</span></div>
 </div></div></header>
 
 <main id="main">
@@ -413,7 +413,7 @@ section.has-div{border-top:none}
       <div class="seg" role="group" aria-label="Fall season" id="cb-years"></div>
     </div>
     <div class="chart" id="cb"></div>
-    <p class="sowhat"><b>So what?</b>Every year the model finds 18,000–26,000 more Blue Line riders at State and Government Center than the monthly factor credits there. The monthly method partly makes up for it by over-crediting regular stations, but never fully. As the model's own uplift grew after COVID, that cushion shrank from about 17,000 to 5,000–8,000, and the gap widened.</p>
+    <p class="sowhat"><b>So what?</b>Every year the model finds 18,000–26,000 more Blue Line riders at State and Government Center than the monthly factor credits there. The monthly method partly makes up for it by over-crediting regular stations, but never fully. That cushion was about 17,000 riders in 2019 but only 5,000–8,000 since 2023, so more of the hub shortfall shows up in the gap.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="tb"></div></details>
   </div>
   <p class="muted" style="font-size:15px">Method note: the bridge treats the monthly dataset as one factor applied to all Blue Line taps. OPMI's actual factors aren't published, so the split between the two parts is a model of their method, not their own breakdown.</p>
@@ -489,12 +489,12 @@ section.has-div{border-top:none}
     <p class="sub">Monthly weekday riders ÷ weekday gate taps. Dots show the stop-level model's own factor for each fall</p>
     <div class="legend" aria-hidden="true"><span><i style="background:var(--accent)"></i>Green Line, monthly dataset</span><span><i style="background:transparent;border:2px solid var(--accent);border-radius:50%"></i>Green Line, stop-level model (fall)</span><span><i style="background:var(--axis)"></i>Red, Orange, Blue, monthly dataset</span></div>
     <div class="chart" id="cg"></div>
-    <p class="sowhat"><b>So what?</b>Across 2018–2026 the monthly Green factor wanders between about 1.7× and 3.1×, while Red, Orange and Blue stay mostly at 1.25–1.5×. The model's Green Line factor stays near 2.3–2.4× in 2018 and 2023–25. The monthly factor drops to mostly 1.7–2.0 from July 2023 to June 2024, then jumps to mostly 2.4–2.8 from August 2024. The single-month spikes (January 2024, December 2024, December 2025) are months when Green Line taps fell much faster than the monthly estimate. Fall 2023 lands in the low stretch (monthly below the model), and Fall 2024–25 in the high one (monthly above). Red, Orange and Blue barely move.</p>
+    <p class="sowhat"><b>So what?</b>Across 2018–2026 the monthly Green factor wanders between about 1.7× and 3.1×, while Red, Orange and Blue stay mostly at 1.25–1.5×. The model's Green Line factor stays near 2.1–2.4× in 2018 and 2023–25. The monthly factor drops to mostly 1.7–2.0 from July 2023 to June 2024, then jumps to mostly 2.4–2.8 from August 2024. The single-month spikes (January 2024, December 2024, December 2025) are months when Green Line taps fell much faster than the monthly estimate. Fall 2023 lands in the low stretch (monthly below the model), and Fall 2024–25 in the high one (monthly above). Red, Orange and Blue barely move.</p>
     <details><summary>Show the table</summary><div class="tablewrap" id="tg"></div></details>
   </div>
   <p class="lede" style="margin-top:22px"><b>What changed in August 2024?</b> On August 1, 2024 the MBTA launched its new fare system ("Tap to Ride"), with contactless readers onboard Green Line trolleys and at gated stations. That is the month the monthly Green factor jumped. A later NBC10 Boston / Boston University investigation reported that the share of Green Line riders boarding at ungated stops rose from about 42–46% before the launch to 56.5% in September 2024. More riders boarding where there are no gates means more of the monthly number has to come from outside the gate taps, so the ratio rises. The timing lines up. OPMI hasn't published a method note confirming it.</p>
   <p class="lede"><b>One more break, on the other side.</b> In Fall 2019 the stop-level data counts about half as many boardings at ungated surface stops as in 2018: 21,000 vs 44,000, or 15% of Green Line boardings instead of 25%. That's why the model factor dips to 1.8× that year and the 2019 gap looks so large. The data doesn't explain the change either.</p>
-  <p class="lede"><b>Shutdowns move the Green Line's numbers too.</b> In both 2024 and 2025 the MBTA closed the central Green Line subway for about two weeks in December (in 2025, no trains between North Station and Kenmore from Dec 8 to Dec 22). The monthly Green figure for December fell 16% below November in 2024 and 35% in 2025, while the Blue Line fell 11–15%. That's why the Green gap swings by 12 points between the two date windows in the bus yardstick table above, against 3–4 points for the other lines. Fall 2025 also had a nine-day core closure (Sep 26–Oct 4) and a Green Line Extension closure into mid-November. So read the Green Line's year-to-year gap as noisy. The factor jump in August 2024 is the steadier signal.</p>
+  <p class="lede"><b>Shutdowns move the Green Line's numbers too.</b> In both 2024 and 2025 the MBTA closed the central Green Line subway for about two weeks in December (in 2025, no trains between North Station and Kenmore from Dec 8 to Dec 22). The monthly Green figure for December fell 16% below November in 2024 and 35% in 2025, while the Blue Line fell 11–15%. That's why the Green gap moves by as much as 12 points (2025) between the two date windows in the bus yardstick table above, against a typical 3–4 points for the other lines. Fall 2025 also had a nine-day core closure (Sep 26–Oct 4) and a Green Line Extension closure into mid-November. So read the Green Line's year-to-year gap as noisy. The factor jump in August 2024 is the steadier signal.</p>
 </div></section>
 
 <section id="stakes"><div class="wrap">
@@ -538,13 +538,13 @@ section.has-div{border-top:none}
   <p class="eyebrow">10 · Method</p>
   <h2>How this was built</h2>
   <ul class="method">
-    <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025, incl. by hour); Gated Station Entries (historical, 2017–2026); MBTA 2025 System-Wide Passenger Survey; MBTA Ridership Guide (OPMI); official GTFS route shapes and stops; MassGIS town boundaries. All public.</li>
+    <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025, incl. by hour); Gated Station Entries (historical, 2017–2026); MBTA 2025 System-Wide Passenger Survey; MBTA Bus Ridership by Trip, Season, Route/Line and Stop (Fall 2016–2025); MBTA archived GTFS-Realtime service alerts (2020–2025); MBTA Ridership Guide (OPMI); official GTFS route shapes and stops; MassGIS town boundaries. All public.</li>
     <li><b>Window:</b> weekdays, September to December. Monthly figures are day-weighted, which reproduces the forum post's Fall 2023 numbers exactly.</li>
     <li><b>Stop-level totals:</b> the sum of average weekday boardings across every stop, direction and time period.</li>
     <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.20×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway. Each station's taps are averaged over the days it was open, so shutdowns with shuttle buses don't count as zero-rider days.</li>
     <li><b>Survey check:</b> share of riders who arrived on another subway or light-rail line ("Access to Each MBTA Trip Leg"), weighted by modeled boardings across the lines at each station.</li>
     <li><b>Map:</b> official GTFS route shapes (one canonical shape per service), MassGIS town boundaries for land. Hero trains: every scheduled subway trip on one regular Tuesday from the MBTA GTFS feed, interpolated between scheduled stop times along each trip's own shape.</li>
-    <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated. Eleven issues are logged in the repo.</li>
+    <li><b>Data quality fixes:</b> "State Street" mapped to "State"; Fall 2025 Green Line branches rolled up to one line; Green Line Extension stations treated as ungated; stale copies of old alerts removed from the alert archive. Sixteen issues are logged in the repo.</li>
   </ul>
   <div class="links">
     <a class="btn primary" href="https://github.com/Shre0027/mbta-ridership-gap">See the code and data ↗</a>
@@ -573,7 +573,7 @@ document.getElementById("updated").textContent = "Data through " + DATA.latest_m
 
 const NS = "http://www.w3.org/2000/svg";
 const fmt = n => n == null ? "–" : Math.round(n).toLocaleString("en-US");
-const pct = n => n == null ? "–" : (n > 0 ? "+" : "") + n.toFixed(1) + "%";
+const pct = n => n == null ? "–" : (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n).toFixed(1) + "%";
 function el(tag, attrs, parent, text){
   const e = document.createElementNS(NS, tag);
   for (const k in attrs) e.setAttribute(k, attrs[k]);
