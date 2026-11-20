@@ -17,6 +17,8 @@ The page opens with a five-step scroll story around one pinned map: the morning 
 *Every scheduled subway train (official GTFS), stations glowing with modeled boardings per hour.*
 </details>
 
+**In plain numbers:** on a fall 2025 weekday the two official counts differ by about 12,400 Blue Line riders, roughly 4 million trips a year if the fall gap held all year (fall is usually busier, so treat it as an upper-leaning estimate).
+
 ## The problem
 
 The MBTA publishes two "official" ridership numbers for the same subway lines:

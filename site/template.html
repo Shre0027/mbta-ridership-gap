@@ -189,6 +189,19 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 
 
 
+
+/* about / contact */
+.about{padding:20px 0 60px}
+.about-card{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 34px 30px;position:relative;overflow:hidden}
+.about-card::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,var(--red) 0 25%,var(--orange) 25% 50%,var(--blue) 50% 75%,var(--green) 75%)}
+.about-card h2{font-family:var(--f-display);font-size:clamp(26px,3vw,34px);letter-spacing:-.02em;margin:6px 0 12px}
+.about-card p{font-size:16.5px;line-height:1.6;margin:0 0 12px;max-width:640px}
+.about-links{display:flex;flex-direction:column;gap:10px;align-self:center}
+.about-links .btn{display:block;text-align:center;padding:12px 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;text-decoration:none;border:1.5px solid var(--ink)}
+.about-links .btn.ghost{background:transparent;color:var(--ink)}
+.about-links .btn:hover{opacity:.85}
+@media (max-width:760px){.about-card{grid-template-columns:1fr;padding:28px 20px 22px;gap:20px}}
+
 /* anchor targets clear the sticky nav */
 section[id],#stress,#pv-fig,#answer{scroll-margin-top:84px}
 /* 30-second answer */
@@ -287,7 +300,7 @@ section.has-div{border-top:none}
 <nav id="rail" aria-label="Sections"><ol>
   <li><a href="#top">Start</a></li><li><a href="#story">The story</a></li><li><a href="#datasets">The problem</a></li><li><a href="#system">System map</a></li><li><a href="#stations">Blue Line</a></li>
   <li><a href="#three">Three sources</a></li><li><a href="#bridge">Bridge</a></li><li><a href="#why">Over time</a></li><li><a href="#stress">Stress tests</a></li><li><a href="#green">Green Line</a></li>
-  <li><a href="#stakes">Why it matters</a></li><li><a href="#recs">Fixes</a></li></ol></nav>
+  <li><a href="#stakes">Why it matters</a></li><li><a href="#recs">Fixes</a></li><li><a href="#about">About</a></li></ol></nav>
 <header id="top"><div class="wrap hero">
   <div>
     <p class="eyebrow">Public data project · Boston transit · Data reconciliation</p>
@@ -306,13 +319,13 @@ section.has-div{border-top:none}
 </div>
 <div class="wrap"><div class="hero-num">
   <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two official datasets, Fall 2023</span></div>
-  <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
+  <div><b id="h-annual">~4M</b><span id="h-annual-s">Blue Line trips a year between the two official counts, roughly: about 12,400 riders on a fall weekday</span></div>
   <div><b id="h-hub">33%</b><span>of boardings at the four downtown hubs that fare taps explain, even with the normal allowance for non-tappers. The rider survey accounts for most of the rest</span></div>
 </div></div>
 <div class="wrap"><section class="tldr" id="answer" aria-labelledby="answer-h">
   <p class="eyebrow">The answer in 30 seconds</p>
   <h2 id="answer-h">Riders who change lines underground, where no gate sees them</h2>
-  <p class="find">The monthly dataset undercounts the Blue Line by <b id="tl-range">20–23%</b> every fall since 2023. The gap comes from riders who walk from the Orange or Green Line onto the Blue at State and Government Center. Fare taps can't see them; the trip model can.</p>
+  <p class="find">The monthly dataset undercounts the Blue Line by <b id="tl-range">20–23%</b> every fall since 2023: <b id="tl-day">about 12,400 riders</b> on a fall weekday, or <b id="tl-year">roughly 4 million trips a year</b>. The gap comes from riders who walk from the Orange or Green Line onto the Blue at State and Government Center. Fare taps can't see them; the trip model can.</p>
   <ol class="proofs">
     <li><b>Only the transfer hubs are off.</b> Four downtown stations show 2.8–5.1 modeled boardings per tap. 54 of 61 gated stations sit at 0.9–1.5×. <a href="#system">See the map →</a></li>
     <li><b>Riders say so too.</b> In the 2025 survey, 82% of Blue Line riders at Government Center and 60% at State arrived on another subway line. Taps plus those transfers land within 3% of the model. <a href="#three">See the test →</a></li>
@@ -574,6 +587,7 @@ section.has-div{border-top:none}
   <h2>How this was built</h2>
   <ul class="method">
     <li><b>Sources:</b> MBTA Monthly Ridership by Mode and Line; Rail Ridership by Season, Route/Line and Stop (Fall 2017–2019, 2023, 2024, 2025, incl. by hour); Gated Station Entries (historical, 2017–2026); MBTA 2025 System-Wide Passenger Survey; MBTA Bus Ridership by Trip, Season, Route/Line and Stop (Fall 2016–2025); MBTA archived GTFS-Realtime service alerts (2020–2025); MBTA Ridership Guide (OPMI); official GTFS route shapes and stops; MassGIS town boundaries. All public.</li>
+    <li><b>Yearly figure:</b> the latest fall's weekday, Saturday and Sunday gaps times that year's number of each day (holidays counted as Sundays). Fall is usually a busier season, so treat it as a rough, upper-leaning estimate.</li>
     <li><b>Window:</b> weekdays, September to December. Monthly figures are day-weighted, which reproduces the forum post's Fall 2023 numbers exactly.</li>
     <li><b>Stop-level totals:</b> the sum of average weekday boardings across every stop, direction and time period.</li>
     <li><b>Station test:</b> raw gate taps averaged over non-holiday weekdays, compared with modeled boardings at each station. Normal uplift (1.20×) = model ÷ taps at heavy-rail stations where under 5% of riders arrive by subway. Each station's taps are averaged over the days it was open, so shutdowns with shuttle buses don't count as zero-rider days.</li>
@@ -589,6 +603,25 @@ section.has-div{border-top:none}
 </div></div></section>
 
 </main>
+<section id="about" class="about"><div class="wrap">
+  <div class="about-card">
+    <div>
+      <p class="eyebrow">About this project</p>
+      <h2>Built by Shreyas Tayde</h2>
+      <p>I'm an analyst in Boston with an MS in Business Analytics from UMass Boston. I saw a question on the MBTA's public developer forum about why two official ridership numbers disagree, and I wanted to find the actual answer, not a guess.</p>
+      <p>This project is the kind of work I want to do every day: put two sources side by side, find exactly where they stop agreeing, test the explanation against independent data, and write it up so the people who own the data can act on it.</p>
+      <p class="muted" style="font-size:15px">Open to business, systems and data analyst roles. Feedback from anyone at the MBTA is especially welcome.</p>
+    </div>
+    <div class="about-links">
+      <a class="btn" href="mailto:shreyaastayde@gmail.com?subject=MBTA%20ridership%20project">Email me</a>
+      <a class="btn ghost" href="https://linkedin.com/in/shreyastayde" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn ghost" href="https://shre0027.github.io/" target="_blank" rel="noopener">Portfolio ↗</a>
+      <a class="btn ghost" href="https://github.com/Shre0027/mbta-ridership-gap" target="_blank" rel="noopener">Code and data ↗</a>
+      <p class="muted" style="font-size:13.5px;margin:6px 0 0">shreyaastayde@gmail.com</p>
+    </div>
+  </div>
+</div></section>
+
 <footer><div class="wrap">Built by <a href="https://shre0027.github.io/">Shreyas Tayde</a>, analyst in Boston. Data © MBTA, used under the MassDOT Developers License Agreement. This is an independent analysis, not affiliated with the MBTA.</div></footer>
 
 <div id="tip" role="tooltip"></div>
@@ -679,7 +712,6 @@ drawC1();
   table("t1", ["Line","Fall","Stop-level (B)","Monthly (A)","Gap"],
     DATA.line.slice().sort((a,b)=>a.line.localeCompare(b.line)||a.fall-b.fall).map(d => [d.line, d.fall, fmt(d.stop_level), fmt(d.monthly), pct(d.gap_pct)]));
   const blue = DATA.line.filter(d => d.line === "Blue Line");
-  document.getElementById("h-years").textContent = blue.filter(d => d.gap_pct < 0).length + " of " + blue.length;
   const f23 = blue.find(d => d.fall === 2023);
   if (f23) document.getElementById("h-gap").textContent = Math.abs(f23.gap_pct).toFixed(1) + "%";
 })();
@@ -1321,6 +1353,19 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   table("tdis", ["Fall","Line","Disrupted weekdays","Gap, all weekdays","Gap, undisrupted weekdays"], D.rows.map(r => [r.fall, r.line, `${r.disrupted_weekdays} of ${r.weekdays}`, pct(r.gap_all_pct), pct(r.gap_clean_pct)]));
 })();
 
+
+
+/* ================= ANNUAL SCALE ================= */
+(function(){
+  try {
+    const A = DATA.annual; if (!A) return;
+    const day = Math.round(A.weekday_riders/100)*100, yr = A.per_year;
+    document.getElementById("h-annual").textContent = "~" + Math.round(yr) + "M";
+    document.getElementById("h-annual-s").textContent = `Blue Line trips a year between the two official counts, roughly: about ${day.toLocaleString("en-US")} riders on a fall ${A.fall} weekday`;
+    document.getElementById("tl-day").textContent = `about ${day.toLocaleString("en-US")} riders`;
+    document.getElementById("tl-year").textContent = `roughly ${Math.round(yr)} million trips a year`;
+  } catch (e) { console.error(e); }
+})();
 
 /* ================= 30-SECOND ANSWER (live numbers) ================= */
 (function(){

@@ -34,6 +34,24 @@ for st in mapdata["stations"]:
                       "taps_est": round(K * st["taps"]), "transfer_est": round(K * st["taps"] / (1 - st["survey"]) - K * st["taps"])})
 three.sort(key=lambda r: -r["odx"])
 
+def annual_block():
+    """Blue Line riders between the two counts, as a daily and a rough yearly figure.
+    Yearly = latest fall's weekday / Saturday / Sunday gaps x that year's day counts (holidays as Sundays).
+    Fall is usually a busier season, so this is an upper-leaning, rough figure, and the page says so."""
+    from pandas.tseries.holiday import USFederalHolidayCalendar
+    b = daytype[daytype["line"] == "Blue Line"].copy()
+    y = int(b["fall"].max())
+    r = b[b["fall"] == y].set_index("day_type")
+    g = r["stop_level"] - r["monthly"]
+    days = pd.date_range(f"{y}-01-01", f"{y}-12-31")
+    hol = set(USFederalHolidayCalendar().holidays(f"{y}-01-01", f"{y}-12-31"))
+    wk = sum(1 for d in days if d.dayofweek < 5 and d not in hol)
+    sat = sum(1 for d in days if d.dayofweek == 5)
+    sun = sum(1 for d in days if d.dayofweek == 6) + len(hol)
+    total = g["weekday"] * wk + g["saturday"] * sat + g["sunday"] * sun
+    return {"fall": y, "weekday_riders": int(round(g["weekday"], -2)), "per_year": round(float(total) / 1e6, 1)}
+
+
 def disruption_block():
     fs, fd = OUT / "disruption_summary.csv", OUT / "disruption_days.csv"
     if not fs.exists():
@@ -69,6 +87,7 @@ data = {
     "daytype": clean(daytype[daytype["line"] == "Blue Line"][["fall", "day_type", "gap_pct"]].to_dict("records")),
     "three": three,
     "disrupt": disruption_block(),
+    "annual": annual_block(),
     "preview": json.loads((OUT / "preview_summary.json").read_text()) if (OUT / "preview_summary.json").exists() else {},
     "bus": clean(bus[["fall", "apc_all", "monthly_all_bus", "monthly_all_bus_sepnov", "gap_sepdec_pct", "gap_sepnov_pct"]].to_dict("records")) if len(bus) else [],
     "window": clean(win.to_dict("records")) if len(win) else [],
