@@ -4,14 +4,14 @@ date,line,alert_id,stations,header
 2020-08-05,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-06,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-07,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
-2020-08-10,Green Line,368779,11,Shuttle buses replace B Branch service between Boston College and Babcock St from Aug. 10 through Aug. 19 to allow National Grid to complete urgent utility work
+2020-08-10,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-11,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-12,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-13,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-14,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-17,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-18,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
-2020-08-19,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
+2020-08-19,Green Line,368779,11,Shuttle buses replace B Branch service between Boston College and Babcock St from Aug. 10 through Aug. 19 to allow National Grid to complete urgent utility work
 2020-08-20,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-21,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-24,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
@@ -19,24 +19,24 @@ date,line,alert_id,stations,header
 2020-08-26,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-27,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
 2020-08-28,Green Line,367446,11,Shuttle buses replace Green Line E Branch service from August 2 - 29 for accelerated track work. More: mbta.com/GLEwork
-2020-10-08,Green Line,373491,8,Shuttle buses are being extended to run from Reservoir to Riverside due an ongoing power problem near Eliot.
-2020-10-21,Green Line,374445,8,Shuttle buses replacing Green Line D Branch service between Reservoir and Riverside due to a problem with the overhead wires. Expect delays as shuttles are disp
-2020-11-02,Green Line,375449,8,Green Line D Branch Update: Shuttle buses continue to replace train service between Reservoir and Riverside due to downed branches. Personnel are on scene worki
+2020-10-08,Green Line,373491,8,Shuttle buses are replacing service from Reservoir to Riverside due an ongoing power problem near Eliot. The Power Department is on scene continuing to make rep
+2020-10-21,Green Line,374445,8,Shuttle buses replacing Green Line D Branch service between Reservoir and Riverside due to a problem with the overhead wires. The Power Department is continuing
+2020-11-02,Green Line,375449,8,Green Line D Branch Update: Shuttle buses continue to replace train service between Reservoir and Riverside due to earlier downed tree branches. Personnel are m
 2020-11-06,Green Line,375810,14,Shuttle buses continue to replace Green Line C Branch service between Kenmore and Cleveland Circle to allow the Power Department to complete repairs to the over
 2021-08-02,Green Line,394069,10,Shuttle buses replacing B Branch service between Kenmore and Washington St on weekends from July 10 through August 29.
 2021-08-03,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
-2021-08-04,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
-2021-08-05,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
+2021-08-04,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St all day Aug 2 - 23 and Aug 27- 29 for track and intersection upgrades. Customers can use 
+2021-08-05,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St from Aug 27 - 28 for track and intersection upgrades. Customers can use Route 39 bus serv
 2021-08-06,Green Line,395895,13,"Shuttle buses replace D Branch service between Fenway and Riverside this weekend, July 24 - 25, beginning Friday evening at 8:45 PM for track and signal work."
 2021-08-09,Green Line,394069,10,Shuttle buses replacing B Branch service between Kenmore and Washington St on weekends from July 10 through August 29.
 2021-08-10,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
-2021-08-11,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
-2021-08-12,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
+2021-08-11,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St from Aug 27 - 28 for track and intersection upgrades. Customers can use Route 39 bus serv
+2021-08-12,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St from Aug 27 - 28 for track and intersection upgrades. Customers can use Route 39 bus serv
 2021-08-13,Green Line,395895,13,"Shuttle buses replace D Branch service between Fenway and Riverside this weekend, July 24 - 25, beginning Friday evening at 8:45 PM for track and signal work."
 2021-08-16,Green Line,394069,10,Shuttle buses replacing B Branch service between Kenmore and Washington St on weekends from July 10 through August 29.
-2021-08-17,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
-2021-08-18,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
-2021-08-19,Green Line,395898,6,"Shuttle buses replace Green Line E branch service between Brigham Circle and Heath St all day, every day, beginning August 2 through August 29 for track and int"
+2021-08-17,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St all day Aug 2 - 23 and Aug 27- 29 for track and intersection upgrades. Customers can use 
+2021-08-18,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St all day Aug 2 - 23 and Aug 27- 29 for track and intersection upgrades. Customers can use 
+2021-08-19,Green Line,395969,6,E Branch service will be suspended between Brigham Circle and Heath St all day Aug 2 - 23 and Aug 27- 29 for track and intersection upgrades. Customers can use 
 2021-08-20,Green Line,395895,13,"Shuttle buses replace D Branch service between Fenway and Riverside this weekend, July 24 - 25, beginning Friday evening at 8:45 PM for track and signal work."
 2021-08-23,Green Line,394069,10,Shuttle buses replacing B Branch service between Kenmore and Washington St on weekends from July 10 through August 29.
 2021-08-24,Green Line,400344,9,E Branch service will be suspended between Northeastern and Heath St beginning August 24 through August 26 for track and intersection upgrades. Customers can us
@@ -52,13 +52,13 @@ date,line,alert_id,stations,header
 2021-09-24,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
 2021-09-27,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
 2021-09-28,Red Line,408257,6,Red Line Update: Shuttle buses will continue to replace service between JFK/UMass and Park St due to a derailment at Broadway. Braintree customers may consider 
-2021-10-01,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends from Oct 1 through Oct 24, beginning Friday evenings at 8:45 PM."
+2021-10-01,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
 2021-10-04,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
-2021-10-08,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
+2021-10-08,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends from Oct 1 through Oct 24, beginning Friday evenings at 8:45 PM."
 2021-10-11,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
-2021-10-15,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends from Oct 1 through Oct 24, beginning Friday evenings at 8:45 PM."
+2021-10-15,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
 2021-10-18,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
-2021-10-22,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends from Oct 1 through Oct 24, beginning Friday evenings at 8:45 PM."
+2021-10-22,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
 2021-10-25,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through October 24, beginning Friday evenings at 8:45 PM."
 2021-10-29,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through Nov 12, beginning Friday evenings at 8:45 PM."
 2021-11-01,Green Line,404031,10,"Shuttle buses replace B Branch service between Kenmore and Washington St on weekends through Nov 12, beginning Friday evenings at 8:45 PM."
@@ -107,11 +107,11 @@ date,line,alert_id,stations,header
 2022-10-12,Green Line,465295,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 8 - 16, for track and infrastructure upgrades. Additional work is scheduled for Oc"
 2022-10-13,Green Line,465295,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 8 - 16, for track and infrastructure upgrades. Additional work is scheduled for Oc"
 2022-10-14,Green Line,465295,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 8 - 16, for track and infrastructure upgrades. Additional work is scheduled for Oc"
-2022-10-24,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 30, for track and infrastructure upgrades."
-2022-10-25,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 30, for track and infrastructure upgrades."
-2022-10-26,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 30, for track and infrastructure upgrades."
+2022-10-24,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 28, for track and infrastructure upgrades. Regular service will now resume on"
+2022-10-25,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 28, for track and infrastructure upgrades. Regular service will now resume on"
+2022-10-26,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 28, for track and infrastructure upgrades. Regular service will now resume on"
 2022-10-27,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 30, for track and infrastructure upgrades."
-2022-10-28,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 28, for track and infrastructure upgrades. Regular service will now resume on"
+2022-10-28,Green Line,467748,14,"Shuttle buses replace D Branch service between Riverside and Kenmore from Oct 22 - 30, for track and infrastructure upgrades."
 2023-08-08,Green Line,515334,6,"Green Line E branch service temporarily suspended between Brigham Circle and Heath St due to an auto accident near Heath St. For alternate service, please use t"
 2023-09-18,Green Line,519318,3,Green Line: Service is suspended between North Station and Government Center through October 12 for work on the Government Center Garage demolition. An accessib
 2023-09-19,Green Line,519318,3,Green Line: Service is suspended between North Station and Government Center through October 12 for work on the Government Center Garage demolition. An accessib
@@ -135,15 +135,15 @@ date,line,alert_id,stations,header
 2023-10-16,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-10-17,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-10-18,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
-2023-10-19,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
+2023-10-19,Red Line,519314,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass from October 14-29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-10-20,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-10-23,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-10-24,Green Line,531587,13,Green Line: Shuttle Buses replace service between Kenmore and Park Street due to an overhead wire problem near Copley. E Branch: Use route 39 bus between Pruden
-2023-10-24,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
+2023-10-24,Red Line,519314,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass from October 14-29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-10-25,Green Line,531871,6,Green Line C Branch: Shuttle buses are replacing service between Coolidge Corner and Kenmore due to a train with a pantograph issue at St. Paul St.
 2023-10-25,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
-2023-10-26,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
-2023-10-27,Red Line,519314,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass from October 14-29 due to track work. Riders can also take Fairmount Commuter Rail service 
+2023-10-26,Red Line,519314,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass from October 14-29 due to track work. Riders can also take Fairmount Commuter Rail service 
+2023-10-27,Red Line,529291,5,Shuttle buses replace Red Line service between Ashmont and JFK/UMass through October 29 due to track work. Riders can also take Fairmount Commuter Rail service 
 2023-11-27,Green Line,535276,25,"Green Line C and D Branch service will be suspended between North Station and Kenmore, Nov 27 - Dec 5, for maintenance work. Shuttle Buses will be available bet"
 2023-11-28,Green Line,535276,25,"Green Line C and D Branch service will be suspended between North Station and Kenmore, Nov 27 - Dec 5, for maintenance work. Shuttle Buses will be available bet"
 2023-11-29,Green Line,535276,25,"Green Line C and D Branch service will be suspended between North Station and Kenmore, Nov 27 - Dec 5, for maintenance work. Shuttle Buses will be available bet"
@@ -171,38 +171,38 @@ date,line,alert_id,stations,header
 2024-08-14,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
 2024-08-15,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
 2024-08-16,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
-2024-08-19,Red Line,588541,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
-2024-08-20,Red Line,588541,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
-2024-08-21,Red Line,588541,8,Shuttle buses replace Red Line service between Kendall/MIT and JFK/UMass through August 26 for track work and station maintenance. Buses are not directly servic
+2024-08-19,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
+2024-08-20,Red Line,588541,8,Shuttle buses replace Red Line service between Kendall/MIT and JFK/UMass through August 26 for track work and station maintenance. Buses are not directly servic
+2024-08-21,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
 2024-08-22,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
-2024-08-23,Red Line,588541,8,Shuttle buses replace Red Line service between Kendall/MIT and JFK/UMass through August 26 for track work and station maintenance. Buses are not directly servic
+2024-08-23,Red Line,588540,8,Shuttle buses will be replacing Red Line service between Kendall/MIT and JFK/UMass from August 19-25 for track work and station maintenance. Buses are not direc
 2024-08-26,Red Line,588541,8,Shuttle buses replace Red Line service between Kendall/MIT and JFK/UMass through August 26 for track work and station maintenance. Buses are not directly servic
-2024-09-06,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-09,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-10,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-11,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
+2024-09-06,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
+2024-09-09,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
+2024-09-10,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
+2024-09-11,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
 2024-09-12,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
 2024-09-13,Green Line,594959,12,Green Line B Branch: Shuttle buses replace service between Boston College and Babcock Street due to a medical emergency near Long Ave.
 2024-09-13,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-16,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-17,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
+2024-09-16,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
+2024-09-17,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
 2024-09-18,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
 2024-09-19,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-20,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
-2024-09-23,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
+2024-09-20,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
+2024-09-23,Red Line,590467,6,"Red Line: No train service between JFK/UMass & Braintree, Sep 6–29, due to track work. Shuttle Buses are available between Braintree, Quincy Adams, Quincy Cente"
 2024-09-24,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
 2024-09-25,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
 2024-09-26,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
 2024-09-27,Red Line,585479,6,Red Line Braintree Branch: Shuttle buses will be replacing service between JFK/UMass and Braintree from September 6-29 for track work.
 2024-10-08,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 11 & 15 - 20. On Oct 12 -14 the work will extend to North St
 2024-10-09,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 11 & 15 - 20. On Oct 12 -14 the work will extend to North St
-2024-10-10,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 20. On Oct 12 -14 the work will extend to North Station. Rid
-2024-10-11,Orange Line,596191,8,Orange Line: Shuttle Buses are replacing service between Forest Hills and Back Bay/Copley through Oct 20. On Oct 12 -14 the work will extend to North Station. U
+2024-10-10,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 11 & 15 - 20. On Oct 12 -14 the work will extend to North St
+2024-10-11,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 11 & 15 - 20. On Oct 12 -14 the work will extend to North St
 2024-10-14,Orange Line,601625,14,Orange Line: Shuttle Buses are replacing service between Forest Hills and Back Bay/Copley through Oct 20. The work will extend to North Station on Oct 12 - 14. 
 2024-10-15,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 20. On Oct 12 -14 the work will extend to North Station. Rid
 2024-10-16,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 20. On Oct 12 -14 the work will extend to North Station. Rid
 2024-10-17,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 20. On Oct 12 -14 the work will extend to North Station. Rid
-2024-10-18,Orange Line,601629,8,Orange Line: Shuttle Buses are replacing service between Forest Hills and Back Bay/Copley through Oct 20. Commuter Rail alternates are available.
+2024-10-18,Orange Line,596191,8,Orange Line: Shuttle Buses will replace service between Forest Hills and Back Bay/Copley on Oct 8 - 20. On Oct 12 -14 the work will extend to North Station. Rid
 2024-10-24,Green Line,605896,6,Green Line E branch: Service is temporarily suspended between Brigham Circle and Heath St due to a disabled train at Heath St. Riders can use the Route 39 Bus f
 2024-10-28,Orange Line,601685,7,Orange Line: Shuttle buses are replacing service between Oak Grove and North Station through November 1. This is to allow for track work and station upgrades. 
 2024-10-29,Orange Line,601685,7,Orange Line: Shuttle buses are replacing service between Oak Grove and North Station through November 1. This is to allow for track work and station upgrades. 
@@ -210,19 +210,19 @@ date,line,alert_id,stations,header
 2024-10-31,Orange Line,601685,7,Orange Line: Shuttle buses are replacing service between Oak Grove and North Station through November 1. This is to allow for track work and station upgrades. 
 2024-11-01,Orange Line,601685,7,Orange Line: Shuttle buses are replacing service between Oak Grove and North Station through November 1. This is to allow for track work and station upgrades. 
 2024-11-05,Red Line,603973,4,"Red Line: Shuttle buses replace service between Broadway and North Quincy, through Nov 10, for track work. Commuter Rail will be free between Braintree and Sout"
-2024-11-06,Red Line,603973,4,"Red Line: Shuttle buses replace service between Broadway and North Quincy, through Nov 10, for track work. Commuter Rail will be free between Braintree and Sout"
+2024-11-06,Red Line,603973,4,"Red Line: Shuttle buses replace service between Broadway and North Quincy, November 5-10, for track work. Commuter Rail will be fare-free between Braintree and "
 2024-11-07,Red Line,603973,4,"Red Line: Shuttle buses replace service between Broadway and North Quincy, through Nov 10, for track work. Commuter Rail will be free between Braintree and Sout"
 2024-11-08,Red Line,603973,4,"Red Line: Shuttle buses replace service between Broadway and North Quincy, November 5-10, for track work. Commuter Rail will be fare-free between Braintree and "
 2024-11-11,Green Line,604013,2,"Green Line D Branch: Service is suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Union and"
 2024-11-12,Green Line,604013,2,"Green Line D Branch: Service is suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Union and"
 2024-11-13,Green Line,604013,2,"Green Line D Branch: Service is suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Union and"
-2024-11-14,Green Line,604013,2,"Green Line D Branch: Service will be suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Unio"
-2024-11-15,Green Line,604013,2,"Green Line D Branch: Service is suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Union and"
-2024-11-18,Red Line,611506,8,Red Line: Shuttle Buses are replacing service between Harvard & Broadway through Nov. 24 for track work. Shuttles will not be directly servicing Park St/Downtow
-2024-11-19,Red Line,611506,8,Red Line: Shuttle Buses are replacing service between Harvard & Broadway through Nov. 24 for track work. Shuttles will not be directly servicing Park St/Downtow
-2024-11-20,Red Line,611506,8,Red Line: Shuttle Buses are replacing service between Harvard & Broadway through Nov. 24 for track work. Shuttles will not be directly servicing Park St/Downtow
-2024-11-21,Red Line,611506,8,Red Line: Shuttle Buses are replacing service between Harvard & Broadway through Nov. 24 for track work. Shuttles will not be directly servicing Park St/Downtow
-2024-11-22,Red Line,611506,8,Red Line: Shuttle Buses are replacing service between Harvard & Broadway through Nov. 24 for track work. Shuttles will not be directly servicing Park St/Downtow
+2024-11-14,Green Line,604013,2,"Green Line D Branch: Service is suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Union and"
+2024-11-15,Green Line,604013,2,"Green Line D Branch: Service will be suspended between Union Square and Lechmere, Nov. 11-17 due to track work. Riders can use bus routes 86 and 91 between Unio"
+2024-11-18,Red Line,603977,8,"Red Line: Shuttle Buses replace service between Harvard and Broadway, November 18-24 for track work. Shuttles will not be directly servicing Park St or Downtown"
+2024-11-19,Red Line,603977,8,"Red Line: Shuttle Buses replace service between Harvard and Broadway, November 18-24 for track work. Shuttles will not be directly servicing Park St or Downtown"
+2024-11-20,Red Line,603977,8,"Red Line: Shuttle Buses replace service between Harvard and Broadway, November 18-24 for track work. Shuttles will not be directly servicing Park St or Downtown"
+2024-11-21,Red Line,603977,8,"Red Line: Shuttle Buses replace service between Harvard and Broadway, November 18-24 for track work. Shuttles will not be directly servicing Park St or Downtown"
+2024-11-22,Red Line,603977,8,"Red Line: Shuttle Buses replace service between Harvard and Broadway, November 18-24 for track work. Shuttles will not be directly servicing Park St or Downtown"
 2024-12-06,Green Line,611483,12,"Green Line: No train service between Medford/Tufts, Union Square, and Park St, December 6 - 20, for track work. Use shuttle buses between Medford/Tufts & North "
 2024-12-09,Green Line,611483,12,"Green Line: No train service between Medford/Tufts, Union Square, and Park St, December 6 - 20, for track work. Use shuttle buses between Medford/Tufts & North "
 2024-12-10,Green Line,611483,12,"Green Line: No train service between Medford/Tufts, Union Square, and Park St, December 6 - 20, for track work. Use shuttle buses between Medford/Tufts & North "
@@ -239,7 +239,7 @@ date,line,alert_id,stations,header
 2025-08-12,Blue Line,656785,7,"Blue Line: Shuttle buses will replace service between Airport & Wonderland, Aug 9 - 17, due to maintenance. Riders should expect longer travel times during this"
 2025-08-13,Blue Line,656785,7,"Blue Line: Shuttle buses will replace service between Airport & Wonderland, Aug 9 - 17, due to maintenance. Riders should expect longer travel times during this"
 2025-08-14,Blue Line,656785,7,"Blue Line: Shuttle buses will replace service between Airport & Wonderland, Aug 9 - 17, due to maintenance. Riders should expect longer travel times during this"
-2025-08-15,Blue Line,660947,11,Blue Line: Shuttle buses are being extended from Airport to Haymarket due to a medical emergency at Government Center. Government Center and Bowdoin riders can 
+2025-08-15,Blue Line,660947,11,Blue Line: Shuttle buses are being extended from Airport to Government Center due to a medical emergency at Government Center. Bowdoin riders can access the shu
 2025-09-03,Green Line,662094,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore from September 3 - 11, for track and infrastructure work. Accessible local"
 2025-09-04,Green Line,662094,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore from September 3 - 11, for track and infrastructure work. Accessible local"
 2025-09-05,Green Line,662094,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore from September 3 - 11, for track and infrastructure work. Accessible local"
@@ -248,9 +248,9 @@ date,line,alert_id,stations,header
 2025-09-10,Green Line,662094,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore from September 3 - 11, for track and infrastructure work. Accessible local"
 2025-09-11,Green Line,662094,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore from September 3 - 11, for track and infrastructure work. Accessible local"
 2025-10-13,Orange Line,668088,14,"Orange Line: Service will be suspended between Forest Hills and North Station from October 11 - 13, for signal upgrades. Use shuttle buses between Forest Hills "
-2025-10-27,Green Line,668086,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore beginning at 8 PM on Friday, October 24, through October 31, for track and"
-2025-10-28,Green Line,668086,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore beginning at 8 PM on Friday, October 24, through October 31, for track and"
-2025-10-29,Green Line,668086,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore beginning at 8 PM on Friday, October 24, through October 31, for track and"
+2025-10-27,Green Line,674398,14,Green Line D Branch: Shuttle buses are replacing service between Riverside and Kenmore through October 31 for track and infrastructure work. Accessible local an
+2025-10-28,Green Line,674398,14,Green Line D Branch: Shuttle buses are replacing service between Riverside and Kenmore through October 31 for track and infrastructure work. Accessible local an
+2025-10-29,Green Line,674398,14,Green Line D Branch: Shuttle buses are replacing service between Riverside and Kenmore through October 31 for track and infrastructure work. Accessible local an
 2025-10-30,Green Line,668086,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore beginning at 8 PM on Friday, October 24, through October 31, for track and"
 2025-10-31,Green Line,668086,14,"Green Line D Branch: Shuttle buses will replace service between Riverside and Kenmore beginning at 8 PM on Friday, October 24, through October 31, for track and"
 2025-11-05,Green Line,673383,12,"Green Line: No train service between Medford/Tufts, Union Sq., and Park St., from 8 PM on Nov 4, through Nov 13, for track work. Use shuttle buses between Medfo"
