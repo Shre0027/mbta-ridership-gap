@@ -79,6 +79,8 @@ The transfer stations always push the model up by 18–26k. The monthly method's
 
 **7d. A yardstick from the bus.** On buses both datasets come from the same Automatic Passenger Counters, so they can't test the transfer explanation, but they show how far two MBTA publications drift when the source is the same: within 3.5% every fall 2018–2025 once December is left out. The Blue Line's 16–23% gap is several times that noise. The bus also exposed a date-window trap: the stop-level season is ~15 weeks (73 weekdays in Fall 2025, roughly Sep to mid-Dec), while full monthly figures include the holiday weeks. Counting all of December lowers the monthly figure by 1–7% on buses and shifts rail gaps by about 3–4 points (Blue 2023: −23.4% with Sep–Dec, −21.2% with Sep–Nov). The headline keeps Sep–Dec to reproduce the public forum question; both windows are shown on the page.
 
+**7f. The MBTA's own alert feed.** Matching the archived GTFS-Realtime service alerts (2020–2025) against the comparison flags every fall weekday with a daytime shuttle or suspension. The Blue Line had 2 such weekdays across Fall 2023–25 and its gap doesn't move without them (−23.2%, −21.3%, −19.4%), so shutdowns can't explain it. They do explain the noisy lines: Red 2024 goes from −15.1% to −8.8% without the Braintree and November shutdown days, and the Green Line (disrupted on 21–45% of fall weekdays) reads −4.2% in 2023 and +19.0% / +25.9% in 2024 / 2025 on undisrupted days, a cleaner version of the August 2024 regime shift. The archive also holds ~62,000 stale "ghost" alert periods (old alerts re-emitted months later with no edits), which are filtered out and logged.
+
 **7e. An early read on the newest fall.** Stop-level data for a fall is published months later, but monthly ridership and gate taps update monthly. Using last fall's model ÷ taps ratio on this fall's taps (Sep–Oct), the expected Fall 2026 Blue Line gap is −16%, give or take 8 points (the average miss of the same rule on 2019, 2024 and 2025). The monthly Blue factor is 1.38× vs 1.40× last fall, so the monthly method hasn't been recalibrated. This is a forecast, labeled as one on the page, and it updates itself each month.
 
 **8. Why it matters.** The monthly dataset is published as the MBTA's `NTD_Reporting` service; NTD data feeds FTA formula programs (Section 5307 uses NTD service data including passenger miles). The MBTA's own Ridership Guide states that rapid-transit ridership is fare-gate data "adjusted with factors to account for behind the gate transfers, and non-interaction" — the exact factors this project reverse-engineers. (No funding impact is estimated.)
@@ -99,6 +101,7 @@ python scripts/06_trains.py     # every scheduled subway trip on one weekday -> 
 python scripts/07_fix.py        # out-of-sample test of a proposed fix (recalibrated factor)
 python scripts/08_bus.py        # bus yardstick (same-source APC) + date-window sensitivity for every rail line
 python scripts/09_preview.py    # early read on the newest fall, with a backtest of the same rule
+python scripts/10_disruptions.py # service-alert archive -> disrupted weekdays per line, gap on undisrupted days
 python scripts/03_build_page.py # builds index.html (the data story) from outputs/ and site/template.html
 ```
 

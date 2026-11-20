@@ -461,6 +461,15 @@ section.has-div{border-top:none}
     <details><summary>Show the table, plus every rail line under both date windows</summary><div class="tablewrap" id="tbus"></div><div class="tablewrap" id="twin" style="margin-top:14px"></div></details>
   </div>
 
+  <div class="figure rv" id="dis-fig" style="margin-top:44px">
+    <span class="eyebrow" style="color:var(--accent)">The MBTA's own alert feed</span>
+    <h3>Shutdowns explain the noisy lines, not the Blue Line</h3>
+    <p class="sub">Each square is a fall weekday. Colored = a daytime shuttle or suspension on that line, from the MBTA's archived service alerts. Numbers: the gap on all weekdays → on undisrupted weekdays only.</p>
+    <div class="chart" id="cdis"></div>
+    <p class="sowhat" id="dis-sowhat"></p>
+    <details><summary>Show the table and how the days were picked</summary><p class="sub" style="margin-top:10px">A weekday counts as disrupted for a line when an alert with effect "shuttle" or "suspension" on that line is active across the morning peak (8–9 AM) and touches at least two of its stations. The archive also holds stale copies of old alerts that reappear months later with no edits; those are dropped. The monthly dataset is only published as monthly averages, so the undisrupted version uses each month's own factor (monthly ÷ taps) times gate taps on undisrupted days. The stop-level side can't be filtered by day, so treat the right-hand number as a sensitivity check.</p><div class="tablewrap" id="tdis"></div></details>
+  </div>
+
   <div class="figure rv" id="pv-fig" style="margin-top:44px">
     <span class="eyebrow" style="color:var(--accent)">An early read</span>
     <h3 id="pv-h">What about this fall?</h3>
@@ -1242,6 +1251,40 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   table("twin", ["Fall","Rail line","Stop-level","Gap, Sep–Dec","Gap, Sep–Nov"], WN.map(d => [d.fall, d.line, fmt(d.stop_level), pct(d.gap_sepdec_pct), pct(d.gap_sepnov_pct)]));
 })();
 
+
+
+/* ================= DISRUPTIONS (alert archive) ================= */
+(function(){
+  const D = DATA.disrupt || {}, box = document.getElementById("cdis"); if (!box) return;
+  if (!D.rows || !D.rows.length){ document.getElementById("dis-fig").style.display = "none"; return; }
+  const L = ["Blue Line","Red Line","Orange Line","Green Line"], C = {"Blue Line":"#003DA5","Red Line":"#DA291C","Orange Line":"#ED8B00","Green Line":"#00843D"};
+  const falls = Object.keys(D.days).sort(), R = Object.fromEntries(D.rows.map(r => [r.fall + "|" + r.line, r]));
+  function draw(){
+    box.innerHTML = ""; const W = Math.max(300, box.clientWidth), sm = W < 640, left = sm ? 56 : 96, right = sm ? 8 : 168;
+    const rowH = sm ? 40 : 24, gapF = sm ? 50 : 30, maxN = Math.max(...falls.map(f => D.days[f].weekdays.length));
+    const cw = (W - left - right) / maxN, H = falls.length * (gapF + L.length * rowH) + 10;
+    const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":"Calendar of disrupted weekdays by line and fall, with the gap before and after removing them."}, box);
+    let y = 0;
+    falls.forEach(f => { const wk = D.days[f].weekdays; y += gapF;
+      el("text", {x:0, y:y - (sm ? 28 : 10), class:"lbl", style:"font-weight:700"}, svg, "Fall " + f);
+      let lastM = ""; wk.forEach((d, i) => { const m = d.slice(5, 7); if (m !== lastM){ lastM = m; el("text", {x:left + i*cw, y:y - 10, class:"tick", style:"font-size:10.5px"}, svg, new Date(d + "T12:00").toLocaleString("en-US", {month:"short"})); } });
+      L.forEach(l => { const r = R[f + "|" + l], bad = new Set(D.days[f][l] || []), cy = y + 2;
+        el("text", {x:left - 8, y:cy + 11, "text-anchor":"end", class:"lbl"}, svg, sm ? l.replace(" Line", "") : l);
+        wk.forEach((d, i) => { const on = bad.has(i);
+          const c = el("rect", {x:left + i*cw + 0.5, y:cy, width:Math.max(1, cw - 1.2), height:14, rx:1.5, fill: on ? C[l] : "#e9e5dc"}, svg);
+          if (on){ c.addEventListener("mousemove", e => showTip(e, `<b>${l} · ${new Date(d + "T12:00").toLocaleDateString("en-US", {weekday:"short", month:"short", day:"numeric", year:"numeric"})}</b><div style="max-width:260px;margin-top:4px">${(D.headers[l + "|" + d] || "").replace(/</g, "&lt;")}</div>`)); c.addEventListener("mouseleave", hideTip); } });
+        if (r){ const txt = `${pct(r.gap_all_pct)} → ${pct(r.gap_clean_pct)}`, share = `${r.disrupted_weekdays} of ${r.weekdays} days`;
+          if (sm){ el("text", {x:left, y:cy + 27, class:"tick", style:"font-size:11px"}, svg, `${share} · ${txt}`); }
+          else { el("text", {x:W - right + 12, y:cy + 11, class:"val"}, svg, txt); } }
+        y += rowH; });
+    });
+  }
+  draw(); addEventListener("resize", () => { clearTimeout(window.__dz); window.__dz = setTimeout(draw, 160); });
+  const g = (f, l) => R[f + "|" + l] || {}, bl = falls.map(f => g(f, "Blue Line")), r24 = g("2024", "Red Line");
+  const bdays = bl.reduce((a, r) => a + (r.disrupted_weekdays || 0), 0), gr = falls.map(f => g(f, "Green Line"));
+  document.getElementById("dis-sowhat").innerHTML = `<b>So what?</b>The Blue Line had ${bdays} disrupted weekday${bdays === 1 ? "" : "s"} across ${falls.length} falls, and its gap barely moves when they're removed (${bl.map(r => pct(r.gap_clean_pct)).join(", ")}). So shutdowns can't explain the Blue Line gap. They do explain the noisy lines. The Red Line's 2024 gap shrinks from ${pct(r24.gap_all_pct)} to ${pct(r24.gap_clean_pct)} without the Braintree and November shutdown days. The Green Line had a shuttle or suspension on ${gr.map(r => Math.round(r.disrupted_share_pct) + "%").join(", ")} of fall weekdays. Without those days its gap reads ${gr.map(r => pct(r.gap_clean_pct)).join(", ")}: close to zero before the August 2024 fare-system change and clearly positive after it, which is a cleaner version of the Green Line story below.`;
+  table("tdis", ["Fall","Line","Disrupted weekdays","Gap, all weekdays","Gap, undisrupted weekdays"], D.rows.map(r => [r.fall, r.line, `${r.disrupted_weekdays} of ${r.weekdays}`, pct(r.gap_all_pct), pct(r.gap_clean_pct)]));
+})();
 
 /* ================= EARLY READ (newest fall) ================= */
 (function(){

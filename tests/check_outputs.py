@@ -79,5 +79,11 @@ latest_stop = int(line.dropna(subset=["stop_level"])["fall"].max())
 check("Early read covers only a fall newer than the latest stop-level season, with 3+ backtest falls per line",
       not pv or (pv["fall"] > latest_stop and all(v["backtest_n"] >= 3 for v in pv["lines"].values())), pv.get("fall"))
 
+ds = pd.read_csv(OUT / "disruption_summary.csv").dropna(subset=["gap_all_pct"])
+r24 = ds[(ds["fall"] == 2024) & (ds["line"] == "Red Line")]
+check("Alert archive finds the Sep 2024 Braintree shutdown (Red 2024: 15+ disrupted weekdays)", len(r24) == 1 and r24["disrupted_weekdays"].iloc[0] >= 15)
+bl = ds[ds["line"] == "Blue Line"]
+check("Blue Line gap survives removing disrupted days (stays below -10% every fall)", len(bl) >= 3 and (bl["gap_clean_pct"] < -10).all(), bl["gap_clean_pct"].tolist())
+
 print(f"\n{len(fails)} failed" if fails else "\nall checks passed")
 sys.exit(1 if fails else 0)

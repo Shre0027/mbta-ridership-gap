@@ -34,6 +34,26 @@ for st in mapdata["stations"]:
                       "taps_est": round(K * st["taps"]), "transfer_est": round(K * st["taps"] / (1 - st["survey"]) - K * st["taps"])})
 three.sort(key=lambda r: -r["odx"])
 
+def disruption_block():
+    fs, fd = OUT / "disruption_summary.csv", OUT / "disruption_days.csv"
+    if not fs.exists():
+        return {}
+    from pandas.tseries.holiday import USFederalHolidayCalendar
+    sm = pd.read_csv(fs).dropna(subset=["gap_all_pct"])
+    dd = pd.read_csv(fd)
+    out = {"rows": clean(sm.to_dict("records")), "days": {}, "headers": {}}
+    for y in sorted(sm["fall"].unique()):
+        hol = set(USFederalHolidayCalendar().holidays(f"{y}-01-01", f"{y}-12-31").strftime("%Y-%m-%d"))
+        hol.add((pd.Timestamp(f"{y}-11-01") + pd.offsets.WeekOfMonth(week=3, weekday=3) + pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
+        wk = [d.strftime("%Y-%m-%d") for d in pd.date_range(f"{y}-09-01", f"{y}-12-31") if d.dayofweek < 5 and d.strftime("%Y-%m-%d") not in hol]
+        out["days"][str(y)] = {"weekdays": wk}
+        for l in sm["line"].unique():
+            sel = dd[(dd["line"] == l) & dd["date"].isin(wk)]
+            out["days"][str(y)][l] = [wk.index(d) for d in sel["date"]]
+            out["headers"].update({f"{l}|{d}": h for d, h in zip(sel["date"], sel["header"])})
+    return out
+
+
 data = {
     "schema": 3,
     "build": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -48,6 +68,7 @@ data = {
     "fix": clean(fix.to_dict("records")),
     "daytype": clean(daytype[daytype["line"] == "Blue Line"][["fall", "day_type", "gap_pct"]].to_dict("records")),
     "three": three,
+    "disrupt": disruption_block(),
     "preview": json.loads((OUT / "preview_summary.json").read_text()) if (OUT / "preview_summary.json").exists() else {},
     "bus": clean(bus[["fall", "apc_all", "monthly_all_bus", "monthly_all_bus_sepnov", "gap_sepdec_pct", "gap_sepnov_pct"]].to_dict("records")) if len(bus) else [],
     "window": clean(win.to_dict("records")) if len(win) else [],

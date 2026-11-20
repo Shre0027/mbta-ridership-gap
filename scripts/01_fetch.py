@@ -43,6 +43,8 @@ GSE_HIST_ITEM = "7859894afb5641ce91a2bb03599fdf5b"
 GSE_FIRST_YEAR = 2017  # every yearly file from here to the latest is extracted
 # Bus ridership by trip, season, route and stop (APC door counters), Fall 2016-latest: the bus yardstick
 BUS_ITEM = "8daf4a33925a4df59183f860826d29ee"
+# Archived GTFS-Realtime service alerts (OPMI): 2020-23 archive, then one zip per year
+ALERT_ITEMS = ["21ea74717cda441db3ae40d2cbc79a15", "f960d5089e164fb8b6c6936c70719d72", "ef115f7cf6684360b040b6d1d033eff0"]
 
 
 def get_json(url, params):
@@ -111,6 +113,12 @@ def main():
         if "Fall_20" in name and name.endswith(".csv"):
             z.extract(name, out)
             print(f"bus {name}: extracted")
+    for item in ALERT_ITEMS:
+        z = zipfile.ZipFile(io.BytesIO(download(item)))
+        for name in z.namelist():
+            if name.endswith(".csv"):
+                z.extract(name, RAW / "alerts_dl")
+        print(f"alerts {item}: extracted")
 
 
 if __name__ == "__main__":
