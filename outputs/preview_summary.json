@@ -1,0 +1,34 @@
+{
+ "fall": 2026,
+ "through": "2026-10",
+ "lines": {
+  "Red Line": {
+   "expected_gap_pct": -7.9,
+   "monthly_factor": 1.357,
+   "monthly_factor_prev": 1.391,
+   "backtest_mae_pts": 5.6,
+   "backtest_n": 3
+  },
+  "Orange Line": {
+   "expected_gap_pct": 1.4,
+   "monthly_factor": 1.354,
+   "monthly_factor_prev": 1.39,
+   "backtest_mae_pts": 5.7,
+   "backtest_n": 3
+  },
+  "Blue Line": {
+   "expected_gap_pct": -16.2,
+   "monthly_factor": 1.379,
+   "monthly_factor_prev": 1.398,
+   "backtest_mae_pts": 7.5,
+   "backtest_n": 3
+  },
+  "Green Line": {
+   "expected_gap_pct": 24.9,
+   "monthly_factor": 2.478,
+   "monthly_factor_prev": 2.539,
+   "backtest_mae_pts": 15.2,
+   "backtest_n": 3
+  }
+ }
+}

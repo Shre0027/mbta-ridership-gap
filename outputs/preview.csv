@@ -1,0 +1,17 @@
+fall,line,kind,model_factor_prev,monthly_factor,monthly_sepoct,expected_stop,expected_gap_pct,actual_stop,actual_gap_sepoct_pct,error_pts
+2019,Red Line,backtest,1.296,1.359,273702,260891,4.9,258199.0,6.0,-1.1
+2019,Orange Line,backtest,1.193,1.357,221800,194939,13.8,190685.0,16.3,-2.5
+2019,Blue Line,backtest,1.363,1.408,74797,72427,3.3,78483.0,-4.7,8.0
+2019,Green Line,backtest,2.294,2.27,189428,191448,-1.1,143474.0,32.0,-33.1
+2024,Red Line,backtest,1.411,1.431,135367,133476,1.4,148203.0,-8.7,10.1
+2024,Orange Line,backtest,1.219,1.405,121896,105768,15.2,118420.0,2.9,12.3
+2024,Blue Line,backtest,1.62,1.485,55680,60716,-8.3,66647.0,-16.5,8.2
+2024,Green Line,backtest,2.194,2.677,154331,126471,22.0,122275.0,26.2,-4.2
+2025,Red Line,backtest,1.567,1.391,159657,179907,-11.3,169161.0,-5.6,-5.7
+2025,Orange Line,backtest,1.365,1.39,146625,143971,1.8,140866.0,4.1,-2.3
+2025,Blue Line,backtest,1.778,1.398,53259,67720,-21.4,62695.0,-15.1,-6.3
+2025,Green Line,backtest,2.121,2.539,129974,108585,19.7,101594.0,27.9,-8.2
+2026,Red Line,preview,1.474,1.357,177828,193106,-7.9,,,
+2026,Orange Line,preview,1.336,1.354,163892,161659,1.4,,,
+2026,Blue Line,preview,1.646,1.379,56836,67832,-16.2,,,
+2026,Green Line,preview,1.985,2.478,133988,107316,24.9,,,

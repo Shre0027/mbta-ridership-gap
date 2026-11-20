@@ -48,6 +48,7 @@ data = {
     "fix": clean(fix.to_dict("records")),
     "daytype": clean(daytype[daytype["line"] == "Blue Line"][["fall", "day_type", "gap_pct"]].to_dict("records")),
     "three": three,
+    "preview": json.loads((OUT / "preview_summary.json").read_text()) if (OUT / "preview_summary.json").exists() else {},
     "bus": clean(bus[["fall", "apc_all", "monthly_all_bus", "monthly_all_bus_sepnov", "gap_sepdec_pct", "gap_sepnov_pct"]].to_dict("records")) if len(bus) else [],
     "window": clean(win.to_dict("records")) if len(win) else [],
 }

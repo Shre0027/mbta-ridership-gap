@@ -26,6 +26,7 @@ jobs:
           python scripts/06_trains.py
           python scripts/07_fix.py
           python scripts/08_bus.py
+          python scripts/09_preview.py
           python scripts/03_build_page.py
       - name: Check outputs before publishing
         run: python tests/check_outputs.py

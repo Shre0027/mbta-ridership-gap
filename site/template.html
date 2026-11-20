@@ -460,6 +460,15 @@ section.has-div{border-top:none}
     <p class="sowhat" id="bus-sowhat"></p>
     <details><summary>Show the table, plus every rail line under both date windows</summary><div class="tablewrap" id="tbus"></div><div class="tablewrap" id="twin" style="margin-top:14px"></div></details>
   </div>
+
+  <div class="figure rv" id="pv-fig" style="margin-top:44px">
+    <span class="eyebrow" style="color:var(--accent)">An early read</span>
+    <h3 id="pv-h">What about this fall?</h3>
+    <p class="sub" id="pv-sub"></p>
+    <div class="chart" id="cpv"></div>
+    <p class="sowhat" id="pv-sowhat"></p>
+    <details><summary>How the early read works, and how well it did before</summary><p class="sub" style="margin-top:10px">For each line: last fall's model boardings ÷ last fall's gate taps, times this fall's gate taps, gives an expected model count. The monthly figure is compared against it, using September and October, the months that are published first. Run the same rule on every past fall that does have model data, and the expected gap misses the real one by the amount shown as the whisker (average miss, in points). It's a forecast, not a measurement, until the MBTA publishes the fall's stop-level data.</p></details>
+  </div>
 </div></section>
 
 <section id="green"><div class="wrap">
@@ -1231,6 +1240,37 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   document.getElementById("bus-sowhat").innerHTML = `<b>So what?</b>Leave out December and the bus figures agree within ${Math.max(...sn).toFixed(1)}% in every fall from ${B[0].fall} to ${B[B.length-1].fall}. So a few percent is normal noise between these two datasets, and the Blue Line's gap is several times that. The bus also exposes a trap: the stop-level season runs about 15 weeks, roughly September to mid-December, while full monthly figures include the holiday weeks. Count all of December, as the original forum question did, and the monthly figure drops ${Math.min(...sd.map(Math.abs)).toFixed(0)}–${Math.max(...sd.map(Math.abs)).toFixed(0)}% on buses, and the rail gaps shift too, typically by 3–4 points.` + (b23 && b25 ? ` For the Blue Line that means ${pct(b23.gap_sepdec_pct)} becomes ${pct(b23.gap_sepnov_pct)} in 2023, and ${pct(b25.gap_sepdec_pct)} becomes ${pct(b25.gap_sepnov_pct)} in 2025. Smaller, but still far outside the noise.` : "");
   table("tbus", ["Fall","Bus stop-level (door counters)","Monthly, Sep–Dec","Monthly, Sep–Nov","Gap, Sep–Dec","Gap, Sep–Nov"], B.map(d => [d.fall, fmt(d.apc_all), fmt(d.monthly_all_bus), fmt(d.monthly_all_bus_sepnov), pct(d.gap_sepdec_pct), pct(d.gap_sepnov_pct)]));
   table("twin", ["Fall","Rail line","Stop-level","Gap, Sep–Dec","Gap, Sep–Nov"], WN.map(d => [d.fall, d.line, fmt(d.stop_level), pct(d.gap_sepdec_pct), pct(d.gap_sepnov_pct)]));
+})();
+
+
+/* ================= EARLY READ (newest fall) ================= */
+(function(){
+  const P = DATA.preview || {}, box = document.getElementById("cpv"); if (!box) return;
+  if (!P.lines){ document.getElementById("pv-fig").style.display = "none"; return; }
+  const L = ["Blue Line","Red Line","Orange Line","Green Line"].filter(l => P.lines[l]), C = {"Blue Line":"var(--blue)","Red Line":"var(--red)","Orange Line":"var(--orange)","Green Line":"var(--green)"};
+  const mon = new Date(P.through + "-15").toLocaleString("en-US", {month:"long", year:"numeric"});
+  document.getElementById("pv-h").textContent = `What about Fall ${P.fall}?`;
+  document.getElementById("pv-sub").textContent = `The MBTA hasn't published Fall ${P.fall} stop-level data yet, but monthly ridership and gate taps run through ${mon}. Expected gap per line, with the average miss of the same method in past falls as the whisker. Shaded: ±3.5%, the normal noise from the bus check.`;
+  function draw(){
+    box.innerHTML = ""; const W = Math.max(300, box.clientWidth), sm = W < 600, left = sm ? 64 : 110, right = sm ? 16 : 40, rowH = sm ? 56 : 46, top = 10, H = top + L.length*rowH + 30;
+    const lo = -30, hi = 45, x = v => left + (v - lo)/(hi - lo)*(W - left - right);
+    const svg = el("svg", {viewBox:`0 0 ${W} ${H}`, role:"img", "aria-label":`Expected Fall ${P.fall} gap by line with past error ranges.`}, box);
+    el("rect", {x:x(-3.5), y:top, width:x(3.5)-x(-3.5), height:L.length*rowH, fill:"#efece5"}, svg);
+    [-20,0,20,40].forEach(v => { el("line", {x1:x(v), x2:x(v), y1:top, y2:top+L.length*rowH, stroke: v ? "var(--grid)" : "var(--axis)", "stroke-width": v ? 1 : 1.5}, svg); el("text", {x:x(v), y:H-10, "text-anchor":"middle"}, svg, (v>0?"+":"") + v + "%"); });
+    L.forEach((l, i) => { const d = P.lines[l], cy = top + i*rowH + rowH/2, e = d.backtest_mae_pts;
+      el("text", {x:left-10, y:cy+4, "text-anchor":"end", class:"lbl"}, svg, sm ? l.replace(" Line","") : l);
+      el("line", {x1:x(d.expected_gap_pct - e), x2:x(d.expected_gap_pct + e), y1:cy, y2:cy, stroke:C[l], "stroke-width":3, "stroke-linecap":"round", opacity:.35}, svg);
+      el("circle", {cx:x(d.expected_gap_pct), cy, r:7, fill:C[l], stroke:"#fff", "stroke-width":2}, svg);
+      const lab = `${pct(d.expected_gap_pct)} ±${e.toFixed(0)}`;
+      if (sm) el("text", {x:Math.min(x(d.expected_gap_pct), W - right - 40), y:cy-12, "text-anchor":"middle", class:"val"}, svg, lab);
+      else el("text", {x:x(d.expected_gap_pct + e + 1.5), y:cy+4, class:"val"}, svg, lab);
+      const hit = el("rect", {x:0, y:cy-rowH/2, width:W, height:rowH, class:"hit"}, svg);
+      hit.addEventListener("mousemove", ev => showTip(ev, `<b>${l} · Fall ${P.fall} (early read)</b><div class="r"><span>Expected gap</span><span>${pct(d.expected_gap_pct)}</span></div><div class="r"><span>Average past miss</span><span>±${e.toFixed(1)} pts (${d.backtest_n} falls)</span></div><div class="r"><span>Monthly factor, last fall → this fall</span><span>${d.monthly_factor_prev.toFixed(2)}× → ${d.monthly_factor.toFixed(2)}×</span></div>`));
+      hit.addEventListener("mouseleave", hideTip); });
+  }
+  draw(); addEventListener("resize", () => { clearTimeout(window.__pz); window.__pz = setTimeout(draw, 160); });
+  const b = P.lines["Blue Line"];
+  if (b) document.getElementById("pv-sowhat").innerHTML = `<b>So what?</b>The monthly Blue Line factor is ${b.monthly_factor.toFixed(2)}× this fall against ${b.monthly_factor_prev.toFixed(2)}× last fall, so the monthly method hasn't been recalibrated. Expect the Blue Line gap to show up again when Fall ${P.fall} stop-level data is published: about ${pct(b.expected_gap_pct)}, give or take ${b.backtest_mae_pts.toFixed(0)} points. Even the optimistic end sits well outside the bus noise band. The Green Line's range is wide (±${P.lines["Green Line"].backtest_mae_pts.toFixed(0)}), because of the shutdowns covered in the next section.`;
 })();
 
 /* ================= THREE SOURCES ================= */

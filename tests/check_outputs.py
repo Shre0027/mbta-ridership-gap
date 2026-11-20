@@ -74,5 +74,10 @@ win = pd.read_csv(OUT / "window_sensitivity.csv")
 bw = win[win["line"] == "Blue Line"]
 check("Blue Line gap stays negative under both date windows", (bw["gap_sepdec_pct"] < 0).all() and (bw["gap_sepnov_pct"] < 0).all())
 
+pv = json.loads((OUT / "preview_summary.json").read_text())
+latest_stop = int(line.dropna(subset=["stop_level"])["fall"].max())
+check("Early read covers only a fall newer than the latest stop-level season, with 3+ backtest falls per line",
+      not pv or (pv["fall"] > latest_stop and all(v["backtest_n"] >= 3 for v in pv["lines"].values())), pv.get("fall"))
+
 print(f"\n{len(fails)} failed" if fails else "\nall checks passed")
 sys.exit(1 if fails else 0)
