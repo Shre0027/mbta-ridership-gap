@@ -188,6 +188,24 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin:0 4px 0 0}
 
 
+
+/* anchor targets clear the sticky nav */
+section[id],#stress,#pv-fig,#answer{scroll-margin-top:84px}
+/* 30-second answer */
+.tldr{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;position:relative;overflow:hidden}
+.tldr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(var(--red) 0 25%,var(--orange) 25% 50%,var(--blue) 50% 75%,var(--green) 75%)}
+.tldr h2{font-family:var(--f-display);font-size:22px;letter-spacing:-.01em;margin:4px 0 10px}
+.tldr .find{font-size:17.5px;line-height:1.5;max-width:880px;margin:0 0 18px}
+.tldr .proofs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 16px;padding:0;list-style:none;counter-reset:pf}
+.tldr .proofs li{border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;background:var(--bg);counter-increment:pf;font-size:15px;line-height:1.45}
+.tldr .proofs li::before{content:counter(pf);display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font:700 12px var(--f-mono);margin-right:8px;vertical-align:1px}
+.tldr .proofs b{font-weight:700}
+.tldr .proofs a,.tldr .foot a{color:var(--accent);font-weight:600;text-decoration:none;white-space:nowrap}
+.tldr .proofs a:hover,.tldr .foot a:hover{text-decoration:underline}
+.tldr .foot{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:15px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.tldr .foot b{color:var(--ink)}
+@media (max-width:860px){.tldr .proofs{grid-template-columns:1fr}.tldr{padding:22px 18px 18px}.tldr .find{font-size:16.5px}}
+
 /* rail-track motif: nav track + "next stop" dividers */
 .navtrack{position:absolute;left:0;right:0;bottom:-5px;height:9px;pointer-events:none;z-index:6}
 .navtrack .ties{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#d9d3c6 0 2px,transparent 2px 9px);opacity:.8}
@@ -268,7 +286,7 @@ section.has-div{border-top:none}
 <div id="prog" aria-hidden="true"></div>
 <nav id="rail" aria-label="Sections"><ol>
   <li><a href="#top">Start</a></li><li><a href="#story">The story</a></li><li><a href="#datasets">The problem</a></li><li><a href="#system">System map</a></li><li><a href="#stations">Blue Line</a></li>
-  <li><a href="#three">Three sources</a></li><li><a href="#bridge">Bridge</a></li><li><a href="#why">Over time</a></li><li><a href="#green">Green Line</a></li>
+  <li><a href="#three">Three sources</a></li><li><a href="#bridge">Bridge</a></li><li><a href="#why">Over time</a></li><li><a href="#stress">Stress tests</a></li><li><a href="#green">Green Line</a></li>
   <li><a href="#stakes">Why it matters</a></li><li><a href="#recs">Fixes</a></li></ol></nav>
 <header id="top"><div class="wrap hero">
   <div>
@@ -290,7 +308,18 @@ section.has-div{border-top:none}
   <div class="hl"><b id="h-gap">23.4%</b><span>Blue Line gap between the two official datasets, Fall 2023</span></div>
   <div><b id="h-years">5 of 5</b><span>fall seasons where the monthly data undercounts the Blue Line</span></div>
   <div><b id="h-hub">33%</b><span>of boardings at the four downtown hubs that fare taps explain, even with the normal allowance for non-tappers. The rider survey accounts for most of the rest</span></div>
-</div></div></header>
+</div></div>
+<div class="wrap"><section class="tldr" id="answer" aria-labelledby="answer-h">
+  <p class="eyebrow">The answer in 30 seconds</p>
+  <h2 id="answer-h">Riders who change lines underground, where no gate sees them</h2>
+  <p class="find">The monthly dataset undercounts the Blue Line by <b id="tl-range">20–23%</b> every fall since 2023. The gap comes from riders who walk from the Orange or Green Line onto the Blue at State and Government Center. Fare taps can't see them; the trip model can.</p>
+  <ol class="proofs">
+    <li><b>Only the transfer hubs are off.</b> Four downtown stations show 2.8–5.1 modeled boardings per tap. 54 of 61 gated stations sit at 0.9–1.5×. <a href="#system">See the map →</a></li>
+    <li><b>Riders say so too.</b> In the 2025 survey, 82% of Blue Line riders at Government Center and 60% at State arrived on another subway line. Taps plus those transfers land within 3% of the model. <a href="#three">See the test →</a></li>
+    <li><b>Nothing else explains it.</b> It holds on weekends, under both date windows and with every shutdown day removed, and East Boston stations scale normally. <a href="#stress">See the stress tests →</a></li>
+  </ol>
+  <div class="foot"><span><b>The fix:</b> recalibrate the Blue Line factor once a year; out of sample, the error falls from 18% to 6%. <a href="#recs">Recommendations →</a></span><span id="tl-live"><b>Still live:</b> Fall 2026 early read <a href="#pv-fig">→</a></span></div>
+</section></div></header>
 
 <main id="main">
 <section id="story" class="story" aria-label="Scroll story: where the gates can't see riders">
@@ -451,7 +480,13 @@ section.has-div{border-top:none}
   <p class="lede"><b>And the Red Line's 2024 dip?</b> That one is a shutdown, not a counting rule. The MBTA closed the Braintree branch for 24 days in September 2024 and part of the line again in November, with shuttle buses replacing trains. The monthly number fell in those months, to 124,470 in September and 106,335 in November. In October, the one fall month without a major closure, it was 146,264, within 1.3% of the model's 148,203.</p>
   <p class="muted" style="font-size:15px">Caveat: OPMI doesn't publish the exact factors behind Dataset A, so how much of the gap each reason explains is inferred from the published data, not confirmed by the MBTA.</p>
 
-  <div class="figure rv" id="bus-fig" style="margin-top:44px">
+  <div id="stress" class="rv" style="margin-top:56px;padding-top:8px;border-top:1px solid var(--line)">
+    <p class="eyebrow" style="margin-top:22px">Stress tests</p>
+    <h2 style="font-family:var(--f-display);font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;margin:6px 0 10px">Could anything else explain the gap?</h2>
+    <p class="lede">Three checks, each with a different dataset: how much the two datasets disagree when nothing is wrong (the bus), whether shutdowns are behind it (the MBTA's alert archive), and whether it's still happening this fall (an early read on 2026).</p>
+  </div>
+
+  <div class="figure rv" id="bus-fig" style="margin-top:28px">
     <span class="eyebrow" style="color:var(--accent)">A yardstick from the bus</span>
     <h3>How big is "big"? On buses, the two datasets agree</h3>
     <p class="sub">Monthly dataset vs stop-level dataset, average weekday, fall. On buses both come from the same door counters, so this is a check on the publishing, not on transfers. There is no rail stop-level data for 2020–22.</p>
@@ -1284,6 +1319,18 @@ const hourLabel = i => { const h = MAP.hours[Math.floor(i) % 24]; return (h % 12
   const bdays = bl.reduce((a, r) => a + (r.disrupted_weekdays || 0), 0), gr = falls.map(f => g(f, "Green Line"));
   document.getElementById("dis-sowhat").innerHTML = `<b>So what?</b>The Blue Line had ${bdays} disrupted weekday${bdays === 1 ? "" : "s"} across ${falls.length} falls, and its gap barely moves when they're removed (${bl.map(r => pct(r.gap_clean_pct)).join(", ")}). So shutdowns can't explain the Blue Line gap. They do explain the noisy lines. The Red Line's 2024 gap shrinks from ${pct(r24.gap_all_pct)} to ${pct(r24.gap_clean_pct)} without the Braintree and November shutdown days. The Green Line had a shuttle or suspension on ${gr.map(r => Math.round(r.disrupted_share_pct) + "%").join(", ")} of fall weekdays. Without those days its gap reads ${gr.map(r => pct(r.gap_clean_pct)).join(", ")}: close to zero before the August 2024 fare-system change and clearly positive after it, which is a cleaner version of the Green Line story below.`;
   table("tdis", ["Fall","Line","Disrupted weekdays","Gap, all weekdays","Gap, undisrupted weekdays"], D.rows.map(r => [r.fall, r.line, `${r.disrupted_weekdays} of ${r.weekdays}`, pct(r.gap_all_pct), pct(r.gap_clean_pct)]));
+})();
+
+
+/* ================= 30-SECOND ANSWER (live numbers) ================= */
+(function(){
+  try {
+    const g = (DATA.line || []).filter(d => d.line === "Blue Line" && d.fall >= 2023 && d.gap_pct != null).map(d => Math.abs(d.gap_pct));
+    if (g.length) document.getElementById("tl-range").textContent = `${Math.round(Math.min(...g))}–${Math.round(Math.max(...g))}%`;
+    const b = DATA.preview && DATA.preview.lines && DATA.preview.lines["Blue Line"];
+    if (b) document.getElementById("tl-live").innerHTML = `<b>Still live:</b> the Fall ${DATA.preview.fall} early read expects a Blue Line gap of about ${Math.round(Math.abs(b.expected_gap_pct))}% (±${Math.round(b.backtest_mae_pts)}). <a href="#pv-fig">Early read →</a>`;
+    else document.getElementById("tl-live").style.display = "none";
+  } catch (e) { console.error(e); }
 })();
 
 /* ================= EARLY READ (newest fall) ================= */
